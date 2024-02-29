@@ -20,13 +20,6 @@ const SignupContainer = () => {
   const username = useSelector(selectSignupUsername);
   const password = useSelector(selectSignupPassword);
 
-  // * stores sign up details in local storage
-  // const handleSubmit = useCallback(() => {
-  // storeInLocal("email", email);
-  //   storeInLocal("username", username);
-  //   storeInLocal("password", password);
-  // }, [email, username, password]);
-
   return (
     <form className="signup-form">
       <div className="signup-fields">
