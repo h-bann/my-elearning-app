@@ -12,13 +12,18 @@ import {
   selectSignupUsername,
   setLocalStorage,
 } from "../../redux/accountSlice";
-import { storeInLocal } from "../../storage";
+import sha256 from "sha256";
 
 const SignupContainer = () => {
   const dispatch = useDispatch();
   const email = useSelector(selectSignupEmail);
   const username = useSelector(selectSignupUsername);
   const password = useSelector(selectSignupPassword);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(setLocalStorage(email, username, password));
+  };
 
   return (
     <form className="signup-form">
@@ -51,7 +56,7 @@ const SignupContainer = () => {
           id="new-password"
           name="new-password"
           onInput={(e) => {
-            dispatch(setSignupPassword(e.target.value));
+            dispatch(setSignupPassword(sha256(e.target.value)));
           }}
         />
       </div>
@@ -62,10 +67,7 @@ const SignupContainer = () => {
       <Button
         className="signup-button button"
         text="Sign Up"
-        type="button"
-        onClick={() => {
-          dispatch(setLocalStorage(email, username, password));
-        }}
+        onClick={handleSubmit}
       />
     </form>
   );
