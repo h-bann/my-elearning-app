@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Label from "../genericComponents/Label";
 import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
@@ -10,6 +10,7 @@ import {
   selectSignupEmail,
   selectSignupPassword,
   selectSignupUsername,
+  setLocalStorage,
 } from "../../redux/accountSlice";
 import { storeInLocal } from "../../storage";
 
@@ -19,23 +20,12 @@ const SignupContainer = () => {
   const username = useSelector(selectSignupUsername);
   const password = useSelector(selectSignupPassword);
 
-  const handleEmailInput = (e) => {
-    dispatch(setSignupEmail(e.target.value));
-  };
-
-  const handleUsernameInput = (e) => {
-    dispatch(setSignupUsername(e.target.value));
-  };
-
-  const handlePasswordInput = (e) => {
-    dispatch(setSignupPassword(e.target.value));
-  };
-
-  const handleSubmit = () => {
-    storeInLocal("email", email);
-    storeInLocal("username", username);
-    storeInLocal("password", password);
-  };
+  // * stores sign up details in local storage
+  // const handleSubmit = useCallback(() => {
+  // storeInLocal("email", email);
+  //   storeInLocal("username", username);
+  //   storeInLocal("password", password);
+  // }, [email, username, password]);
 
   return (
     <form className="signup-form">
@@ -45,7 +35,9 @@ const SignupContainer = () => {
           type="text"
           id="email"
           name="email"
-          onChange={handleEmailInput}
+          onInput={(e) => {
+            dispatch(setSignupEmail(e.target.value));
+          }}
         />
       </div>
       <div className="signup-fields">
@@ -54,7 +46,9 @@ const SignupContainer = () => {
           type="text"
           id="new-username"
           name="new-username"
-          onChange={handleUsernameInput}
+          onInput={(e) => {
+            dispatch(setSignupUsername(e.target.value));
+          }}
         />
       </div>
       <div className="signup-fields">
@@ -63,7 +57,9 @@ const SignupContainer = () => {
           type="password"
           id="new-password"
           name="new-password"
-          onChange={handlePasswordInput}
+          onInput={(e) => {
+            dispatch(setSignupPassword(e.target.value));
+          }}
         />
       </div>
       <div className="signup-fields">
@@ -73,8 +69,9 @@ const SignupContainer = () => {
       <Button
         className="signup-button button"
         text="Sign Up"
+        type="button"
         onClick={() => {
-          handleSubmit();
+          dispatch(setLocalStorage(email, username, password));
         }}
       />
     </form>
