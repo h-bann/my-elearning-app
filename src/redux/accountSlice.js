@@ -20,9 +20,7 @@ export const accountSlice = createSlice({
     },
     setLocalStorage: (payload) => {
       const { email, username, password } = payload;
-      storeInLocal("email", email);
-      storeInLocal("username", username);
-      storeInLocal("password", password);
+      storeInLocal({ email: email, username: username, password: password });
     },
   },
 });
