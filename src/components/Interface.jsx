@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Homepage from "./pages/Homepage";
-import LoginSignup from "./pages/LoginSignup";
-import Contact from "./pages/Contact";
-import MyLearning from ".//pages/MyLearning";
+import Homepage from "./views/Homepage";
+import LoginSignup from "./views/Account";
+import Contact from "./views/Contact";
+import MyLearning from "./views/MyLearning";
 import Header from "./header/Header";
-import Footer from "./Footer";
+import Footer from "./footer/Footer";
 
 const Interface = () => {
   return (
