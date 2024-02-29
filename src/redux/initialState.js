@@ -1,1 +1,6 @@
-export const initialState = {};
+export const initialState = {
+  accountStatus: "loggedOut",
+  email: "",
+  username: "",
+  password: "",
+};
