@@ -45,5 +45,6 @@ export const {
 // * this is how you retrieve from store
 
 export const selectLoginState = (state) => state.account.loggedIn;
+export const selectScreen = (state) => state.account.screen;
 
 export default accountSlice.reducer;

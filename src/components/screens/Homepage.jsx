@@ -1,9 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectLoginState, selectScreen } from "../../redux/accountSlice";
 
 const Homepage = () => {
+  const screen = useSelector(selectScreen);
+  const loginState = useSelector(selectLoginState);
+
   return (
     <>
-      <p> This is the homepage </p>
+      <p> THIS IS WHERE A LITTLE SPIEL WILL GO </p>
     </>
   );
 };

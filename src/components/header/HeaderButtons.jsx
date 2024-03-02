@@ -9,7 +9,7 @@ const HeaderButtons = () => {
 
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
   return loginState === false ? (
-    <Link to="/login-signup">
+    <Link to="/loginSignup">
       <Button className="loginButton button" text="Sign up/Login" />
     </Link>
   ) : (
