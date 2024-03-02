@@ -22,7 +22,7 @@ const LoginContainer = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(setLoginState());
-    dispatch(setScreen(1));
+    dispatch(setScreen(0));
     dispatch(setLoginDetails(state));
     dispatch(setLocalStorage(state));
   };

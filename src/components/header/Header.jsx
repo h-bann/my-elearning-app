@@ -12,8 +12,9 @@ const Header = () => {
           <Logo />
           <Nav />
         </div>
-
-        <HeaderButtons />
+        <div>
+          <HeaderButtons />
+        </div>
       </div>
     </header>
   );
