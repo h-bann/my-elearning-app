@@ -1,25 +1,8 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
 import Homepage from "./screens/Homepage";
-import LoginSignup from "./screens/LoginSignup";
-import Contact from "./screens/Contact";
-import MyLearning from "./screens/MyLearning";
-import Header from "./header/Header";
-import Footer from "./footer/Footer";
 
 const Interface = () => {
-  return (
-    <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/login-signup" element={<LoginSignup />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/my-learning" element={<MyLearning />} />
-      </Routes>
-      <Footer />
-    </>
-  );
+  return <Homepage />;
 };
 
 export default Interface;
