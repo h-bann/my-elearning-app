@@ -8,6 +8,7 @@ import {
   setLocalStorage,
   setLoginState,
   setLoginDetails,
+  setScreen,
 } from "../../redux/accountSlice";
 
 const LoginContainer = () => {
@@ -21,6 +22,7 @@ const LoginContainer = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(setLoginState());
+    dispatch(setScreen(1));
     dispatch(setLoginDetails(state));
     dispatch(setLocalStorage(state));
   };

@@ -4,6 +4,7 @@ import sha256 from "sha256";
 
 const initialState = {
   loggedIn: false,
+  screen: 0,
 };
 
 export const accountSlice = createSlice({
@@ -21,11 +22,14 @@ export const accountSlice = createSlice({
       payload.loginPassword = sha256(payload.loginPassword + "myFunApp");
       state.storeLogin = payload;
     },
-    setLocalStorage: (state, { payload }) => {
-      storeInLocal({ ...payload });
-    },
     setLoginState: (state) => {
       state.loggedIn = !state.loggedIn;
+    },
+    setScreen: (state, { payload }) => {
+      state.screen = payload;
+    },
+    setLocalStorage: (state, { payload }) => {
+      storeInLocal({ ...payload });
     },
   },
 });
@@ -33,12 +37,13 @@ export const accountSlice = createSlice({
 export const {
   setSignupDetails,
   setLoginDetails,
-  setLocalStorage,
   setLoginState,
+  setScreen,
+  setLocalStorage,
 } = accountSlice.actions;
 
 // * this is how you retrieve from store
 
-export const selectLocalStorage = (state) => state.account.store;
+export const selectLoginState = (state) => state.account.loggedIn;
 
 export default accountSlice.reducer;
