@@ -1,21 +1,43 @@
 import React from "react";
 import Button from "../genericComponents/Button";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectLoginState } from "../../redux/accountSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectLoginState,
+  setLoginState,
+  setScreen,
+} from "../../redux/accountSlice";
 
 const HeaderButtons = () => {
+  const dispatch = useDispatch();
   const loginState = useSelector(selectLoginState);
 
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
   return loginState === false ? (
-    <Link to="/loginSignup">
-      <Button className="loginButton button" text="Sign up/Login" />
-    </Link>
+    <a
+      onClick={() => {
+        dispatch(setScreen(5));
+      }}
+    >
+      Sign up/Login
+    </a>
   ) : (
-    <Link to="/">
-      <Button className="myAccountButton button" text="My Account" />
-    </Link>
+    <>
+      <a
+        onClick={() => {
+          dispatch(setScreen(4));
+        }}
+      >
+        My Account
+      </a>
+      <a
+        onClick={() => {
+          dispatch(setLoginState(false));
+          dispatch(setScreen(0));
+        }}
+      >
+        Log Out
+      </a>
+    </>
   );
 };
 

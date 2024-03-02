@@ -1,18 +1,52 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "../genericComponents/Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectLoginState } from "../../redux/accountSlice";
+import { setScreen } from "../../redux/accountSlice";
 
 const Nav = () => {
   const loginState = useSelector(selectLoginState);
+  const dispatch = useDispatch();
+
+  const onClick = () => {
+    dispatch(setScreen());
+  };
 
   return (
+    // * if user is logged in, display My Learning in nav
     <nav>
-      <Link to="/">Home</Link>
-      <Link to="courses">Courses</Link>
-      {loginState === true && <Link to="/myLearning">My Learning</Link>}
-      <Link to="/contact">Contact</Link>
+      <a
+        onClick={() => {
+          dispatch(setScreen(0));
+        }}
+      >
+        Home
+      </a>
+      <a
+        onClick={() => {
+          dispatch(setScreen(1));
+        }}
+      >
+        Courses
+      </a>
+
+      {loginState && (
+        <a
+          onClick={() => {
+            dispatch(setScreen(2));
+          }}
+        >
+          My Learning
+        </a>
+      )}
+
+      <a
+        onClick={() => {
+          dispatch(setScreen(3));
+        }}
+      >
+        Contact
+      </a>
     </nav>
   );
 };

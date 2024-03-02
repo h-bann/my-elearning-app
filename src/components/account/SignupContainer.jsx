@@ -21,7 +21,7 @@ const SignupContainer = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(setLoginState());
-    dispatch(setScreen(1));
+    dispatch(setScreen(0));
     dispatch(setSignupDetails(state));
     dispatch(setLocalStorage(state));
   };
