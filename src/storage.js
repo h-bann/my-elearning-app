@@ -5,5 +5,5 @@ export const storeInLocal = (data) => {
 };
 
 export const getFromLocal = (key) => {
-  return localStorage.getItem(key);
+  returnlocalStorage.getItem(key);
 };

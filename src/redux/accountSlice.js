@@ -17,19 +17,19 @@ export const accountSlice = createSlice({
         payload.passwordConfirmation + "myFunApp"
       );
       state.storeSignup = payload;
+      storeInLocal({ ...payload });
     },
     setLoginDetails: (state, { payload }) => {
       payload.loginPassword = sha256(payload.loginPassword + "myFunApp");
       state.storeLogin = payload;
+      storeInLocal({ ...payload });
     },
-    setLoginState: (state) => {
-      state.loggedIn = !state.loggedIn;
+    setLoginState: (state, { payload }) => {
+      state.loggedIn = payload;
+      storeInLocal(state);
     },
     setScreen: (state, { payload }) => {
       state.screen = payload;
-    },
-    setLocalStorage: (state, { payload }) => {
-      storeInLocal({ ...payload });
     },
   },
 });
