@@ -4,7 +4,11 @@ import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { setLoginState } from "../../redux/accountSlice";
+import {
+  setLocalStorage,
+  setLoginState,
+  setLoginDetails,
+} from "../../redux/accountSlice";
 
 const LoginContainer = () => {
   const dispatch = useDispatch();
@@ -17,17 +21,19 @@ const LoginContainer = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(setLoginState());
+    dispatch(setLoginDetails(state));
+    dispatch(setLocalStorage(state));
   };
 
   return (
     <form className="login-form" onInput={onInput}>
       <div className="login-fields">
-        <Label htmlFor="username" text="Username" />
-        <Input type="text" id="username" name="username" />
+        <Label htmlFor="loginUsername" text="Username" />
+        <Input type="text" id="loginUsername" name="loginUsername" />
       </div>
       <div className="login-fields">
-        <Label htmlFor="password" text="Password" />
-        <Input type="password" id="password" name="password" />
+        <Label htmlFor="loginPassword" text="Password" />
+        <Input type="password" id="loginPassword" name="loginPassword" />
       </div>
       <Button
         className="login-button button"
