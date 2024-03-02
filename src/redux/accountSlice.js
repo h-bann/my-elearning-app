@@ -15,20 +15,19 @@ export const accountSlice = createSlice({
       payload.passwordConfirmation = sha256(
         payload.passwordConfirmation + "myFunApp"
       );
-
       state.store = payload;
     },
     setLocalStorage: (state, { payload }) => {
       storeInLocal({ ...payload });
     },
+    setLoginState: (state) => {
+      state.loggedIn = !state.loggedIn;
+    },
   },
 });
 
-export const {
-  setSignupDetails,
-
-  setLocalStorage,
-} = accountSlice.actions;
+export const { setSignupDetails, setLocalStorage, setLoginState } =
+  accountSlice.actions;
 
 // * this is how you retrieve from store
 
