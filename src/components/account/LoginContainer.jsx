@@ -2,10 +2,25 @@ import React from "react";
 import Label from "../genericComponents/Label";
 import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { setLoginState } from "../../redux/accountSlice";
 
 const LoginContainer = () => {
+  const dispatch = useDispatch();
+  const [state, setState] = useState({});
+
+  const onInput = (e) => {
+    setState({ ...state, [e.target.id]: e.target.value });
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    dispatch(setLoginState());
+  };
+
   return (
-    <div className="login-form">
+    <form className="login-form" onInput={onInput}>
       <div className="login-fields">
         <Label htmlFor="username" text="Username" />
         <Input type="text" id="username" name="username" />
@@ -14,8 +29,12 @@ const LoginContainer = () => {
         <Label htmlFor="password" text="Password" />
         <Input type="password" id="password" name="password" />
       </div>
-      <Button className="login-button button" text="Login" />
-    </div>
+      <Button
+        className="login-button button"
+        text="Login"
+        onClick={handleLogin}
+      />
+    </form>
   );
 };
 
