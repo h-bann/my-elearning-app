@@ -2,7 +2,7 @@ import React from "react";
 import LoginContainer from "../account/LoginContainer";
 import SignupContainer from "../account/SignupContainer";
 
-const Account = () => {
+const LoginSignup = () => {
   return (
     <div className="login-signup-container">
       <LoginContainer />
@@ -11,4 +11,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default LoginSignup;

@@ -3,7 +3,12 @@ import Label from "../genericComponents/Label";
 import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
 import { useDispatch } from "react-redux";
-import { setSignupDetails, setLocalStorage } from "../../redux/accountSlice";
+import {
+  setSignupDetails,
+  setLocalStorage,
+  setScreen,
+  setLoginState,
+} from "../../redux/accountSlice";
 
 const SignupContainer = () => {
   const dispatch = useDispatch();
@@ -15,6 +20,8 @@ const SignupContainer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setLoginState());
+    dispatch(setScreen(1));
     dispatch(setSignupDetails(state));
     dispatch(setLocalStorage(state));
   };

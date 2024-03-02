@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Homepage from "./views/Homepage";
-import LoginSignup from "./views/Account";
-import Contact from "./views/Contact";
-import MyLearning from "./views/MyLearning";
+import Homepage from "./screens/Homepage";
+import LoginSignup from "./screens/LoginSignup";
+import Contact from "./screens/Contact";
+import MyLearning from "./screens/MyLearning";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 
