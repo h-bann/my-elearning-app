@@ -5,7 +5,6 @@ import Button from "../genericComponents/Button";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import {
-  setLocalStorage,
   setLoginState,
   setLoginDetails,
   setScreen,
@@ -21,10 +20,9 @@ const LoginContainer = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(setLoginState());
+    dispatch(setLoginState(true));
     dispatch(setScreen(0));
     dispatch(setLoginDetails(state));
-    dispatch(setLocalStorage(state));
   };
 
   return (
