@@ -1,6 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { selectLoginState, selectScreen } from "../../redux/accountSlice";
 
 const Homepage = () => {
   return (

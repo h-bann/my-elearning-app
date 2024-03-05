@@ -1,0 +1,73 @@
+[
+  {
+    "id": 1,
+    "title": "Basic Life Support",
+    "introduction": "Tihs is the introduction spiel",
+
+    "learningObjectives": [
+      "Explain where to find local resus policies and procedures and the current Resuscitation Council UK guidelines",
+      "Explain how to carry out an ABCDE approach and recognise the deteriorating patient",
+      "Carry out basic airway management",
+      "Describe how to confirm cardiac arrest",
+      "Describe how to start and maintain effective chest compressions"
+    ],
+
+    "modules": [
+      {
+        "id": 1,
+        "title": "Session Overview",
+        "content": "Test Content"
+      },
+      {
+        "id": 2,
+        "title": "Introduction",
+        "content": "Test Content"
+      },
+      {
+        "id": 3,
+        "title": "Adult Basic Life Support",
+        "content": "Test Content"
+      },
+      {
+        "id": 4,
+        "title": "Summary",
+        "content": "Test Content"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "How To Cook",
+
+    "learningObjectives": [
+      "Explain where to find local resus policies and procedures and the current Resuscitation Council UK guidelines",
+      "Explain how to carry out an ABCDE approach and recognise the deteriorating patient",
+      "Carry out basic airway management",
+      "Describe how to confirm cardiac arrest",
+      "Describe how to start and maintain effective chest compressions"
+    ],
+
+    "modules": [
+      {
+        "id": 1,
+        "title": "Session Overview",
+        "content": "Test Content"
+      },
+      {
+        "id": 2,
+        "title": "Introduction",
+        "content": "Test Content"
+      },
+      {
+        "id": 3,
+        "title": "Adult Basic Life Support",
+        "content": "Test Content"
+      },
+      {
+        "id": 4,
+        "title": "Summary",
+        "content": "Test Content"
+      }
+    ]
+  }
+]

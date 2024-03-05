@@ -174,8 +174,14 @@ select {
   align-items: center;
 }
 
-nav a {
-  margin: 10px;
+header a {
+  margin: 5px;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(235, 235, 235);
+  padding: 1px 5px 1px;
+  cursor: pointer;
 }
 
 .login-button {

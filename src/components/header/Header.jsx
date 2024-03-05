@@ -1,7 +1,6 @@
 import React from "react";
 import Logo from "./Logo";
 import Nav from "./Nav";
-import Button from "../genericComponents/Button";
 import HeaderButtons from "./HeaderButtons";
 
 const Header = () => {

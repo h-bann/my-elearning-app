@@ -1,10 +1,9 @@
 import React from "react";
-import Button from "../genericComponents/Button";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectLoginState,
   setLoginState,
-  setScreen,
+  setMainScreen,
 } from "../../redux/accountSlice";
 
 const HeaderButtons = () => {
@@ -15,7 +14,7 @@ const HeaderButtons = () => {
   return loginState === false ? (
     <a
       onClick={() => {
-        dispatch(setScreen(5));
+        dispatch(setMainScreen(5));
       }}
     >
       Sign up/Login
@@ -24,7 +23,7 @@ const HeaderButtons = () => {
     <>
       <a
         onClick={() => {
-          dispatch(setScreen(4));
+          dispatch(setMainScreen(4));
         }}
       >
         My Account
@@ -32,7 +31,7 @@ const HeaderButtons = () => {
       <a
         onClick={() => {
           dispatch(setLoginState(false));
-          dispatch(setScreen(0));
+          dispatch(setMainScreen(0));
         }}
       >
         Log Out
