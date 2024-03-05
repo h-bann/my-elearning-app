@@ -4,7 +4,7 @@ import sha256 from "sha256";
 
 const initialState = {
   loggedIn: false,
-  screen: 0,
+  mainScreen: 0,
 };
 
 export const accountSlice = createSlice({
@@ -28,8 +28,8 @@ export const accountSlice = createSlice({
       state.loggedIn = payload;
       storeInLocal(state);
     },
-    setScreen: (state, { payload }) => {
-      state.screen = payload;
+    setMainScreen: (state, { payload }) => {
+      state.mainScreen = payload;
     },
   },
 });
@@ -38,13 +38,13 @@ export const {
   setSignupDetails,
   setLoginDetails,
   setLoginState,
-  setScreen,
+  setMainScreen,
   setLocalStorage,
 } = accountSlice.actions;
 
 // * this is how you retrieve from store
 
 export const selectLoginState = (state) => state.account.loggedIn;
-export const selectScreen = (state) => state.account.screen;
+export const selectMainScreen = (state) => state.account.mainScreen;
 
 export default accountSlice.reducer;

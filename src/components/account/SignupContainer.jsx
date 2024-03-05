@@ -5,7 +5,7 @@ import Button from "../genericComponents/Button";
 import { useDispatch } from "react-redux";
 import {
   setSignupDetails,
-  setScreen,
+  setMainScreen,
   setLoginState,
 } from "../../redux/accountSlice";
 
@@ -20,7 +20,7 @@ const SignupContainer = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(setLoginState(true));
-    dispatch(setScreen(0));
+    dispatch(setMainScreen(0));
     dispatch(setSignupDetails(state));
   };
 

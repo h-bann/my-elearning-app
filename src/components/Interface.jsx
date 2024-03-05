@@ -1,15 +1,15 @@
 import React from "react";
-import Homepage from "./screens/Homepage";
+import Homepage from "./mainScreens/Homepage";
 import { useSelector } from "react-redux";
-import { selectScreen } from "../redux/accountSlice";
-import UserAccount from "./screens/UserAccount";
-import Courses from "./screens/Courses";
-import MyLearning from "./screens/MyLearning";
-import Contact from "./screens/Contact";
-import LoginSignup from "./screens/LoginSignup";
+import { selectMainScreen } from "../redux/accountSlice";
+import UserAccount from "./mainScreens/UserAccount";
+import Courses from "./mainScreens/Courses";
+import MyLearning from "./mainScreens/MyLearning";
+import Contact from "./mainScreens/Contact";
+import LoginSignup from "./mainScreens/LoginSignup";
 
 const Interface = () => {
-  const screen = useSelector(selectScreen);
+  const screen = useSelector(selectMainScreen);
 
   return (
     <>

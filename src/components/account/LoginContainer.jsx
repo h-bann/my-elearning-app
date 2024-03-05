@@ -7,7 +7,7 @@ import { useState } from "react";
 import {
   setLoginState,
   setLoginDetails,
-  setScreen,
+  setMainScreen,
 } from "../../redux/accountSlice";
 
 const LoginContainer = () => {
@@ -21,7 +21,7 @@ const LoginContainer = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(setLoginState(true));
-    dispatch(setScreen(0));
+    dispatch(setMainScreen(0));
     dispatch(setLoginDetails(state));
   };
 

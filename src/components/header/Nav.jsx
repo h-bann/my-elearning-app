@@ -1,15 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoginState } from "../../redux/accountSlice";
-import { setScreen } from "../../redux/accountSlice";
+import { selectLoginState, setMainScreen } from "../../redux/accountSlice";
+import { setRenderStatus, setCoursesScreen } from "../../redux/coursesSlice";
 
 const Nav = () => {
   const loginState = useSelector(selectLoginState);
   const dispatch = useDispatch();
 
   const onClick = () => {
-    dispatch(setScreen());
+    dispatch(setMainScreen());
   };
 
   return (
@@ -17,14 +16,15 @@ const Nav = () => {
     <nav>
       <a
         onClick={() => {
-          dispatch(setScreen(0));
+          dispatch(setMainScreen(0));
         }}
       >
         Home
       </a>
       <a
         onClick={() => {
-          dispatch(setScreen(1));
+          dispatch(setMainScreen(1));
+          dispatch(setCoursesScreen(0));
         }}
       >
         Courses
@@ -33,7 +33,7 @@ const Nav = () => {
       {loginState && (
         <a
           onClick={() => {
-            dispatch(setScreen(2));
+            dispatch(setMainScreen(2));
           }}
         >
           My Learning
@@ -42,7 +42,7 @@ const Nav = () => {
 
       <a
         onClick={() => {
-          dispatch(setScreen(3));
+          dispatch(setMainScreen(3));
         }}
       >
         Contact
