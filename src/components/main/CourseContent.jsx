@@ -1,21 +1,19 @@
 import React from "react";
+import {
+  selectContentScreen,
+  selectCoursesScreen,
+  selectModulesScreen,
+} from "../../redux/coursesSlice";
 import data from "../../courseContent.json";
+import { useSelector } from "react-redux";
+import Module from "./Module";
 
 const CourseContent = () => {
-  const data2 = { ...data };
-  const cardText = data[0].cardText[0];
-  const { learningObjectives } = data[1];
-  console.log(learningObjectives);
-  return (
-    <div className="mainContainer">
-      <div>{cardText}</div>
-      <div>
-        {learningObjectives.map((item) => (
-          <li>{item}</li>
-        ))}
-      </div>
-    </div>
-  );
+  const coursesScreen = useSelector(selectCoursesScreen);
+  const modulesScreen = useSelector(selectModulesScreen);
+  const contentScreen = useSelector(selectContentScreen);
+
+  return <>{coursesScreen === 1 && modulesScreen === 1 && <Module />}</>;
 };
 
 export default CourseContent;
