@@ -1,6 +1,6 @@
 import React from "react";
 import data from "../courseContent.json";
-import { setCoursesScreen } from "../redux/coursesSlice";
+import { setCoursesScreen, setModulesScreen } from "../redux/coursesSlice";
 import { useDispatch } from "react-redux";
 
 const CoursesInterface = () => {
@@ -14,6 +14,7 @@ const CoursesInterface = () => {
             key={item.id}
             onClick={() => {
               dispatch(setCoursesScreen(item.id));
+              dispatch(setModulesScreen(0));
             }}
           >
             {item.title}

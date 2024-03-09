@@ -1,8 +1,8 @@
 import React from "react";
 import { selectCoursesScreen } from "../../redux/coursesSlice";
 import { useSelector } from "react-redux";
-import BasicLifeSupport from "../../coursesScreens/basicLifeSupport/BasicLifeSupport";
-import HowToCook from "../../coursesScreens/howToCook/HowToCook";
+import BasicLifeSupport from "../../coursesScreens/BasicLifeSupport";
+import HowToCook from "../../coursesScreens/HowToCook";
 import CoursesInterface from "../../coursesScreens/CoursesInterface";
 
 const Courses = () => {
