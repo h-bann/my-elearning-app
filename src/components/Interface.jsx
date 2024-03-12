@@ -1,4 +1,3 @@
-import React from "react";
 import Homepage from "./mainScreens/Homepage";
 import { useSelector } from "react-redux";
 import { selectMainScreen } from "../redux/accountSlice";
@@ -9,16 +8,16 @@ import Contact from "./mainScreens/Contact";
 import LoginSignup from "./mainScreens/LoginSignup";
 
 const Interface = () => {
-  const screen = useSelector(selectMainScreen);
+  const mainScreen = useSelector(selectMainScreen);
 
   return (
     <>
-      {screen === 0 && <Homepage />}
-      {screen === 1 && <Courses />}
-      {screen === 2 && <MyLearning />}
-      {screen === 3 && <Contact />}
-      {screen === 4 && <UserAccount />}
-      {screen === 5 && <LoginSignup />}
+      {mainScreen === 0 && <Homepage />}
+      {mainScreen === 1 && <Courses />}
+      {mainScreen === 2 && <MyLearning />}
+      {mainScreen === 3 && <Contact />}
+      {mainScreen === 4 && <UserAccount />}
+      {mainScreen === 5 && <LoginSignup />}
     </>
   );
 };

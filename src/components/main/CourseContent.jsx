@@ -1,19 +1,15 @@
 import React from "react";
-import {
-  selectContentScreen,
-  selectCoursesScreen,
-  selectModulesScreen,
-} from "../../redux/coursesSlice";
-import data from "../../courseContent.json";
 import { useSelector } from "react-redux";
-import Module from "./Module";
+import { selectCourseContent } from "../../redux/coursesSlice";
 
 const CourseContent = () => {
-  const coursesScreen = useSelector(selectCoursesScreen);
-  const modulesScreen = useSelector(selectModulesScreen);
-  const contentScreen = useSelector(selectContentScreen);
+  const courseContent = useSelector(selectCourseContent);
 
-  return <>{coursesScreen === 1 && modulesScreen === 1 && <Module />}</>;
+  return (
+    <>
+      <div className="courseContainer">{courseContent}</div>
+    </>
+  );
 };
 
 export default CourseContent;

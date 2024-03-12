@@ -1,7 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginState, setMainScreen } from "../../redux/accountSlice";
-import { setRenderStatus, setCoursesScreen } from "../../redux/coursesSlice";
+import {
+  setModuleContent,
+  setCourseContent,
+  setCoursesScreen,
+} from "../../redux/coursesSlice";
 
 const Nav = () => {
   const loginState = useSelector(selectLoginState);
@@ -25,6 +29,8 @@ const Nav = () => {
         onClick={() => {
           dispatch(setMainScreen(1));
           dispatch(setCoursesScreen(0));
+          dispatch(setModuleContent(null));
+          dispatch(setCourseContent(null));
         }}
       >
         Courses

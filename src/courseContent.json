@@ -42,34 +42,69 @@
     "id": 2,
     "title": "How To Cook",
 
-    "learningObjectives": [
-      "Explain where to find local resus policies and procedures and the current Resuscitation Council UK guidelines",
-      "Explain how to carry out an ABCDE approach and recognise the deteriorating patient",
-      "Carry out basic airway management",
-      "Describe how to confirm cardiac arrest",
-      "Describe how to start and maintain effective chest compressions"
-    ],
+    "modules": [
+      {
+        "id": 1,
+        "title": "Learning Objectives",
+        "content": [
+          "Learn to choose ingredients",
+          "Learn to use the ingredients"
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Session Overview",
+        "content": "Cooking test content 1"
+      },
+      {
+        "id": 3,
+        "title": "What do you need",
+        "content": "Cooking test content 2"
+      },
+      {
+        "id": 4,
+        "title": "Let's cook",
+        "content": "Cooking test content 3 "
+      },
+      {
+        "id": 5,
+        "title": "Let us eat",
+        "content": "Cooking test content 4"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "How To Cook",
 
     "modules": [
       {
         "id": 1,
-        "title": "Session Overview",
-        "content": "Test Content"
+        "title": "Learning Objectives",
+        "content": [
+          "Learn to choose ingredients",
+          "Learn to use the ingredients"
+        ]
       },
       {
         "id": 2,
-        "title": "Introduction",
-        "content": "Test Content"
+        "title": "Session Overview",
+        "content": "Cooking test content 1"
       },
       {
         "id": 3,
-        "title": "Adult Basic Life Support",
-        "content": "Test Content"
+        "title": "What do you need",
+        "content": "Cooking test content 2"
       },
       {
         "id": 4,
-        "title": "Summary",
-        "content": "Test Content"
+        "title": "Let's cook",
+        "content": "Cooking test content 3 "
+      },
+      {
+        "id": 5,
+        "title": "Let us eat",
+        "content": "Cooking test content 4"
       }
     ]
   }

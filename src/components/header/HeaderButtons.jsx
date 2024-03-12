@@ -1,14 +1,21 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectLoginState,
   setLoginState,
   setMainScreen,
 } from "../../redux/accountSlice";
+import { clearLocal } from "../../storage";
 
 const HeaderButtons = () => {
   const dispatch = useDispatch();
   const loginState = useSelector(selectLoginState);
+
+  const onLogOutClick = () => {
+    dispatch(setLoginState(false));
+    dispatch(setMainScreen(0));
+
+    clearLocal();
+  };
 
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
   return loginState === false ? (
@@ -28,14 +35,7 @@ const HeaderButtons = () => {
       >
         My Account
       </a>
-      <a
-        onClick={() => {
-          dispatch(setLoginState(false));
-          dispatch(setMainScreen(0));
-        }}
-      >
-        Log Out
-      </a>
+      <a onClick={onLogOutClick}>Log Out</a>
     </>
   );
 };
