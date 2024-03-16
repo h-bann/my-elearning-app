@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "Basic Life Support",
-    "introduction": "This is the introduction spiel",
+    "moreInformation": "Pop up box with more BLS info",
 
     "modules": [
       {
@@ -41,6 +41,7 @@
   {
     "id": 2,
     "title": "How To Cook",
+    "moreInformation": "Pop up box with more cooking info",
 
     "modules": [
       {

@@ -25,12 +25,7 @@ const ModuleContent = () => {
   };
 
   const onModuleClick = (id) => {
-    const dataCopy = [...modules];
-    const filteredContent = dataCopy.find((item) => item.id === id);
-    if (filteredContent) {
-      const { content } = filteredContent;
-      dispatch(setCourseContent(content));
-    }
+    dispatch(setCourseContent(id));
   };
 
   return (

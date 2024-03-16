@@ -2,17 +2,15 @@ import { useState } from "react";
 import Label from "../genericComponents/Label";
 import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setSignupDetails,
-  selectSignUpDetails,
   setMainScreen,
   setLoginState,
 } from "../../redux/accountSlice";
 
 const SignupContainer = () => {
   const dispatch = useDispatch();
-  const signUpDetails = useSelector(selectSignUpDetails);
   const [state, setState] = useState({});
 
   const onInput = (e) => {
@@ -21,8 +19,8 @@ const SignupContainer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setLoginState(false));
-    // dispatch(setMainScreen(0));
+    dispatch(setLoginState(true));
+    dispatch(setMainScreen(0));
     dispatch(setSignupDetails(state));
   };
 

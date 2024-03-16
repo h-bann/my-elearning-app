@@ -2,24 +2,19 @@ import Label from "../genericComponents/Label";
 import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import {
-  selectSignUpDetails,
-  selectLoginDetails,
+  selectSignupDetails,
   setLoginState,
-  setLoginDetails,
   setMainScreen,
   selectError,
   setError,
 } from "../../redux/accountSlice";
-import { getFromLocal } from "../../storage";
 import sha256 from "sha256";
-import Error from "../genericComponents/Error";
 
 const LoginContainer = () => {
   const dispatch = useDispatch();
-  const signUpDetails = useSelector(selectSignUpDetails);
-  const loginDetails = useSelector(selectLoginDetails);
+  const signupDetails = useSelector(selectSignupDetails);
   const error = useSelector(selectError);
   const [state, setState] = useState({});
 
@@ -30,12 +25,17 @@ const LoginContainer = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     const encryptedPassword = sha256(state.loginPassword + "myFunApp");
-    const { signupPassword } = signUpDetails;
-    encryptedPassword === signupPassword
-      ? (dispatch(setLoginState(true)),
-        dispatch(setMainScreen(0)),
-        dispatch(setError(false)))
-      : dispatch(setError(true));
+    if (signupDetails) {
+      const { signupPassword } = signupDetails;
+      const { signupUsername } = signupDetails;
+      if (
+        encryptedPassword === signupPassword &&
+        state.loginUsername === signupUsername
+      ) {
+        return dispatch(setLoginState(true)), dispatch(setMainScreen(0));
+      }
+      dispatch(setError(true));
+    }
   };
 
   return (
@@ -48,7 +48,7 @@ const LoginContainer = () => {
         <Label htmlFor="loginPassword" text="Password" />
         <Input type="password" id="loginPassword" name="loginPassword" />
       </div>
-      {error && <p>Please try again</p>}
+      {error && <p>Username or password not valid</p>}
       <Button
         className="login-button button"
         text="Login"

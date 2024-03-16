@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   coursesScreen: 0,
   modulesScreen: 0,
-  contentScreen: 0,
 };
 
 export const coursesSlice = createSlice({
@@ -25,9 +24,12 @@ export const coursesSlice = createSlice({
     setCourseContent: (state, { payload }) => {
       state.courseContent = payload;
     },
-    setRenderStatus: (state, { payload }) => {
-      state.renderStatus = payload;
+    setMoreInfoContent: (state, { payload }) => {
+      state.moreInfo = payload;
     },
+    // setRenderStatus: (state, { payload }) => {
+    //   state.renderStatus = payload;
+    // },
   },
 });
 
@@ -37,6 +39,7 @@ export const {
   setContentScreen,
   setModuleContent,
   setCourseContent,
+  setMoreInfoContent,
   setRenderStatus,
   setLocalStorage,
 } = coursesSlice.actions;
@@ -49,6 +52,7 @@ export const selectModulesScreen = (state) => state.courses.modulesScreen;
 export const selectContentScreen = (state) => state.courses.contentScreen;
 export const selectModuleContent = (state) => state.courses.moduleContent;
 export const selectCourseContent = (state) => state.courses.courseContent;
+export const selectMoreInfoContent = (state) => state.courses.moreInfo;
 export const selectRenderStatus = (state) => state.courses.renderStatus;
 
 export default coursesSlice.reducer;

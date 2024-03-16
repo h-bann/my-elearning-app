@@ -49,7 +49,7 @@ export const {
 // * this is how you retrieve from store
 
 export const selectLoginState = (state) => state.account.loggedIn;
-export const selectSignUpDetails = (state) => state.account.storeSignup;
+export const selectSignupDetails = (state) => state.account.storeSignup;
 export const selectLoginDetails = (state) => state.account.storeLogin;
 export const selectMainScreen = (state) => state.account.mainScreen;
 export const selectError = (state) => state.account.error;
