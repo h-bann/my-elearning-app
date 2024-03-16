@@ -3,6 +3,7 @@ import {
   selectLoginState,
   setLoginState,
   setMainScreen,
+  setError,
 } from "../../redux/accountSlice";
 import { clearLocal } from "../../storage";
 
@@ -13,6 +14,7 @@ const HeaderButtons = () => {
   const onLogOutClick = () => {
     dispatch(setLoginState(false));
     dispatch(setMainScreen(0));
+    dispatch(setError(false));
 
     clearLocal();
   };

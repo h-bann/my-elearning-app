@@ -2,7 +2,7 @@ import Label from "../genericComponents/Label";
 import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   selectSignupDetails,
   setLoginState,
@@ -11,27 +11,31 @@ import {
   setError,
 } from "../../redux/accountSlice";
 import sha256 from "sha256";
+import { loginSchema, formValidation } from "../../utils/Joi";
 
 const LoginContainer = () => {
   const dispatch = useDispatch();
   const signupDetails = useSelector(selectSignupDetails);
   const error = useSelector(selectError);
   const [state, setState] = useState({});
+  const [errors, setErrors] = useState("");
 
   const onInput = (e) => {
-    setState({ ...state, [e.target.id]: e.target.value });
+    const updatedState = { ...state, [e.target.id]: e.target.value };
+    setState(updatedState);
   };
+
+  useEffect(() => {
+    formValidation(state, loginSchema, setErrors);
+  }, [state, setErrors]);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const encryptedPassword = sha256(state.loginPassword + "myFunApp");
+    const encryptedPassword = sha256(state.Password + "myFunApp");
     if (signupDetails) {
-      const { signupPassword } = signupDetails;
-      const { signupUsername } = signupDetails;
-      if (
-        encryptedPassword === signupPassword &&
-        state.loginUsername === signupUsername
-      ) {
+      const { password } = signupDetails;
+      const { username } = signupDetails;
+      if (encryptedPassword === password && state.Username === username) {
         return dispatch(setLoginState(true)), dispatch(setMainScreen(0));
       }
       dispatch(setError(true));
@@ -39,21 +43,19 @@ const LoginContainer = () => {
   };
 
   return (
-    <form className="login-form" onInput={onInput}>
+    <form className="login-form" onInput={onInput} onSubmit={handleLogin}>
       <div className="login-fields">
-        <Label htmlFor="loginUsername" text="Username" />
-        <Input type="text" id="loginUsername" name="loginUsername" />
+        <Label htmlFor="username" text="Username" />
+        <Input type="text" id="Username" name="username" />
+        {state.Username && <p>{errors.Username}</p>}
       </div>
       <div className="login-fields">
-        <Label htmlFor="loginPassword" text="Password" />
-        <Input type="password" id="loginPassword" name="loginPassword" />
+        <Label htmlFor="password" text="Password" />
+        <Input type="password" id="Password" name="password" />
+        {state.Password && <p>{errors.Password}</p>}
       </div>
       {error && <p>Username or password not valid</p>}
-      <Button
-        className="login-button button"
-        text="Login"
-        onClick={handleLogin}
-      />
+      <Button className="login-button button" text="Login" type="submit" />
     </form>
   );
 };
