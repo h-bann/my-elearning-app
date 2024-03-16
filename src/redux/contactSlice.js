@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import sha256 from "sha256";
 
-const initialState = {};
+const initialState = null;
 
 export const contactSlice = createSlice({
   name: "contact",

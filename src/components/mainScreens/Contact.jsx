@@ -4,14 +4,13 @@ import Label from "../genericComponents/Label";
 import Button from "../genericComponents/Button";
 import { useDispatch } from "react-redux";
 import { setContactForm } from "../../redux/contactSlice";
-import { contactFormValidation } from "../../utils/Joi";
-import { convertValidation } from "../../utils/utils";
+import { formValidation } from "../../utils/Joi";
+import { contactFormSchema } from "../../utils/Joi";
 
 const Contact = () => {
   const dispatch = useDispatch();
   const [state, setState] = useState("");
   const [errors, setErrors] = useState("");
-  console.log(state);
 
   const onInput = (e) => {
     const updatedState = { ...state, [e.target.id]: e.target.value };
@@ -19,7 +18,8 @@ const Contact = () => {
   };
 
   useEffect(() => {
-    contactFormValidation(state, setErrors);
+    formValidation(state, contactFormSchema, setErrors);
+    console.log(errors);
   }, [state, setErrors]);
 
   const onSubmit = (e) => {

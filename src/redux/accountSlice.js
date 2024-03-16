@@ -13,7 +13,7 @@ export const accountSlice = createSlice({
   initialState,
   reducers: {
     setSignupDetails: (state, { payload }) => {
-      payload.signupPassword = sha256(payload.signupPassword + "myFunApp");
+      payload.password = sha256(payload.password + "myFunApp");
       payload.passwordConfirmation = sha256(
         payload.passwordConfirmation + "myFunApp"
       );
