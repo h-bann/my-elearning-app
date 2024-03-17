@@ -1,11 +1,8 @@
 import React from "react";
+import MyAccount from "../account/MyAccount";
 
 const UserAccount = () => {
-  return (
-    <>
-      <p>This is the user account page</p>
-    </>
-  );
+  return <MyAccount />;
 };
 
 export default UserAccount;
