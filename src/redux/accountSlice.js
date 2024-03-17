@@ -14,13 +14,20 @@ export const accountSlice = createSlice({
   initialState,
   reducers: {
     setSignupDetails: (state, { payload }) => {
-      payload.password = sha256(payload.password + "myFunApp");
-      payload.passwordConfirmation = sha256(
-        payload.passwordConfirmation + "myFunApp"
-      );
+      if (payload.password.length != 64) {
+        payload.password = sha256(payload.password + "myFunApp");
+        payload.passwordConfirmation = sha256(
+          payload.passwordConfirmation + "myFunApp"
+        );
+      }
+
       state.storeSignup = payload;
-      state.loggedIn = payload;
+      state.loggedIn = true;
+      if (state.mainScreen === 4) {
+        return;
+      }
       state.mainScreen = 0;
+
       storeMultipleInLocal({ ...payload });
     },
 

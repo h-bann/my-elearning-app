@@ -1,13 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Label from "../genericComponents/Label";
 import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
 import { useDispatch } from "react-redux";
-import {
-  setSignupDetails,
-  setMainScreen,
-  setLoginState,
-} from "../../redux/accountSlice";
+import { setSignupDetails } from "../../redux/accountSlice";
 import { formValidation, signupSchema } from "../../utils/Joi";
 
 const SignupContainer = () => {

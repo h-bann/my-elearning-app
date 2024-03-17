@@ -8,65 +8,87 @@ import Button from "../genericComponents/Button";
 import Input from "../genericComponents/Input";
 
 const MyAccount = () => {
-  const [state, setState] = useState();
+  const [state, setState] = useState("");
   const [userInput, setUserInput] = useState();
   const dispatch = useDispatch();
   const signupDetails = useSelector(selectSignupDetails);
   const { email, username, password } = signupDetails;
 
-  const changeEmail = () => {
-    console.log("clicked and");
-    setState(false);
+  const onInput = (e) => {
+    setUserInput({ ...signupDetails, [e.target.name]: e.target.value });
   };
-  const changeUsername = () => {
-    console.log("clicked");
-  };
-  const changePassword = () => {
-    console.log("clicked");
+
+  const updateUserDetails = () => {
+    dispatch(setSignupDetails(userInput));
   };
 
   return (
     <div>
       <div>
         <h3>My Account Details</h3>
-        <p>Email: {email}</p>
-        {state === false ? (
-          <Button
-            className="button"
-            onClick={setState(true)}
-            text="Change email"
-          />
-        ) : (
-          <Button className="button" onClick={changeEmail} text="Confirm" />
-        )}
+        <div>
+          <p>Email: {email}</p>
+          {state != "email" && (
+            <Button
+              className="button"
+              onClick={() => setState("email")}
+              text="Change Email"
+            />
+          )}
 
-        {state && (
-          <Input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="New email address"
-            onInput={(e) => {
-              setUserInput(e.target.value);
-            }}
-          />
-        )}
+          {state === "email" && (
+            <Input
+              type="email"
+              name="email"
+              placeholder="New email address"
+              onInput={onInput}
+            />
+          )}
+        </div>
 
-        <p>Username: {username}</p>
-        <Button
-          className="button"
-          onClick={changeUsername}
-          text="Change username"
-        />
+        <div>
+          <p>Username: {username}</p>
+          {state != "username" && (
+            <Button
+              className="button"
+              onClick={() => setState("username")}
+              text="Change username"
+            />
+          )}
+          {state === "username" && (
+            <Input
+              type="text"
+              name="username"
+              placeholder="New username"
+              onInput={onInput}
+            />
+          )}
+        </div>
 
-        <p>Password: {password}</p>
-        <Button
-          className="button"
-          onClick={changePassword}
-          text="Change password]"
-        />
+        <div>
+          <p>Password: {password}</p>
+          {state != "password" && (
+            <Button
+              className="button"
+              onClick={() => setState("password")}
+              text="Change password"
+            />
+          )}
+          {state === "password" && (
+            <Input
+              type="text"
+              name="password"
+              placeholder="New password"
+              onInput={onInput}
+            />
+          )}
+        </div>
       </div>
-      <div></div>
+      <Button
+        className="button"
+        onClick={updateUserDetails}
+        text="Confirm changes"
+      />
     </div>
   );
 };
