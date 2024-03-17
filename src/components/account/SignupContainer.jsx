@@ -17,20 +17,13 @@ const SignupContainer = () => {
 
   const onInput = (e) => {
     const updatedState = { ...state, [e.target.id]: e.target.value };
+    formValidation(updatedState, signupSchema, setErrors);
     setState(updatedState);
   };
 
-  useEffect(() => {
-    formValidation(state, signupSchema, setErrors);
-  }, [state, setErrors]);
-
   const onSubmit = (e) => {
     e.preventDefault();
-    if (!errors && state.passwordConfirmation === state.password) {
-      dispatch(setLoginState(true));
-      dispatch(setMainScreen(0));
-      dispatch(setSignupDetails(state));
-    }
+    dispatch(setSignupDetails(state));
   };
 
   return (
@@ -38,19 +31,23 @@ const SignupContainer = () => {
       <div className="signup-fields">
         <Label htmlFor="email" text="Email" />
         <Input type="text" id="email" name="email" />
-        {state.email && <p>{errors.email}</p>}
+        {state.email && errors.email ? <p>{errors.email}</p> : undefined}
       </div>
 
       <div className="signup-fields">
-        <Label htmlFor="username" text="Enter chosen username" />
+        <Label htmlFor="username" text="Enter a username" />
         <Input type="text" id="username" name="username" />
-        {state.username && <p>{errors.username}</p>}
+        {state.username && errors.username ? (
+          <p>{errors.username}</p>
+        ) : undefined}
       </div>
 
       <div className="signup-fields">
-        <Label htmlFor="password" text="Password" />
+        <Label htmlFor="password" text="Enter a password" />
         <Input type="password" id="password" name="password" />
-        {state.password && <p>{errors.password}</p>}
+        {state.password && errors.password ? (
+          <p>{errors.password}</p>
+        ) : undefined}
       </div>
 
       <div className="signup-fields">
@@ -65,7 +62,12 @@ const SignupContainer = () => {
             <p>Passwords do not match</p>
           )}
       </div>
-      <Button className="signup-button button" text="Sign Up" type="submit" />
+      <Button
+        className="signup-button button"
+        text="Sign Up"
+        type="submit"
+        disabled={!state || errors ? true : false}
+      />
     </form>
   );
 };

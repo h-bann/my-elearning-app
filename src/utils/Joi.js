@@ -14,14 +14,14 @@ export const signupSchema = Joi.object({
   email: Joi.string()
     .email({ tlds: { allow: false } })
     .required(),
-  username: Joi.string().alphanum().min(5).max(15).required(),
-  password: Joi.string().min(6).max(15),
-  passwordConfirmation: Joi.string().min(6).max(15),
+  username: Joi.string().alphanum().min(1).max(15).required(),
+  password: Joi.string().min(1).max(15).required(),
+  passwordConfirmation: Joi.string().min(1).max(15).required(),
 });
 
 export const loginSchema = Joi.object({
-  Username: Joi.string().alphanum().min(5).max(15).required(),
-  Password: Joi.string().min(6).max(15),
+  username: Joi.string().alphanum().min(1).max(15).required(),
+  password: Joi.string().min(1).max(15).required(),
 });
 
 export const formValidation = (state, schema, setErrors) => {

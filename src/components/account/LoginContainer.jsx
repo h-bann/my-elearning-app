@@ -9,6 +9,7 @@ import {
   setMainScreen,
   selectError,
   setError,
+  setLoginDetails,
 } from "../../redux/accountSlice";
 import sha256 from "sha256";
 import { loginSchema, formValidation } from "../../utils/Joi";
@@ -21,24 +22,19 @@ const LoginContainer = () => {
   const [errors, setErrors] = useState("");
 
   const onInput = (e) => {
-    const updatedState = { ...state, [e.target.id]: e.target.value };
+    const updatedState = { ...state, [e.target.name]: e.target.value };
+    formValidation(updatedState, loginSchema, setErrors);
     setState(updatedState);
   };
 
-  useEffect(() => {
-    formValidation(state, loginSchema, setErrors);
-  }, [state, setErrors]);
-
   const handleLogin = (e) => {
     e.preventDefault();
-    const encryptedPassword = sha256(state.Password + "myFunApp");
+    const encryptedPassword = sha256(state.password + "myFunApp");
     if (signupDetails) {
-      const { password } = signupDetails;
-      const { username } = signupDetails;
-      if (encryptedPassword === password && state.Username === username) {
-        return dispatch(setLoginState(true)), dispatch(setMainScreen(0));
-      }
-      dispatch(setError(true));
+      const { password, username } = signupDetails;
+      encryptedPassword === password && state.username === username
+        ? dispatch(setLoginDetails(state))
+        : dispatch(setError(true));
     }
   };
 
@@ -46,16 +42,28 @@ const LoginContainer = () => {
     <form className="login-form" onInput={onInput} onSubmit={handleLogin}>
       <div className="login-fields">
         <Label htmlFor="username" text="Username" />
-        <Input type="text" id="Username" name="username" />
-        {state.Username && <p>{errors.Username}</p>}
+        <Input type="text" name="username" />
+        {state.username && errors.username ? (
+          <p>{errors.username}</p>
+        ) : undefined}
       </div>
+
       <div className="login-fields">
         <Label htmlFor="password" text="Password" />
-        <Input type="password" id="Password" name="password" />
-        {state.Password && <p>{errors.Password}</p>}
+        <Input type="password" name="password" />
+        {state.password && errors.password ? (
+          <p>{errors.password}</p>
+        ) : undefined}
       </div>
+
       {error && <p>Username or password not valid</p>}
-      <Button className="login-button button" text="Login" type="submit" />
+
+      <Button
+        className="login-button button"
+        text="Login"
+        type="submit"
+        disabled={!state || errors ? true : false}
+      />
     </form>
   );
 };
