@@ -16,11 +16,7 @@ export const accountSlice = createSlice({
     setSignupDetails: (state, { payload }) => {
       if (payload.password.length != 64) {
         payload.password = sha256(payload.password + "myFunApp");
-        payload.passwordConfirmation = sha256(
-          payload.passwordConfirmation + "myFunApp"
-        );
       }
-
       state.storeSignup = payload;
       state.loggedIn = true;
       if (state.mainScreen === 4) {

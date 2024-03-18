@@ -8,18 +8,20 @@ import { formValidation, signupSchema } from "../../utils/Joi";
 
 const SignupContainer = () => {
   const dispatch = useDispatch();
-  const [state, setState] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [errors, setErrors] = useState("");
 
   const onInput = (e) => {
-    const updatedState = { ...state, [e.target.id]: e.target.value };
+    const updatedState = { ...userInput, [e.target.name]: e.target.value };
     formValidation(updatedState, signupSchema, setErrors);
-    setState(updatedState);
+    setUserInput(updatedState);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(setSignupDetails(state));
+    // stops passwordConfirmation from being sent to store
+    const { passwordConfirmation, ...newState } = userInput;
+    dispatch(setSignupDetails(newState));
   };
 
   return (
@@ -27,13 +29,13 @@ const SignupContainer = () => {
       <div className="signup-fields">
         <Label htmlFor="email" text="Email" />
         <Input type="text" id="email" name="email" />
-        {state.email && errors.email ? <p>{errors.email}</p> : undefined}
+        {userInput.email && errors.email ? <p>{errors.email}</p> : undefined}
       </div>
 
       <div className="signup-fields">
         <Label htmlFor="username" text="Enter a username" />
         <Input type="text" id="username" name="username" />
-        {state.username && errors.username ? (
+        {userInput.username && errors.username ? (
           <p>{errors.username}</p>
         ) : undefined}
       </div>
@@ -41,7 +43,7 @@ const SignupContainer = () => {
       <div className="signup-fields">
         <Label htmlFor="password" text="Enter a password" />
         <Input type="password" id="password" name="password" />
-        {state.password && errors.password ? (
+        {userInput.password && errors.password ? (
           <p>{errors.password}</p>
         ) : undefined}
       </div>
@@ -53,8 +55,8 @@ const SignupContainer = () => {
           id="passwordConfirmation"
           name="passwordConfirmation"
         />
-        {state.passwordConfirmation &&
-          state.passwordConfirmation != state.password && (
+        {userInput.passwordConfirmation &&
+          userInput.passwordConfirmation != userInput.password && (
             <p>Passwords do not match</p>
           )}
       </div>
@@ -62,7 +64,7 @@ const SignupContainer = () => {
         className="signup-button button"
         text="Sign Up"
         type="submit"
-        disabled={!state || errors ? true : false}
+        disabled={!userInput || errors ? true : false}
       />
     </form>
   );
