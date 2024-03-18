@@ -48,8 +48,16 @@ const Courses = () => {
           return (
             <div key={item.id}>
               <h4>{item.title}</h4>
-              <Button text="Enrol" onClick={() => onCourseClick(item.id)} />
-              <Button text="More Info" onClick={() => onInfoClick(item.id)} />
+              <Button
+                className="btn btn-outline-primary"
+                text="Enrol"
+                onClick={() => onCourseClick(item.id)}
+              />
+              <Button
+                className="btn btn-outline-primary"
+                text="More Info"
+                onClick={() => onInfoClick(item.id)}
+              />
             </div>
           );
         })}

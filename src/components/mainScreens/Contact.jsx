@@ -13,15 +13,10 @@ const Contact = () => {
   const [errors, setErrors] = useState("");
 
   const onInput = (e) => {
-    const updatedState = { ...state, [e.target.id]: e.target.value };
+    const updatedState = { ...state, [e.target.name]: e.target.value };
+    formValidation(updatedState, contactFormSchema, setErrors);
     setState(updatedState);
   };
-
-  useEffect(() => {
-    formValidation(state, contactFormSchema, setErrors);
-    console.log(errors);
-  }, [state, setErrors]);
-
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(setContactForm(state));
@@ -33,19 +28,19 @@ const Contact = () => {
       <h5>This is a form to contact us with</h5>
       <form className="contactForm" onInput={onInput} onSubmit={onSubmit}>
         <Label htmlFor="name" text="Name" />
-        <Input type="text" id="name" name="name" />
-        {state.name && <p>{errors.name}</p>}
+        <Input type="text" name="name" />
+        {state.name && errors.name ? <p>{errors.name}</p> : undefined}
 
         <Label htmlFor="email" text="Email" />
-        <Input type="text" id="email" name="email" />
-        {state.email && <p>{errors.email}</p>}
+        <Input type="text" name="email" />
+        {state.email && errors.email ? <p>{errors.email}</p> : undefined}
 
         <Label htmlFor="message" text="Message" />
-        <textarea type="text" name="message" id="message"></textarea>
-        {!state.message && <p>{errors.message}</p>}
+        <textarea type="text" name="message"></textarea>
+        {!state.message && errors.message ? <p>{errors.message}</p> : undefined}
 
         <Button
-          className="submitContactButton button"
+          className="btn btn-outline-primary"
           type="submit"
           text="Submit"
         />

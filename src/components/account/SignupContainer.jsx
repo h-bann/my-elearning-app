@@ -61,7 +61,7 @@ const SignupContainer = () => {
           )}
       </div>
       <Button
-        className="signup-button button"
+        className="btn btn-outline-primary"
         text="Sign Up"
         type="submit"
         disabled={!userInput || errors ? true : false}

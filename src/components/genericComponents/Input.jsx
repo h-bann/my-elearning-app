@@ -9,7 +9,7 @@ const Input = (props) => {
       placeholder={props.placeholder}
       value={props.value}
       onInput={props.onInput}
-      readOnly={props.readOnly}
+      className="form-control "
     ></input>
   );
 };

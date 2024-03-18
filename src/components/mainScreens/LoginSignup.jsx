@@ -18,7 +18,7 @@ const LoginSignup = () => {
           {view ? <h6>Already have an account?</h6> : <h6>Need an account?</h6>}
 
           <Button
-            className="button"
+            className="btn btn-outline-primary"
             onClick={onClick}
             text={view ? "Sign In" : "Sign Up"}
           />

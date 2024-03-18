@@ -22,6 +22,7 @@ const HeaderButtons = () => {
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
   return loginState === false ? (
     <a
+      className="btn btn-outline-primary"
       onClick={() => {
         dispatch(setMainScreen(5));
       }}
@@ -31,13 +32,16 @@ const HeaderButtons = () => {
   ) : (
     <>
       <a
+        className="btn btn-outline-primary"
         onClick={() => {
           dispatch(setMainScreen(4));
         }}
       >
         My Account
       </a>
-      <a onClick={onLogOutClick}>Log Out</a>
+      <a className="btn btn-outline-primary" onClick={onLogOutClick}>
+        Log Out
+      </a>
     </>
   );
 };

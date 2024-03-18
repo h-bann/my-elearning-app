@@ -14,13 +14,13 @@ export const signupSchema = Joi.object({
     .email({ tlds: { allow: false } })
     .required(),
   username: Joi.string().alphanum().min(5).max(15).required(),
-  password: Joi.string().min(5).max(15).required(),
-  passwordConfirmation: Joi.string().min(5).max(15).required(),
+  password: Joi.string().min(5).required(),
+  passwordConfirmation: Joi.string().min(5).required(),
 });
 
 export const loginSchema = Joi.object({
   username: Joi.string().alphanum().min(5).max(15).required(),
-  password: Joi.string().min(5).max(15).required(),
+  password: Joi.string().min(5).required(),
 });
 
 export const userDetailsResetSchema = Joi.object({
@@ -28,9 +28,9 @@ export const userDetailsResetSchema = Joi.object({
     .email({ tlds: { allow: false } })
     .required(),
   username: Joi.string().alphanum().min(5).max(15).required(),
-  currentPassword: Joi.string().min(5).max(15).required(),
-  password: Joi.string().min(5).max(15).required(),
-  passwordConfirmation: Joi.string().min(5).max(15).required(),
+  currentPassword: Joi.string().min(5).required(),
+  password: Joi.string().min(5).required(),
+  passwordConfirmation: Joi.string().min(5).required(),
 });
 
 export const formValidation = (state, schema, setErrors) => {

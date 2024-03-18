@@ -2,9 +2,9 @@ import React from "react";
 
 const Homepage = () => {
   return (
-    <>
-      <p> THIS IS WHERE A LITTLE SPIEL WILL GO </p>
-    </>
+    <div className="container-lg">
+      <p className="text-primary"> THIS IS WHERE A LITTLE SPIEL WILL GO </p>
+    </div>
   );
 };
 
