@@ -1,6 +1,5 @@
 import Joi from "joi";
 import { formatValidation } from "./utils";
-import { combineSlices } from "@reduxjs/toolkit";
 
 export const contactFormSchema = Joi.object({
   name: Joi.string().alphanum().min(6).max(40).required(),
@@ -14,14 +13,24 @@ export const signupSchema = Joi.object({
   email: Joi.string()
     .email({ tlds: { allow: false } })
     .required(),
-  username: Joi.string().alphanum().min(1).max(15).required(),
-  password: Joi.string().min(1).max(15).required(),
-  passwordConfirmation: Joi.string().min(1).max(15).required(),
+  username: Joi.string().alphanum().min(5).max(15).required(),
+  password: Joi.string().min(5).max(15).required(),
+  passwordConfirmation: Joi.string().min(5).max(15).required(),
 });
 
 export const loginSchema = Joi.object({
-  username: Joi.string().alphanum().min(1).max(15).required(),
-  password: Joi.string().min(1).max(15).required(),
+  username: Joi.string().alphanum().min(5).max(15).required(),
+  password: Joi.string().min(5).max(15).required(),
+});
+
+export const userDetailsResetSchema = Joi.object({
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .required(),
+  username: Joi.string().alphanum().min(5).max(15).required(),
+  currentPassword: Joi.string().min(5).max(15).required(),
+  password: Joi.string().min(5).max(15).required(),
+  passwordConfirmation: Joi.string().min(5).max(15).required(),
 });
 
 export const formValidation = (state, schema, setErrors) => {
