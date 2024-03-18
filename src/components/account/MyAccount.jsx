@@ -29,48 +29,66 @@ const MyAccount = () => {
     const { passwordConfirmation, currentPassword, ...newState } = userInput;
     const encryptedPassword = sha256(userInput.currentPassword + "myFunApp");
     const { password } = signupDetails;
-    dispatch(setSignupDetails(newState));
     if (encryptedPassword && encryptedPassword === password) {
       dispatch(setSignupDetails(newState));
     } else {
-      console.log("notworked");
+      dispatch(setSignupDetails(newState));
     }
     setDisplay("");
   };
-  console.log(userInput);
 
   return (
-    <div>
+    <div className="container-sm">
       <form onInput={onInput} onSubmit={updateUserDetails}>
         <h3>My Account Details</h3>
         <div>
-          <h4>Email</h4>
+          <label htmlFor="email">Email</label>
           <p> {email}</p>
           {display != "email" && (
             <Button
-              className="button"
+              className="btn btn-outline-primary"
               onClick={() => setDisplay("email")}
               text="Change Email"
             />
           )}
           {display === "email" && (
-            <Input type="email" name="email" placeholder="New email address" />
+            <div>
+              <Input
+                type="email"
+                name="email"
+                placeholder="New email address"
+              />
+              <Button
+                className="btn btn-outline-primary"
+                type="submit"
+                text="Save"
+                disabled={!userInput ? true : false}
+              />
+            </div>
           )}
           {userInput.email && errors.email ? <p>{errors.email}</p> : undefined}
         </div>
 
         <div>
-          <h4>Username</h4>
+          <label htmlFor="username">Username</label>
           <p>{username}</p>
           {display != "username" && (
             <Button
-              className="button"
+              className="btn btn-outline-primary"
               onClick={() => setDisplay("username")}
               text="Change username"
             />
           )}
           {display === "username" && (
-            <Input type="text" name="username" placeholder="New username" />
+            <div>
+              <Input type="text" name="username" placeholder="New username" />
+              <Button
+                className="btn btn-outline-primary"
+                type="submit"
+                text="Save"
+                disabled={!userInput ? true : false}
+              />
+            </div>
           )}
           {userInput.username && errors.username ? (
             <p>{errors.username}</p>
@@ -78,10 +96,10 @@ const MyAccount = () => {
         </div>
 
         <div>
-          <h4>Password reset</h4>
+          <label htmlFor="password">Password Reset</label>
           {display != "password" && (
             <Button
-              className="button"
+              className="btn btn-outline-primary"
               onClick={() => setDisplay("password")}
               text="Reset password"
             />
@@ -114,15 +132,15 @@ const MyAccount = () => {
                 name="passwordConfirmation"
                 placeholder="Confirm new password"
               />
+              <Button
+                className="btn btn-outline-primary"
+                type="submit"
+                text="Save"
+                disabled={!userInput ? true : false}
+              />
             </div>
           )}
         </div>
-        <Button
-          className="button"
-          type="submit"
-          text="Confirm changes"
-          disabled={!userInput ? true : false}
-        />
       </form>
     </div>
   );

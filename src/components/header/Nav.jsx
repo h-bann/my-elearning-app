@@ -17,43 +17,48 @@ const Nav = () => {
 
   return (
     // * if user is logged in, display My Learning in nav
-    <nav>
-      <a
-        onClick={() => {
-          dispatch(setMainScreen(0));
-        }}
-      >
-        Home
-      </a>
-      <a
-        onClick={() => {
-          dispatch(setMainScreen(1));
-          dispatch(setCoursesScreen(0));
-          dispatch(setModuleContent(null));
-          dispatch(setCourseContent(null));
-        }}
-      >
-        Courses
-      </a>
-
-      {loginState && (
+    <div>
+      <div>
         <a
+          className="btn btn-outline-primary"
           onClick={() => {
-            dispatch(setMainScreen(2));
+            dispatch(setMainScreen(0));
           }}
         >
-          My Learning
+          Home
         </a>
-      )}
+        <a
+          className="btn btn-outline-primary"
+          onClick={() => {
+            dispatch(setMainScreen(1));
+            dispatch(setCoursesScreen(0));
+            dispatch(setModuleContent(null));
+            dispatch(setCourseContent(null));
+          }}
+        >
+          Courses
+        </a>
 
-      <a
-        onClick={() => {
-          dispatch(setMainScreen(3));
-        }}
-      >
-        Contact
-      </a>
-    </nav>
+        {loginState && (
+          <a
+            className="btn btn-outline-primary"
+            onClick={() => {
+              dispatch(setMainScreen(2));
+            }}
+          >
+            My Learning
+          </a>
+        )}
+        <a
+          className="btn btn-outline-primary"
+          onClick={() => {
+            dispatch(setMainScreen(3));
+          }}
+        >
+          Contact
+        </a>
+      </div>
+    </div>
   );
 };
 

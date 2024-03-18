@@ -59,7 +59,7 @@ const LoginContainer = () => {
       {error && <p>Username or password not valid</p>}
 
       <Button
-        className="login-button button"
+        className="btn btn-outline-primary"
         text="Login"
         type="submit"
         disabled={!state || errors ? true : false}

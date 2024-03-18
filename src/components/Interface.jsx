@@ -11,14 +11,14 @@ const Interface = () => {
   const mainScreen = useSelector(selectMainScreen);
 
   return (
-    <>
+    <main>
       {mainScreen === 0 && <Homepage />}
       {mainScreen === 1 && <Courses />}
       {mainScreen === 2 && <MyLearning />}
       {mainScreen === 3 && <Contact />}
       {mainScreen === 4 && <UserAccount />}
       {mainScreen === 5 && <LoginSignup />}
-    </>
+    </main>
   );
 };
 

@@ -162,60 +162,60 @@ select {
   }
 }
 
-.outer-header-container,
-.inner-header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.inner-header-container nav {
-  display: flex;
-  align-items: center;
-}
-
-header a {
-  margin: 5px;
-  border-width: 1px;
-  border-color: black;
-  border-style: solid;
-  background-color: rgb(235, 235, 235);
-  padding: 1px 5px 1px;
-  cursor: pointer;
-}
-
-.login-button {
-  cursor: pointer;
-}
-
-.login-signup-container {
-  display: flex;
-  width: 70vw;
-  margin: auto;
-
-  .button {
+/* .outer-header-container,
+  .inner-header-container {
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
+    align-items: center;
   }
-}
 
-.login-form,
-.login-fields,
-.signup-form,
-.signup-fields {
-  display: flex;
-  flex-direction: column;
-}
+  .inner-header-container nav {
+    display: flex;
+    align-items: center;
+  }
 
-.login-form,
-.signup-form {
-  width: 200px;
-  margin: auto;
-  border-style: solid;
-  border-width: 1px;
-  border-color: black;
-  padding: 20px;
-}
+  header a {
+    margin: 5px;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    background-color: rgb(235, 235, 235);
+    padding: 1px 5px 1px;
+    cursor: pointer;
+  }
+
+  .login-button {
+    cursor: pointer;
+  }
+
+  .login-signup-container {
+    display: flex;
+    width: 70vw;
+    margin: auto;
+
+    .button {
+      display: flex;
+      justify-content: right;
+    }
+  }
+
+  .login-form,
+  .login-fields,
+  .signup-form,
+  .signup-fields {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .login-form,
+  .signup-form {
+    width: 200px;
+    margin: auto;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 20px;
+  } */
 
 footer {
   text-align: center;
