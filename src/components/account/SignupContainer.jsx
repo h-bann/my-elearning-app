@@ -25,47 +25,74 @@ const SignupContainer = () => {
   };
 
   return (
-    <form className="signup-form" onInput={onInput} onSubmit={onSubmit}>
-      <div className="signup-fields">
-        <Label htmlFor="email" text="Email" />
-        <Input type="text" id="email" name="email" />
-        {userInput.email && errors.email ? <p>{errors.email}</p> : undefined}
-      </div>
-
-      <div className="signup-fields">
-        <Label htmlFor="username" text="Enter a username" />
-        <Input type="text" id="username" name="username" />
-        {userInput.username && errors.username ? (
-          <p>{errors.username}</p>
-        ) : undefined}
-      </div>
-
-      <div className="signup-fields">
-        <Label htmlFor="password" text="Enter a password" />
-        <Input type="password" id="password" name="password" />
-        {userInput.password && errors.password ? (
-          <p>{errors.password}</p>
-        ) : undefined}
-      </div>
-
-      <div className="signup-fields">
-        <Label htmlFor="passwordConfirmation" text="Confirm Password" />
+    <form onInput={onInput} onSubmit={onSubmit}>
+      <div className="form-floating mb-3">
         <Input
-          type="password"
-          id="passwordConfirmation"
-          name="passwordConfirmation"
+          className="form-control form-control-sm"
+          id="floatingInput"
+          type="email"
+          name="email"
+          placeholder="name@example.com"
         />
+        <Label htmlFor="floatingInput" text="Email address" />
+        {userInput.email && errors.email ? (
+          <p className="form-text">{errors.email}</p>
+        ) : undefined}
+      </div>
+
+      <div className="form-floating mb-3">
+        <Input
+          className="form-control"
+          id="floatingInput"
+          type="text"
+          name="username"
+          placeholder="example"
+        />
+        <Label htmlFor="floatingInput" text="Username" />
+
+        {userInput.username && errors.username ? (
+          <p className="form-text">{errors.username}</p>
+        ) : undefined}
+      </div>
+
+      <div className="form-floating mb-3">
+        <Input
+          className="form-control"
+          id="floatingInput"
+          type="password"
+          name="password"
+          placeholder="password"
+        />
+        <Label htmlFor="floatingInput" text="Password" />
+
+        {userInput.password && errors.password ? (
+          <p className="form-text">{errors.password}</p>
+        ) : undefined}
+      </div>
+
+      <div className="form-floating mb-3">
+        <Input
+          className="form-control"
+          id="floatingInput"
+          type="password"
+          name="passwordConfirmation"
+          placeholder="passwordConfirmation"
+        />
+        <Label htmlFor="floatingInput" text="Confirm Password" />
+
         {userInput.passwordConfirmation &&
           userInput.passwordConfirmation != userInput.password && (
-            <p>Passwords do not match</p>
+            <p className="form-text">Passwords do not match</p>
           )}
       </div>
-      <Button
-        className="btn btn-outline-primary"
-        text="Sign Up"
-        type="submit"
-        disabled={!userInput || errors ? true : false}
-      />
+      <div className="text-center">
+        <Button
+          className="btn-primary"
+          text="Sign Up"
+          type="submit"
+          disabled={!userInput || errors ? true : false}
+        />
+      </div>
     </form>
   );
 };
