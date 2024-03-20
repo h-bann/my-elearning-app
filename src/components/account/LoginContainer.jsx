@@ -40,26 +40,38 @@ const LoginContainer = () => {
 
   return (
     <form className="login-form" onInput={onInput} onSubmit={handleLogin}>
-      <div className="login-fields">
+      <div className="form-floating mb-3">
+        <Input
+          className="form-control"
+          id="floatingInput"
+          type="text"
+          name="username"
+          placeholder="username"
+        />
         <Label htmlFor="username" text="Username" />
-        <Input type="text" name="username" />
         {state.username && errors.username ? (
-          <p>{errors.username}</p>
+          <p className="form-text">{errors.username}</p>
         ) : undefined}
       </div>
 
-      <div className="login-fields">
+      <div className="form-floating mb-3">
+        <Input
+          className="form-control"
+          id="floatingInput"
+          type="password"
+          name="password"
+          placeholder="password"
+        />
         <Label htmlFor="password" text="Password" />
-        <Input type="password" name="password" />
         {state.password && errors.password ? (
-          <p>{errors.password}</p>
+          <p className="form-text">{errors.password}</p>
         ) : undefined}
       </div>
 
-      {error && <p>Username or password not valid</p>}
+      {error && <p className="form-text">Username or password not valid</p>}
 
       <Button
-        className="btn btn-outline-primary"
+        className="btn-primary"
         text="Login"
         type="submit"
         disabled={!state || errors ? true : false}

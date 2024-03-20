@@ -11,53 +11,51 @@ const Nav = () => {
   const loginState = useSelector(selectLoginState);
   const dispatch = useDispatch();
 
-  const onClick = () => {
-    dispatch(setMainScreen());
-  };
-
   return (
     // * if user is logged in, display My Learning in nav
-    <div>
-      <div>
-        <a
-          className="btn btn-outline-primary"
-          onClick={() => {
-            dispatch(setMainScreen(0));
-          }}
-        >
-          Home
-        </a>
-        <a
-          className="btn btn-outline-primary"
-          onClick={() => {
-            dispatch(setMainScreen(1));
-            dispatch(setCoursesScreen(0));
-            dispatch(setModuleContent(null));
-            dispatch(setCourseContent(null));
-          }}
-        >
-          Courses
-        </a>
 
-        {loginState && (
-          <a
-            className="btn btn-outline-primary"
-            onClick={() => {
-              dispatch(setMainScreen(2));
-            }}
-          >
-            My Learning
-          </a>
-        )}
+    <div className="navbar-nav me-auto  mb-lg-0">
+      <a
+        className="nav-link "
+        href="#"
+        onClick={() => {
+          dispatch(setMainScreen(0));
+        }}
+      >
+        Home
+      </a>
+      <a
+        className=" nav-link "
+        href="#"
+        onClick={() => {
+          dispatch(setMainScreen(1));
+          dispatch(setCoursesScreen(0));
+          dispatch(setModuleContent(null));
+          dispatch(setCourseContent(null));
+        }}
+      >
+        Courses
+      </a>
+      {loginState && (
         <a
-          className="btn btn-outline-primary"
+          className="nav-link"
+          href="#"
           onClick={() => {
-            dispatch(setMainScreen(3));
+            dispatch(setMainScreen(2));
           }}
         >
-          Contact
+          My Learning
         </a>
-      </div>
+      )}
+      <a
+        className="nav-link "
+        href="#"
+        onClick={() => {
+          dispatch(setMainScreen(3));
+        }}
+      >
+        Contact
+      </a>
     </div>
   );
 };

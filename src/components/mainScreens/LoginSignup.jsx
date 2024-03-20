@@ -11,20 +11,23 @@ const LoginSignup = () => {
   };
 
   return (
-    <>
-      <div className="login-signup-container">
-        <div>{view ? <SignupContainer /> : <LoginContainer />}</div>
-        <div>
+    <div className="container ">
+      <div className="row ">
+        <div className="col">
+          {view ? <SignupContainer /> : <LoginContainer />}
+        </div>
+
+        <div className="col d-flex flex-column  justify-content-center align-items-center">
           {view ? <h6>Already have an account?</h6> : <h6>Need an account?</h6>}
 
           <Button
-            className="btn btn-outline-primary"
+            className="btn-outline-primary"
             onClick={onClick}
             text={view ? "Sign In" : "Sign Up"}
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

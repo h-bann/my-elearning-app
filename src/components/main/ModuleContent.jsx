@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   selectModuleContent,
   selectCourseContent,
@@ -8,13 +8,18 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import NavigationButtons from "../genericComponents/NavigationButtons";
 import CourseContent from "./CourseContent";
-import { compose } from "@reduxjs/toolkit";
 
 const ModuleContent = () => {
   const moduleContent = useSelector(selectModuleContent);
   const courseContent = useSelector(selectCourseContent);
   const dispatch = useDispatch();
+  const [state, setState] = useState();
   const { modules } = moduleContent;
+
+  const styles = {
+    width: "15rem",
+    height: "5rem",
+  };
 
   const onBackClick = () => {
     // !need to address this
@@ -24,31 +29,29 @@ const ModuleContent = () => {
     dispatch(setModulesScreen(1));
   };
 
-  const onModuleClick = (id) => {
-    dispatch(setCourseContent(id));
+  const onModuleClick = (item) => {
+    setState(item.content);
+    dispatch(setCourseContent(item.content));
   };
 
   return (
     <>
-      <div className="courseContainer">
-        <div>
-          <NavigationButtons
-            className="button"
-            onNextClick={onNextClick}
-            onBackClick={onBackClick}
-            nextText="Next"
-            backText="Back"
-          />
-        </div>
+      <div className=" w-100 m-2 p-2 ">
         {!courseContent &&
           modules.map((item) => {
             return (
-              <h6 key={item.id} onClick={() => onModuleClick(item.id)}>
+              <div
+                className="card"
+                style={styles}
+                key={item.id}
+                onClick={() => onModuleClick(item)}
+              >
                 {item.title}
-              </h6>
+              </div>
             );
           })}
       </div>
+      {/* {state && <p>{state}</p>} */}
       {courseContent && <CourseContent />}
     </>
   );

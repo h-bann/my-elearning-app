@@ -6,23 +6,25 @@ import {
 } from "../../redux/coursesSlice";
 
 const CourseContent = () => {
-  const id = useSelector(selectCourseContent);
+  const courseContent = useSelector(selectCourseContent);
   const moduleContent = useSelector(selectModuleContent);
-  const courseContent = moduleContent.modules.filter((item) => {
-    return item.id === id;
-  });
+  // const courseContent = moduleContent.modules.filter((item) => {
+  //   return item.id === id;
+  // });
+  console.log(courseContent);
 
   return (
     // ! IF DATA IS AN ARRAY THEN MAP OVER IT. ELSE, PRINT AS STRING
     <>
-      {Array.isArray(courseContent[0].content) &&
-        courseContent[0].content.map((item) => {
+      {courseContent &&
+        Array.isArray(courseContent) &&
+        courseContent.map((item) => {
           return <li>{item}</li>;
         })}
-      {typeof courseContent[0].content === "string" &&
-        courseContent.map((item) => {
-          return <li>{item.content}</li>;
-        })}
+
+      {courseContent && typeof courseContent === "string" && (
+        <p>{courseContent}</p>
+      )}
     </>
   );
 };
