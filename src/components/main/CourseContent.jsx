@@ -15,7 +15,7 @@ const CourseContent = () => {
 
   return (
     // ! IF DATA IS AN ARRAY THEN MAP OVER IT. ELSE, PRINT AS STRING
-    <>
+    <div>
       {courseContent &&
         Array.isArray(courseContent) &&
         courseContent.map((item) => {
@@ -25,7 +25,7 @@ const CourseContent = () => {
       {courseContent && typeof courseContent === "string" && (
         <p>{courseContent}</p>
       )}
-    </>
+    </div>
   );
 };
 

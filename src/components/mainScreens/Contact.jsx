@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Input from "../genericComponents/Input";
 import Label from "../genericComponents/Label";
 import Button from "../genericComponents/Button";
-import { useDispatch } from "react-redux";
-import { setContactForm } from "../../redux/contactSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectContactForm, setContactForm } from "../../redux/contactSlice";
 import { formValidation } from "../../utils/Joi";
 import { contactFormSchema } from "../../utils/Joi";
 
 const Contact = () => {
   const dispatch = useDispatch();
+  const contact = useSelector(selectContactForm);
   const [state, setState] = useState("");
   const [errors, setErrors] = useState("");
 
@@ -65,7 +66,7 @@ const Contact = () => {
             <p className="form-text">{errors.message}</p>
           ) : undefined}
         </div>
-
+        {contact && <p>Message sent!</p>}
         <Button className="btn-primary" type="submit" text="Submit" />
       </form>
     </div>
