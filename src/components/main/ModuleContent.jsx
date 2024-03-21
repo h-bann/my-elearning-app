@@ -35,25 +35,24 @@ const ModuleContent = () => {
   };
 
   return (
-    <>
-      <div className=" w-100 m-2 p-2 ">
-        {!courseContent &&
-          modules.map((item) => {
-            return (
-              <div
-                className="card"
-                style={styles}
-                key={item.id}
-                onClick={() => onModuleClick(item)}
-              >
-                {item.title}
-              </div>
-            );
-          })}
+    <div className="row">
+      <div className="col-3">
+        {modules.map((item) => {
+          return (
+            <div
+              className="card mb-3 d-flex justify-content-center align-items-center"
+              style={styles}
+              key={item.id}
+              onClick={() => onModuleClick(item)}
+            >
+              {item.title}
+            </div>
+          );
+        })}
+        {/* {state && <p>{state}</p>} */}
       </div>
-      {/* {state && <p>{state}</p>} */}
-      {courseContent && <CourseContent />}
-    </>
+      <div className="col-9"> {courseContent && <CourseContent />}</div>
+    </div>
   );
 };
 

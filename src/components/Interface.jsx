@@ -11,7 +11,7 @@ const Interface = () => {
   const mainScreen = useSelector(selectMainScreen);
 
   return (
-    <main className="container d-flex justify-content-center ">
+    <main className="container  ">
       {mainScreen === 0 && <Homepage />}
       {mainScreen === 1 && <Courses />}
       {mainScreen === 2 && <MyLearning />}

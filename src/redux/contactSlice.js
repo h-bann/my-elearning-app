@@ -17,6 +17,6 @@ export const { setContactForm } = contactSlice.actions;
 
 // * this is how you retrieve from store
 
-export const selectLoginState = (state) => state.account.loggedIn;
+export const selectContactForm = (state) => state.contact.contactForm;
 
 export default contactSlice.reducer;
