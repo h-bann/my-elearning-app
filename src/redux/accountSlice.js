@@ -66,3 +66,4 @@ export const selectMainScreen = (state) => state.account.mainScreen;
 export const selectError = (state) => state.account.error;
 
 export default accountSlice.reducer;
+

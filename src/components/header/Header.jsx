@@ -5,8 +5,8 @@ import HeaderButtons from "./HeaderButtons";
 
 const Header = () => {
   return (
-    <header>
-      <nav className="navbar navbar-expand-md navbar-expand-sm navbar-expand-lg ">
+    <header className="">
+      <nav className="navbar navbar-expand-md navbar-expand-sm navbar-expand-lg mt-3 ">
         <div className="container-fluid ">
           <Logo />
           <div className="navbar-collapse collapse" id="navbarSupportedContent">

@@ -1,5 +1,9 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
+header {
+  height: 100px;
+}
+
 // /* Override the min-height for input field within form-floating */
 // .form-floating input {
 //   min-height: auto !important; /* Override the min-height */

@@ -30,13 +30,12 @@ const ModuleContent = () => {
   };
 
   const onModuleClick = (item) => {
-    setState(item.content);
-    dispatch(setCourseContent(item.content));
+    dispatch(setCourseContent(item));
   };
 
   return (
     <div className="row">
-      <div className="col-3">
+      <div className="col-3 ">
         {modules.map((item) => {
           return (
             <div
@@ -45,7 +44,7 @@ const ModuleContent = () => {
               key={item.id}
               onClick={() => onModuleClick(item)}
             >
-              {item.title}
+              {item.moduleTitle}
             </div>
           );
         })}
