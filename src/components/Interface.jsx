@@ -11,7 +11,7 @@ const Interface = () => {
   const mainScreen = useSelector(selectMainScreen);
 
   return (
-    <main className="container  ">
+    <main className="mx-4">
       {mainScreen === 0 && <Homepage />}
       {mainScreen === 1 && <Courses />}
       {mainScreen === 2 && <MyLearning />}

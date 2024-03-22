@@ -33,6 +33,7 @@ const Courses = () => {
       // update store with content
       dispatch(setModuleContent(filteredCourse));
     }
+    console.log(filteredCourse);
   };
 
   return (

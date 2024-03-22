@@ -3,28 +3,176 @@
     "id": 1,
     "title": "Basic Life Support",
     "moreInformation": "Pop up box with more BLS info",
+    "instructions": "In order to complete this learning, visit each of the modules shown below",
 
     "modules": [
       {
         "id": 1,
-        "title": "Learning Objectives",
+        "moduleTitle": "Session Overview",
         "content": [
-          "Explain where to find local resus policies and procedures and the current Resuscitation Council UK guidelines",
-          "Explain how to carry out an ABCDE approach and recognise the deteriorating patient",
-          "Carry out basic airway management",
-          "Describe how to confirm cardiac arrest",
-          "Describe how to start and maintain effective chest compressions"
+          { "type": "mainHeading", "content": "Learning Objectives" },
+          {
+            "type": "paragraph",
+            "content": "For this course, the learning objectives are:"
+          },
+          {
+            "type": "list",
+            "content": [
+              "Explain where to find local resus policies and procedures and the current Resuscitation Council UK guidelines",
+              "Explain how to carry out an ABCDE approach and recognise the deteriorating patient",
+              "Explain what to do in an emergency situation, including what to do when someone is choking and how to get a person in the recovery position",
+              "Carry out basic airway management, i.e. ensure an open airway",
+              "Describe how to confirm cardiac arrest",
+              "Explain how to initiate and maintain effective lung ventilations",
+              "Describe how to start and maintain effective chest compressions",
+              "Describe how to use an automated external defibrillator (AED)",
+              "Describe your individual role and responsibilities in responding to persons in emergency situations "
+            ]
+          }
         ]
       },
+
       {
         "id": 2,
-        "title": "Session Overview",
-        "content": "Test Content 2"
+        "moduleTitle": "Introduction",
+        "content": [
+          { "type": "mainHeading", "content": "Overview" },
+          {
+            "type": "paragraph",
+            "content": "Early recognition of the deteriorating patient and prevention of cardiac arrest is the first link in the Chain of Survival. Prevention of cardiac arrests requires staff education, monitoring patients, recognition of patient deterioration, a system to call for help and an effective response."
+          },
+          {
+            "type": "paragraph",
+            "content": "In this session we will look at:"
+          },
+          {
+            "type": "list",
+            "content": [
+              "What to do when you encounter a collapsed or sick patient. This includes looking for signs of life and assessing ABCDE (airway, breathing, circulation, disability, exposure)",
+              "Calling for help",
+              "Carrying out CPR ",
+              "Using an automated external defibrillator (AED)"
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": "Please note: this e-learning has been designed to give you an overview of what to do in an emergency situation. All organisations will have their own resuscitation guidelines and this e-learning should be used in conjunction with your organisations face-to-face training"
+          },
+
+          { "type": "mainHeading", "content": "Your Responsibilities" },
+          {
+            "type": "paragraph",
+            "content": "National resuscitation guidelines are set by the Resuscitation Council UK and the European Resuscitation Council."
+          },
+          {
+            "type": "paragraph",
+            "content": "You have a responsibility for ensuring that your knowledge regarding all aspects of resuscitation is kept up to date and complies with your organisation's mandatory training requirements."
+          },
+          { "type": "subHeading", "content": "Local policy and procedures" },
+
+          {
+            "type": "paragraph",
+            "content": "Responsibilities include:"
+          },
+          {
+            "type": "list",
+            "content": [
+              "Knowing your organisation's local resuscitation and Do Not Attempt Cardiopulmonary Resuscitation (DNACPR) policies",
+              "Complying with your professional code of conduct",
+              "Knowing local procedures, for example:"
+            ]
+          },
+          {
+            "type": "subList",
+            "content": [
+              "Location of emergency buzzers",
+              "Location of emergency equipment",
+              "How to use emergency equipment within your workplace",
+              "How to summon help",
+              "Emergency access routes"
+            ]
+          },
+          {
+            "type": "subHeading",
+            "content": "Reporting and recording details"
+          },
+          {
+            "type": "paragraph",
+            "content": "It is important to record factual details of an emergency event to document what has happened. This can then be shared or communicated with other agencies as appropriate and used as an aid to recall if further investigation is required."
+          },
+          {
+            "type": "paragraph",
+            "content": "Emergency events need to be reported in accordance with national and/or local policies. This is because it will help to identify trends which may alert you to potential problems and can be used for auditing purposes to aid organisational learning."
+          },
+          {
+            "type": "paragraph",
+            "content": "The final document should be written in black ink so that it is clear and legible, timed/dated and signed with the name printed."
+          },
+          {
+            "type": "subHeading",
+            "content": "Personal capabilities"
+          },
+          {
+            "type": "paragraph",
+            "content": "It is inappropriate and potentially dangerous to work beyond your level of knowledge and skills or personal capabilities, even in an emergency situation. This is because you may negatively influence the patient's outcome, you may injure yourself and you may leave yourself open to possible disciplinary action or litigation."
+          },
+          {
+            "type": "paragraph",
+            "content": "It is important that your competencies and capabilities are up to date and reflect the requirements and responsibilities of your job role, as these can decline rapidly if not utilised or updated. By doing so, you also help to protect the patient and yourself and ensure that your practice follows the current and latest guidelines."
+          }
+        ]
       },
+
       {
         "id": 3,
-        "title": "Introduction",
-        "content": "Test Content 3"
+        "moduleTitle": "Procedure for Resuscitation",
+        "content": [
+          { "type": "mainHeading", "content": "Procedure for Resuscitation" },
+          {
+            "type": "paragraph",
+            "content": "The chart below is from The Resuscitation Council UK and details what actions to take for a collapsed patient in hospital. It covers:"
+          },
+          {
+            "type": "list",
+            "content": [
+              "Safety",
+              "Checking the patient for a response",
+              "What to do if the patient responds",
+              "What to do if the patient does not respond"
+            ]
+          },
+          { "type": "image", "content": "INSERT IMAGE HERE" },
+          {
+            "type": "paragraph",
+            "content": "Each part of this chart will be covered in more detail over the next few pages."
+          },
+          { "type": "mainHeading", "content": "The ABCDE approach" },
+          {
+            "type": "paragraph",
+            "content": "In the event of finding a collapsed/sick individual:"
+          },
+          {
+            "type": "list",
+            "content": [
+              "Ensure personal safety. Wear personal protection equipment if necessary",
+              "Your first impression is important. Look at the patient in general to see whether the patient ‘looks unwell’",
+              "If the patient is responsive, perform an ABCDE assessment ensuring life-threatening problems are identified and treated; do you need to call for help?",
+              "After completing an initial ABCDE assessment, or following an intervention, reassess the patient using the ABCDE approach",
+              "If the patient is unconscious, unresponsive and is not breathing normally (occasional gasps are not normal and are a sign of cardiac arrest), start CPR"
+            ]
+          },
+          { "type": "subHeading", "content": "Airway" },
+          { "type": "paragraph", "content": "Assessment" },
+          {
+            "type": "list",
+            "content": [
+              "Is the airway patent and maintained?",
+              "Can the patient speak?",
+              "Are there added noises?",
+              "Is there a see-saw movement of the chest and abdomen?"
+            ]
+          }
+        ]
       },
       {
         "id": 4,
