@@ -4,11 +4,11 @@ import Interface from "./components/Interface";
 
 const App = () => {
   return (
-    <>
+    <div>
       <Header />
       <Interface />
       <Footer />
-    </>
+    </div>
   );
 };
 

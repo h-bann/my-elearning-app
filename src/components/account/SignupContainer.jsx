@@ -25,10 +25,12 @@ const SignupContainer = () => {
   };
 
   return (
-    <form onInput={onInput} onSubmit={onSubmit}>
-      <div className="form-floating mb-3">
+    <form className="form-signin" onInput={onInput} onSubmit={onSubmit}>
+      <h1 className="h3 mb-3 fw-formal">Sign up here</h1>
+
+      <div className="form-floating">
         <Input
-          className="form-control form-control-sm"
+          className="form-control form-control-sm signup-email"
           id="floatingInput"
           type="email"
           name="email"
@@ -40,7 +42,7 @@ const SignupContainer = () => {
         ) : undefined}
       </div>
 
-      <div className="form-floating mb-3">
+      <div className="form-floating">
         <Input
           className="form-control"
           id="floatingInput"
@@ -55,7 +57,7 @@ const SignupContainer = () => {
         ) : undefined}
       </div>
 
-      <div className="form-floating mb-3">
+      <div className="form-floating  ">
         <Input
           className="form-control"
           id="floatingInput"
@@ -70,7 +72,7 @@ const SignupContainer = () => {
         ) : undefined}
       </div>
 
-      <div className="form-floating mb-3">
+      <div className="form-floating ">
         <Input
           className="form-control"
           id="floatingInput"
@@ -87,7 +89,7 @@ const SignupContainer = () => {
       </div>
       <div className="text-center">
         <Button
-          className="btn-primary"
+          className="btn btn-primary w-100"
           text="Sign Up"
           type="submit"
           disabled={!userInput || errors ? true : false}

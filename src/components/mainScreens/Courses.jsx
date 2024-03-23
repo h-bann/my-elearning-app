@@ -38,9 +38,9 @@ const Courses = () => {
 
   return (
     <>
-      <div className={!moduleContent ? "d-flex" : null}>
-        {!moduleContent &&
-          data.map((item) => {
+      {!moduleContent && (
+        <div className="d-flex flex-wrap justify-content-start m-4 ">
+          {data.map((item) => {
             return (
               <div className="card m-2" style={styles} key={item.id}>
                 <img src={image} className="card-img-top" />
@@ -61,16 +61,16 @@ const Courses = () => {
                       {infoState.moreInformation}
                     </div>
                   )}
-                  {/* {moreInfo && (
-                  <div className="card-text text-wrap">{moreInfo}</div>
-                )} */}
                 </div>
               </div>
             );
           })}
-        <div> {moduleContent && <ModuleContent />}</div>
-        {/* // ! MAKE A NEW COMPONENT WHICH HAS IT'S OWN LOGIC ETC */}
-      </div>
+        </div>
+      )}
+
+      {moduleContent !== null && <div> {<ModuleContent />}</div>}
+
+      {/* // ! MAKE A NEW COMPONENT WHICH HAS IT'S OWN LOGIC ETC */}
     </>
   );
 };
