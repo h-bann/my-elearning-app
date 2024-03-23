@@ -18,7 +18,7 @@ const LoginContainer = () => {
   const dispatch = useDispatch();
   const signupDetails = useSelector(selectSignupDetails);
   const error = useSelector(selectError);
-  const [state, setState] = useState({});
+  const [state, setState] = useState("");
   const [errors, setErrors] = useState("");
 
   const onInput = (e) => {
@@ -35,9 +35,11 @@ const LoginContainer = () => {
       encryptedPassword === password && state.username === username
         ? dispatch(setLoginDetails(state))
         : dispatch(setError(true));
+      return;
+    } else {
+      dispatch(setError(true));
     }
   };
-
   return (
     <form className="form-signin" onInput={onInput} onSubmit={handleLogin}>
       <h1 className="h3 mb-3 fw-formal">Please sign in</h1>

@@ -16,7 +16,7 @@ const Nav = () => {
 
     <div className="navbar-nav me-auto  mb-lg-0">
       <a
-        className="nav-link text-primary-emphasis "
+        className="nav-link "
         href="#"
         onClick={() => {
           dispatch(setMainScreen(0));

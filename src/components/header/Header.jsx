@@ -5,7 +5,7 @@ import HeaderButtons from "./HeaderButtons";
 
 const Header = () => {
   return (
-    <header className="position-sticky top-0 bg-white z-3 ">
+    <header className="position-sticky top-0  z-3 ">
       <nav className="navbar navbar-expand-md navbar-expand-sm navbar-expand-lg  ">
         <div className="container-fluid ">
           <Logo />
