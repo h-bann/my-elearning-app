@@ -25,9 +25,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="w-75 mb-3">
-      <h4>This is a form to contact us with</h4>
-      <form className="contactForm" onInput={onInput} onSubmit={onSubmit}>
+    <div className=" mb-3 my-5">
+      <form className="form-contact" onInput={onInput} onSubmit={onSubmit}>
+        <h4>This is a form to contact us with</h4>
+
         <div className="mb-3">
           <Label htmlFor="name" text="Name" className="form-label" />
           <Input

@@ -6,6 +6,7 @@ import {
   setCoursesScreen,
   setModulesScreen,
   setMoreInfoContent,
+  setCourseContent,
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
@@ -20,20 +21,9 @@ const Courses = () => {
 
   const styles = { width: "15rem" };
 
-  const onCourseClick = (id) => {
-    // makes copy of the original data
-    const dataCopy = [...data];
-    dispatch(setCoursesScreen(id));
-    dispatch(setModulesScreen(0));
-    // looks in dataCopy for a id that matches the id (courseScreen)
-    const filteredCourse = dataCopy.find((item) => item.id === id);
-    // if it finds it
-    if (filteredCourse) {
-      const { modules } = filteredCourse;
-      // update store with content
-      dispatch(setModuleContent(filteredCourse));
-    }
-    console.log(filteredCourse);
+  const onCourseClick = (item) => {
+    dispatch(setModuleContent(item));
+    dispatch(setCourseContent(item.modules[0]));
   };
 
   return (
@@ -43,13 +33,22 @@ const Courses = () => {
           {data.map((item) => {
             return (
               <div className="card m-2" style={styles} key={item.id}>
-                <img src={image} className="card-img-top" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="220"
+                  height="220"
+                  fill="currentColor"
+                  class="bi bi-pentagon"
+                  viewBox="-3 -2 20 20"
+                >
+                  <path d="M7.685 1.545a.5.5 0 0 1 .63 0l6.263 5.088a.5.5 0 0 1 .161.539l-2.362 7.479a.5.5 0 0 1-.476.349H4.099a.5.5 0 0 1-.476-.35L1.26 7.173a.5.5 0 0 1 .161-.54l6.263-5.087Zm8.213 5.28a.5.5 0 0 0-.162-.54L8.316.257a.5.5 0 0 0-.631 0L.264 6.286a.5.5 0 0 0-.162.538l2.788 8.827a.5.5 0 0 0 .476.349h9.268a.5.5 0 0 0 .476-.35l2.788-8.826Z" />
+                </svg>
                 <div className="card-body">
                   <h4 className="card-title">{item.title}</h4>
                   <Button
                     className="btn btn-primary me-2 my-2"
                     text="Enrol"
-                    onClick={() => onCourseClick(item.id)}
+                    onClick={() => onCourseClick(item)}
                   />
                   <Button
                     className="btn btn-outline-primary"

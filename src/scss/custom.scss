@@ -1,7 +1,35 @@
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+main {
+  min-height: 82vh;
+}
 
 header {
-  height: 70px;
+  height: 85px;
+  background-color: #2b47e7;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.navbar {
+  padding: 0;
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  color: #f2f4ff;
+}
+
+.navbar-brand:hover {
+  color: #f2f4ff;
+  transition: color 0.2s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
+}
+
+.nav-link {
+  color: #f2f4ff;
+}
+
+.nav-link:hover {
+  color: #cecece;
 }
 
 .login-signup-container {
@@ -10,6 +38,7 @@ header {
   margin: auto;
   align-items: center;
 }
+
 .form-signin {
   max-width: 330px;
   padding: 1rem;
@@ -17,6 +46,33 @@ header {
 
 .form-signin input {
   margin-bottom: 8px;
+  height: 47px !important;
+  min-height: auto !important;
+}
+
+.form-floating > label {
+  top: -5px;
+}
+
+.form-contact {
+  margin: auto;
+  max-width: 600px;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card:hover {
+  border-color: black;
+}
+
+.card.selected {
+  background-color: #4059e5;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #a0aada;
+  color: #f2f4ff;
 }
 
 // .form-signin input[type="text"] {
@@ -36,12 +92,4 @@ header {
 //   margin-bottom: 10px;
 //   border-top-left-radius: 0;
 //   border-top-right-radius: 0;
-// }
-
-// /* Override the min-height for input field within form-floating */
-// .form-floating input {
-//   min-height: auto !important; /* Override the min-height */
-//   font-size: 14px; /* Adjust the font size */
-//   padding: 2px; /* Adjust the padding */
-//   height: 50px; /* Adjust the height */
 // }

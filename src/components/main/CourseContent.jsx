@@ -4,18 +4,11 @@ import {
   selectCourseContent,
   selectModuleContent,
 } from "../../redux/coursesSlice";
-import { types } from "joi";
 
 const CourseContent = () => {
   const courseContent = useSelector(selectCourseContent);
-  const moduleContent = useSelector(selectModuleContent);
-  courseContent.content.map(({ type, content }) => {
-    console.log(type);
-  });
-  console.log(courseContent);
 
   return (
-    // ! IF DATA IS AN ARRAY THEN MAP OVER IT. ELSE, PRINT AS STRING
     <div className="mb-5">
       {courseContent.content.map(({ type, content }) => {
         switch (type) {
