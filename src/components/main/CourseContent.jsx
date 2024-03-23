@@ -23,7 +23,7 @@ const CourseContent = () => {
             return <h3>{content}</h3>;
 
           case "subHeading":
-            return <h5>{content}</h5>;
+            return <h4>{content}</h4>;
 
           case "paragraph":
             return <p>{content}</p>;
@@ -46,26 +46,27 @@ const CourseContent = () => {
               </ul>
             );
 
+          case "image":
+            return <p>{content}</p>;
+
+          case "bold":
+            return (
+              <p className="text-center">
+                <strong>{content}</strong>
+              </p>
+            );
+
+          case "underlined":
+            return (
+              <p>
+                <u>{content}</u>
+              </p>
+            );
+
           default:
             break;
         }
-
-        {
-          /* if (type === "mainHeading") {
-          return <h3>{content}</h3>;
-        } */
-        }
       })}
-      {/* 
-      {courseContent &&
-        Array.isArray(courseContent) &&
-        courseContent.map((item) => {
-          return <li>{item}</li>;
-        })}
-
-      {courseContent && typeof courseContent === "string" && (
-        <p>{courseContent}</p>
-      )} */}
     </div>
   );
 };

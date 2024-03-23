@@ -39,8 +39,9 @@ const LoginContainer = () => {
   };
 
   return (
-    <form className="login-form" onInput={onInput} onSubmit={handleLogin}>
-      <div className="form-floating mb-3">
+    <form className="form-signin" onInput={onInput} onSubmit={handleLogin}>
+      <h1 className="h3 mb-3 fw-formal">Please sign in</h1>
+      <div className="form-floating">
         <Input
           className="form-control"
           id="floatingInput"
@@ -54,7 +55,7 @@ const LoginContainer = () => {
         ) : undefined}
       </div>
 
-      <div className="form-floating mb-3">
+      <div className="form-floating ">
         <Input
           className="form-control"
           id="floatingInput"
@@ -71,7 +72,7 @@ const LoginContainer = () => {
       {error && <p className="form-text">Username or password not valid</p>}
 
       <Button
-        className="btn-primary"
+        className="btn btn-primary w-100"
         text="Login"
         type="submit"
         disabled={!state || errors ? true : false}

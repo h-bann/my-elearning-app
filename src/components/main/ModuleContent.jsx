@@ -35,7 +35,7 @@ const ModuleContent = () => {
 
   return (
     <div className="row">
-      <div className="col-3 ">
+      <div className="col-3">
         {modules.map((item) => {
           return (
             <div
@@ -50,7 +50,7 @@ const ModuleContent = () => {
         })}
         {/* {state && <p>{state}</p>} */}
       </div>
-      <div className="col-9"> {courseContent && <CourseContent />}</div>
+      <div className="col-9">{courseContent && <CourseContent />}</div>
     </div>
   );
 };
