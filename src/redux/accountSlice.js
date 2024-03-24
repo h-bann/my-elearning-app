@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { storeMultipleInLocal, storeSingleInLocal } from "../storage";
 import sha256 from "sha256";
-import { useSelector } from "react-redux";
 
 const initialState = {
   loggedIn: false,
@@ -66,4 +65,3 @@ export const selectMainScreen = (state) => state.account.mainScreen;
 export const selectError = (state) => state.account.error;
 
 export default accountSlice.reducer;
-

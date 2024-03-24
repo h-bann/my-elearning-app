@@ -6,26 +6,30 @@ import {
   setCourseContent,
   setCoursesScreen,
 } from "../../redux/coursesSlice";
+import { selectMainScreen } from "../../redux/accountSlice";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 
-const Nav = () => {
+const Navigation = () => {
   const loginState = useSelector(selectLoginState);
+  const mainScreen = useSelector(selectMainScreen);
   const dispatch = useDispatch();
 
   return (
     // * if user is logged in, display My Learning in nav
-
-    <div className="navbar-nav me-auto  mb-lg-0">
-      <a
-        className="nav-link "
+    <>
+      <Nav.Link
+        className={` ${mainScreen === 0 && "link"}`}
         href="#"
         onClick={() => {
           dispatch(setMainScreen(0));
         }}
       >
         Home
-      </a>
-      <a
-        className=" nav-link "
+      </Nav.Link>
+
+      <Nav.Link
+        className={` ${mainScreen === 1 ? "link" : ""}`}
         href="#"
         onClick={() => {
           dispatch(setMainScreen(1));
@@ -35,29 +39,31 @@ const Nav = () => {
         }}
       >
         Courses
-      </a>
+      </Nav.Link>
+
       {loginState && (
-        <a
-          className="nav-link"
+        <Nav.Link
+          className={` ${mainScreen === 2 ? "link" : ""}`}
           href="#"
           onClick={() => {
             dispatch(setMainScreen(2));
           }}
         >
           My Learning
-        </a>
+        </Nav.Link>
       )}
-      <a
-        className="nav-link "
+
+      <Nav.Link
+        className={`${mainScreen === 3 ? "link" : ""}`}
         href="#"
         onClick={() => {
           dispatch(setMainScreen(3));
         }}
       >
         Contact
-      </a>
-    </div>
+      </Nav.Link>
+    </>
   );
 };
 
-export default Nav;
+export default Navigation;

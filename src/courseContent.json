@@ -2,6 +2,7 @@
   {
     "id": 1,
     "title": "Basic Life Support",
+    "image": "BLS.jpg",
     "moreInformation": "Pop up box with more BLS info",
     "instructions": "In order to complete this learning, visit each of the modules shown below",
 
@@ -41,6 +42,7 @@
             "type": "paragraph",
             "content": "Early recognition of the deteriorating patient and prevention of cardiac arrest is the first link in the Chain of Survival. Prevention of cardiac arrests requires staff education, monitoring patients, recognition of patient deterioration, a system to call for help and an effective response."
           },
+
           {
             "type": "paragraph",
             "content": "In this session we will look at:"
@@ -141,7 +143,7 @@
               "What to do if the patient does not respond"
             ]
           },
-          { "type": "image", "content": "INSERT IMAGE HERE" },
+          { "type": "image", "content": "abcdeFlowchart.jpg" },
           {
             "type": "paragraph",
             "content": "Each part of this chart will be covered in more detail over the next few pages."
@@ -149,7 +151,7 @@
           { "type": "mainHeading", "content": "The ABCDE approach" },
           {
             "type": "paragraph",
-            "content": "In the event of finding a collapsed/sick individual:"
+            "content": ["In the event of finding a collapsed/sick individual:"]
           },
           {
             "type": "list",
@@ -286,7 +288,7 @@
             "type": "paragraph",
             "content": "The Chain of Survival is a series of actions that increases the chances of a patient surviving a cardiac arrest. This is predominantly about the resuscitation of patients in an acute hospital; however, the initial resuscitation of patients is similar in any clinical setting and the same standards apply."
           },
-          { "type": "image", "content": "IMAGE OF CHAIN OF SURVIVAL" },
+          { "type": "image", "content": "chainOfSurvival.png" },
           {
             "type": "paragraph",
             "content": "Early recognition and call for help"
@@ -337,6 +339,7 @@
             "type": "paragraph",
             "content": "We have discussed what you should do when you are confronted with a patient and there are signs of life. We are now going to look at what to do when there aren’t any signs of life. Remember that we are still looking at what to do when you are in a hospital setting."
           },
+          { "type": "image", "content": "chestCompressions.jpg" },
           {
             "type": "paragraph",
             "content": "Approach"
@@ -440,6 +443,7 @@
             "type": "underlined",
             "content": "Pads"
           },
+          { "type": "image", "content": "padPlacement.jpg" },
           {
             "type": "list",
             "content": [
@@ -482,6 +486,7 @@
   {
     "id": 2,
     "title": "How To Cook",
+    "image": "cooking.jpg",
     "moreInformation": "Pop up box with more cooking info",
     "instructions": "In order to complete this learning, visit each of the modules shown below",
 

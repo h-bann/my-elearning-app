@@ -4,12 +4,15 @@ import {
   setLoginState,
   setMainScreen,
   setError,
+  selectMainScreen,
 } from "../../redux/accountSlice";
 import { clearLocal } from "../../storage";
+import Nav from "react-bootstrap/Nav";
 
 const HeaderButtons = () => {
   const dispatch = useDispatch();
   const loginState = useSelector(selectLoginState);
+  const mainScreen = useSelector(selectMainScreen);
 
   const onLogOutClick = () => {
     dispatch(setLoginState(false));
@@ -21,32 +24,30 @@ const HeaderButtons = () => {
 
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
   return loginState === false ? (
-    <div className=" navbar-nav ">
-      <a
-        className="nav-link"
-        href="#"
-        onClick={() => {
-          dispatch(setMainScreen(5));
-        }}
-      >
-        Sign up/Login
-      </a>
-    </div>
+    <Nav.Link
+      className={` ${mainScreen === 5 ? "link" : ""}`}
+      href="#"
+      onClick={() => {
+        dispatch(setMainScreen(5));
+      }}
+    >
+      Sign up/Login
+    </Nav.Link>
   ) : (
-    <div className=" navbar-nav ">
-      <a
-        className="nav-link"
+    <>
+      <Nav.Link
+        className={`${mainScreen === 4 ? "link" : ""}`}
         href="#"
         onClick={() => {
           dispatch(setMainScreen(4));
         }}
       >
         My Account
-      </a>
-      <a className="nav-link" href="#" onClick={onLogOutClick}>
+      </Nav.Link>
+      <Nav.Link className="" href="#" onClick={onLogOutClick}>
         Log Out
-      </a>
-    </div>
+      </Nav.Link>
+    </>
   );
 };
 

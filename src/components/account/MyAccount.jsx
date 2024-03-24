@@ -46,7 +46,7 @@ const MyAccount = () => {
           <p> {email}</p>
           {display != "email" && (
             <Button
-              className="btn btn-outline-primary"
+              className={["btn-outline-primary"]}
               onClick={() => setDisplay("email")}
               text="Change Email"
             />
@@ -59,7 +59,7 @@ const MyAccount = () => {
                 placeholder="New email address"
               />
               <Button
-                className="btn btn-outline-primary"
+                className={["btn-outline-primary"]}
                 type="submit"
                 text="Save"
                 disabled={!userInput ? true : false}
@@ -74,7 +74,7 @@ const MyAccount = () => {
           <p>{username}</p>
           {display != "username" && (
             <Button
-              className="btn btn-outline-primary"
+              className={["btn-outline-primary"]}
               onClick={() => setDisplay("username")}
               text="Change username"
             />
@@ -83,7 +83,7 @@ const MyAccount = () => {
             <div>
               <Input type="text" name="username" placeholder="New username" />
               <Button
-                className="btn btn-outline-primary"
+                className={["btn-outline-primary"]}
                 type="submit"
                 text="Save"
                 disabled={!userInput ? true : false}
@@ -99,7 +99,7 @@ const MyAccount = () => {
           <label htmlFor="password">Password Reset</label>
           {display != "password" && (
             <Button
-              className="btn btn-outline-primary"
+              className={["btn-outline-primary"]}
               onClick={() => setDisplay("password")}
               text="Reset password"
             />
@@ -133,7 +133,7 @@ const MyAccount = () => {
                 placeholder="Confirm new password"
               />
               <Button
-                className="btn btn-outline-primary"
+                className={["btn-outline-primary"]}
                 type="submit"
                 text="Save"
                 disabled={!userInput ? true : false}

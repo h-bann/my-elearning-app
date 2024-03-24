@@ -41,7 +41,7 @@ const ModuleContent = () => {
         {modules.map((item) => {
           return (
             <div
-              className={`card mb-3 d-flex justify-content-center align-items-center ${
+              className={`module-card card mb-3 d-flex justify-content-center align-items-center ${
                 state === item.id && "selected"
               }`}
               style={styles}
