@@ -3,7 +3,7 @@ import React from "react";
 const Homepage = () => {
   return (
     <div className="container-lg text-center">
-      <p> THIS IS WHERE A LITTLE SPIEL WILL GO </p>
+      <p> This is the homepage for the e-learning platform.</p>
     </div>
   );
 };

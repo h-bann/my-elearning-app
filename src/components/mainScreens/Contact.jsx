@@ -68,7 +68,7 @@ const Contact = () => {
           ) : undefined}
         </div>
         {contact && <p>Message sent!</p>}
-        <Button className="btn-primary" type="submit" text="Submit" />
+        <Button className={["btn-primary"]} type="submit" text="Submit" />
       </form>
     </div>
   );

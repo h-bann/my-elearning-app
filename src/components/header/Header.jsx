@@ -1,20 +1,28 @@
-import React from "react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 import Logo from "./Logo";
-import Nav from "./Nav";
 import HeaderButtons from "./HeaderButtons";
+import Navigation from "./Navigation";
+import { useDispatch } from "react-redux";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
   return (
-    <header className="position-sticky top-0  z-3 ">
-      <nav className="navbar navbar-expand-md navbar-expand-sm navbar-expand-lg  ">
-        <div className="container-fluid ">
-          <Logo />
-          <div className="navbar-collapse collapse" id="navbarSupportedContent">
-            <Nav />
+    <header className="d-flex align-items-center justify-content-between">
+      <Nav expand="md" className="w-100 m-auto">
+        <Container className="d-flex  justify-content-between align-items-center w-100">
+          <Navbar.Brand onClick={() => dispatch(setMainScreen(0))}>
+            <Logo /> We Learn
+          </Navbar.Brand>
+
+          <Nav className="me-0 ">
+            <Navigation />
             <HeaderButtons />
-          </div>
-        </div>
-      </nav>
+          </Nav>
+        </Container>
+      </Nav>
     </header>
   );
 };

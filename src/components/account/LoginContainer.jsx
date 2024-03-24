@@ -74,7 +74,7 @@ const LoginContainer = () => {
       {error && <p className="form-text">Username or password not valid</p>}
 
       <Button
-        className="btn btn-primary w-100"
+        className={["btn btn-primary", "w-100"]}
         text="Login"
         type="submit"
         disabled={!state || errors ? true : false}

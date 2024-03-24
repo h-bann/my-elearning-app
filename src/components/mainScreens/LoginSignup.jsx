@@ -22,7 +22,7 @@ const LoginSignup = () => {
             <h6>Already have an account?</h6>
 
             <Button
-              className="btn-outline-primary"
+              className={["btn-outline-primary"]}
               onClick={onClick}
               text={view ? "Sign In" : "Sign Up"}
             />
@@ -36,7 +36,7 @@ const LoginSignup = () => {
             <h6>Need an account?</h6>
 
             <Button
-              className="btn-outline-primary"
+              className={["btn-outline-primary"]}
               onClick={onClick}
               text={view ? "Sign In" : "Sign Up"}
             />

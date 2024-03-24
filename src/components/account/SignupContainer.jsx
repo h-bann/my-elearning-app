@@ -89,7 +89,7 @@ const SignupContainer = () => {
       </div>
       <div className="text-center">
         <Button
-          className="btn btn-primary w-100"
+          className={["btn-primary", "w-100"]}
           text="Sign Up"
           type="submit"
           disabled={!userInput || errors ? true : false}

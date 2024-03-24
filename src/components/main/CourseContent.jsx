@@ -39,9 +39,6 @@ const CourseContent = () => {
               </ul>
             );
 
-          case "image":
-            return <p>{content}</p>;
-
           case "bold":
             return (
               <p className="text-center">
@@ -55,6 +52,9 @@ const CourseContent = () => {
                 <u>{content}</u>
               </p>
             );
+
+          case "image":
+            return <img src={"../../../public/images/" + content} />;
 
           default:
             break;
