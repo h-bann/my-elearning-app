@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import {
   selectModuleContent,
-  selectMoreInfoContent,
   setModuleContent,
-  setCoursesScreen,
-  setModulesScreen,
-  setMoreInfoContent,
   setCourseContent,
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";

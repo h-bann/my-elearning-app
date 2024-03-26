@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import {
   selectModuleContent,
   selectCourseContent,
-  setModulesScreen,
   setCourseContent,
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
-import NavigationButtons from "../genericComponents/NavigationButtons";
 import CourseContent from "./CourseContent";
 
 const ModuleContent = () => {
@@ -15,19 +13,10 @@ const ModuleContent = () => {
   const dispatch = useDispatch();
   const [state, setState] = useState(1);
   const { modules } = moduleContent;
-  const { content } = moduleContent.modules[0];
 
   const styles = {
     width: "15rem",
     height: "5rem",
-  };
-
-  const onBackClick = () => {
-    // !need to address this
-  };
-
-  const onNextClick = () => {
-    dispatch(setModulesScreen(1));
   };
 
   const onModuleClick = (item) => {
@@ -36,8 +25,8 @@ const ModuleContent = () => {
   };
 
   return (
-    <div className="row">
-      <div className="col-3">
+    <div className="row d-flex flex-nowrap">
+      <div className="col-3 modules">
         {modules.map((item) => {
           return (
             <div
@@ -53,10 +42,7 @@ const ModuleContent = () => {
           );
         })}
       </div>
-      <div className="col-9">
-        {/* {content && <CourseContent />} */}
-        {courseContent && <CourseContent />}
-      </div>
+      <div className="col-9 content">{courseContent && <CourseContent />}</div>
     </div>
   );
 };

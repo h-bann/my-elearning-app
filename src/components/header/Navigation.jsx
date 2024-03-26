@@ -8,7 +8,6 @@ import {
 } from "../../redux/coursesSlice";
 import { selectMainScreen } from "../../redux/accountSlice";
 import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 
 const Navigation = () => {
   const loginState = useSelector(selectLoginState);

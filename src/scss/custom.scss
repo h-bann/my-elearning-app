@@ -130,21 +130,14 @@ header {
   border-color: #348738;
 }
 
-// // .form-signin input[type="text"] {
-// //   margin-bottom: -1px;
-// //   margin-top: -1px;
-// //   border-bottom-right-radius: 0;
-// //   border-bottom-left-radius: 0;
-// // }
+.btn-outline-primary.account {
+  width: 160px;
+}
 
-// // .form-signin .signup-email {
-// //   margin-bottom: -1px;
-// //   border-bottom-right-radius: 0;
-// //   border-bottom-left-radius: 0;
-// // }
+.col-3.modules {
+  min-width: 300px;
+}
 
-// // .form-signin input[type="password"] {
-// //   margin-bottom: 10px;
-// //   border-top-left-radius: 0;
-// //   border-top-right-radius: 0;
-// // }
+.col-9.content {
+  min-width: 884px;
+}

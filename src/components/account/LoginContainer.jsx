@@ -2,11 +2,9 @@ import Label from "../genericComponents/Label";
 import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   selectSignupDetails,
-  setLoginState,
-  setMainScreen,
   selectError,
   setError,
   setLoginDetails,

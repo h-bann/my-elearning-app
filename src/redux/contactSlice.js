@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import sha256 from "sha256";
 
 const initialState = {};
 
