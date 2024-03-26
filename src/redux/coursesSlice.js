@@ -27,9 +27,6 @@ export const coursesSlice = createSlice({
     setMoreInfoContent: (state, { payload }) => {
       state.moreInfo = payload;
     },
-    // setRenderStatus: (state, { payload }) => {
-    //   state.renderStatus = payload;
-    // },
   },
 });
 
@@ -40,7 +37,6 @@ export const {
   setModuleContent,
   setCourseContent,
   setMoreInfoContent,
-  setRenderStatus,
   setLocalStorage,
 } = coursesSlice.actions;
 
@@ -53,6 +49,5 @@ export const selectContentScreen = (state) => state.courses.contentScreen;
 export const selectModuleContent = (state) => state.courses.moduleContent;
 export const selectCourseContent = (state) => state.courses.courseContent;
 export const selectMoreInfoContent = (state) => state.courses.moreInfo;
-export const selectRenderStatus = (state) => state.courses.renderStatus;
 
 export default coursesSlice.reducer;
