@@ -3,7 +3,7 @@ import { storeMultipleInLocal, storeSingleInLocal } from "../storage";
 import sha256 from "sha256";
 
 const initialState = {
-  loggedIn: true,
+  loggedIn: false,
   mainScreen: 0,
   error: false,
 };

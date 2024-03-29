@@ -18,7 +18,6 @@ const MyLearning = () => {
     dispatch(setModuleContent(item));
     dispatch(setCourseContent(item.modules[0]));
   };
-  console.log(myLearning);
 
   return (
     <>
