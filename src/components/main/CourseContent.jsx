@@ -1,9 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {
-  selectCourseContent,
-  selectModuleContent,
-} from "../../redux/coursesSlice";
+import { selectCourseContent } from "../../redux/coursesSlice";
 
 const CourseContent = () => {
   const courseContent = useSelector(selectCourseContent);

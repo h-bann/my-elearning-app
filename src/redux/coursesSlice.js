@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { storeMultipleInLocal } from "../storage";
 
 const initialState = {
   coursesScreen: 0,
-  modulesScreen: 0,
+  myLearning: [],
 };
 
 export const coursesSlice = createSlice({
@@ -11,12 +12,6 @@ export const coursesSlice = createSlice({
   reducers: {
     setCoursesScreen: (state, { payload }) => {
       state.coursesScreen = payload;
-    },
-    setModulesScreen: (state, { payload }) => {
-      state.modulesScreen = payload;
-    },
-    setContentScreen: (state, { payload }) => {
-      state.contentScreen = payload;
     },
     setModuleContent: (state, { payload }) => {
       state.moduleContent = payload;
@@ -27,27 +22,31 @@ export const coursesSlice = createSlice({
     setMoreInfoContent: (state, { payload }) => {
       state.moreInfo = payload;
     },
+    setMyLearning: (state, { payload }) => {
+      const isDuplicate = state.myLearning.some(
+        (item) => item.id === payload.id
+      );
+      if (!isDuplicate) {
+        return { ...state, myLearning: [...state.myLearning, payload] };
+      }
+    },
   },
 });
 
 export const {
   setCoursesScreen,
-  setModulesScreen,
-  setContentScreen,
   setModuleContent,
   setCourseContent,
   setMoreInfoContent,
-  setLocalStorage,
+  setMyLearning,
 } = coursesSlice.actions;
 
 // * this is how you retrieve from store
 
-export const selectMainScreen = (state) => state.courses.mainScreen;
 export const selectCoursesScreen = (state) => state.courses.coursesScreen;
-export const selectModulesScreen = (state) => state.courses.modulesScreen;
-export const selectContentScreen = (state) => state.courses.contentScreen;
 export const selectModuleContent = (state) => state.courses.moduleContent;
 export const selectCourseContent = (state) => state.courses.courseContent;
 export const selectMoreInfoContent = (state) => state.courses.moreInfo;
+export const seclectMyLearning = (state) => state.courses.myLearning;
 
 export default coursesSlice.reducer;

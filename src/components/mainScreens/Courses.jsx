@@ -3,6 +3,7 @@ import {
   selectModuleContent,
   setModuleContent,
   setCourseContent,
+  setMyLearning,
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
@@ -19,13 +20,9 @@ const Courses = () => {
   const onCourseClick = (item) => {
     dispatch(setModuleContent(item));
     dispatch(setCourseContent(item.modules[0]));
+    dispatch(setMyLearning(item));
   };
 
-  console.log(
-    data.map((item) => {
-      console.log(item);
-    })
-  );
   return (
     <>
       {!moduleContent && (
