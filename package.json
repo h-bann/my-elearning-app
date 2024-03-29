@@ -30,6 +30,7 @@
     "analyze": "^0.0.14",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "esbuild": "^0.20.2",
     "gsap": "^3.12.5",
     "joi": "^17.12.2",
     "popper.js": "^1.16.1",

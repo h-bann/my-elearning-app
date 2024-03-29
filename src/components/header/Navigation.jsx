@@ -32,7 +32,7 @@ const Navigation = () => {
         href="#"
         onClick={() => {
           dispatch(setMainScreen(1));
-          dispatch(setCoursesScreen(0));
+          // dispatch(setCoursesScreen(0));
           dispatch(setModuleContent(null));
           dispatch(setCourseContent(null));
         }}
@@ -46,6 +46,8 @@ const Navigation = () => {
           href="#"
           onClick={() => {
             dispatch(setMainScreen(2));
+            dispatch(setModuleContent(null));
+            dispatch(setCourseContent(null));
           }}
         >
           My Learning
