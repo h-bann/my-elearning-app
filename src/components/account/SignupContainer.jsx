@@ -3,13 +3,19 @@ import Label from "../genericComponents/Label";
 import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
 import { useDispatch } from "react-redux";
-import { setSignupDetails } from "../../redux/accountSlice";
+import {
+  setLoginState,
+  setMainScreen,
+  setSignupDetails,
+} from "../../redux/accountSlice";
 import { formValidation, signupSchema } from "../../utils/Joi";
+import axios from "axios";
 
 const SignupContainer = () => {
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState("");
   const [errors, setErrors] = useState("");
+  const [accountError, setAccountError] = useState();
 
   const onInput = (e) => {
     const updatedState = { ...userInput, [e.target.name]: e.target.value };
@@ -17,11 +23,21 @@ const SignupContainer = () => {
     setUserInput(updatedState);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     // stops passwordConfirmation from being sent to store
     const { passwordConfirmation, ...newState } = userInput;
-    dispatch(setSignupDetails(newState));
+
+    const { data } = await axios.post("http://localhost:6001/users", newState);
+    if (data.code === 0) {
+      setAccountError(data.message);
+      return;
+    }
+    if (data.code === 1) {
+      dispatch(setMainScreen(0));
+      dispatch(setLoginState(true));
+    }
+    // dispatch(setSignupDetails(newState));
   };
 
   return (
@@ -95,6 +111,7 @@ const SignupContainer = () => {
           disabled={!userInput || errors ? true : false}
         />
       </div>
+      {accountError && <h6>{accountError}</h6>}
     </form>
   );
 };
