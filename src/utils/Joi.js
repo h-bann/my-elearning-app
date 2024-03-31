@@ -24,13 +24,11 @@ export const loginSchema = Joi.object({
 });
 
 export const userDetailsResetSchema = Joi.object({
-  email: Joi.string()
-    .email({ tlds: { allow: false } })
-    .required(),
-  username: Joi.string().alphanum().min(5).max(15).required(),
-  currentPassword: Joi.string().min(5).required(),
-  password: Joi.string().min(5).required(),
-  passwordConfirmation: Joi.string().min(5).required(),
+  email: Joi.string().email({ tlds: { allow: false } }),
+  username: Joi.string().alphanum().min(5).max(15),
+  currentPassword: Joi.string().min(5),
+  password: Joi.string().min(5),
+  passwordConfirmation: Joi.string().min(5),
 });
 
 export const formValidation = (state, schema, setErrors) => {

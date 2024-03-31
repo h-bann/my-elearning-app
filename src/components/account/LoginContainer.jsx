@@ -8,6 +8,7 @@ import {
   selectError,
   setError,
   setLoginDetails,
+  setUserId,
   setLoginState,
   setMainScreen,
 } from "../../redux/accountSlice";
@@ -33,12 +34,14 @@ const LoginContainer = () => {
       "http://localhost:6001/users/login",
       userInput
     );
+    console.log(data);
     if (data.code === 0) {
       setAccountError(data.message);
     }
     if (data.code === 1) {
-      dispatch(setLoginState(true));
       dispatch(setMainScreen(0));
+      dispatch(setLoginState(true));
+      dispatch(setUserId(data.id));
     }
   };
   return (
