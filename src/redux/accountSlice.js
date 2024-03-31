@@ -34,6 +34,9 @@ export const accountSlice = createSlice({
       state.loggedIn = true;
       storeMultipleInLocal({ ...payload });
     },
+    setUserId: (state, { payload }) => {
+      state.userId = payload;
+    },
 
     setLoginState: (state, { payload }) => {
       state.loggedIn = payload;
@@ -51,6 +54,7 @@ export const accountSlice = createSlice({
 export const {
   setSignupDetails,
   setLoginDetails,
+  setUserId,
   setLoginState,
   setMainScreen,
   setError,
@@ -61,6 +65,7 @@ export const {
 export const selectLoginState = (state) => state.account.loggedIn;
 export const selectSignupDetails = (state) => state.account.storeSignup;
 export const selectLoginDetails = (state) => state.account.storeLogin;
+export const selectUserId = (state) => state.account.userId;
 export const selectMainScreen = (state) => state.account.mainScreen;
 export const selectError = (state) => state.account.error;
 

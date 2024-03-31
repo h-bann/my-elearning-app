@@ -7,6 +7,7 @@ import {
   setLoginState,
   setMainScreen,
   setSignupDetails,
+  setUserId,
 } from "../../redux/accountSlice";
 import { formValidation, signupSchema } from "../../utils/Joi";
 import axios from "axios";
@@ -37,8 +38,9 @@ const SignupContainer = () => {
     if (data.code === 1) {
       dispatch(setMainScreen(0));
       dispatch(setLoginState(true));
+      dispatch(setUserId(data.id));
     }
-    // dispatch(setSignupDetails(newState));
+    dispatch(setSignupDetails(newState));
   };
 
   return (

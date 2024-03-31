@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   selectSignupDetails,
+  selectUserId,
   setSignupDetails,
 } from "../../redux/accountSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,14 +10,25 @@ import Input from "../genericComponents/Input";
 import Label from "../genericComponents/Label";
 import { formValidation, userDetailsResetSchema } from "../../utils/Joi";
 import sha256 from "sha256";
+import axios from "axios";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
   const signupDetails = useSelector(selectSignupDetails);
   const [display, setDisplay] = useState("");
   const [errors, setErrors] = useState("");
-  const [userInput, setUserInput] = useState(signupDetails);
-  const { email, username } = signupDetails;
+  const [userInput, setUserInput] = useState();
+
+  const userId = useSelector(selectUserId);
+  const [userDetails, setUserDetails] = useState();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await axios.get(`http://localhost:6001/users/${userId}`);
+      setUserDetails(data.user);
+    };
+    getUser();
+  }, [userId, display]);
 
   const onInput = (e) => {
     const updatedState = { ...userInput, [e.target.name]: e.target.value };
@@ -24,18 +36,26 @@ const MyAccount = () => {
     setUserInput(updatedState);
   };
 
-  const updateUserDetails = (e) => {
+  const updateUserDetails = async (e) => {
     e.preventDefault();
     const { passwordConfirmation, currentPassword, ...newState } = userInput;
-    const encryptedPassword = sha256(userInput.currentPassword + "myFunApp");
-    const { password } = signupDetails;
-    if (encryptedPassword && encryptedPassword === password) {
-      dispatch(setSignupDetails(newState));
-    } else {
-      dispatch(setSignupDetails(newState));
-    }
+    const { data } = await axios.patch(
+      `http://localhost:6001/users/${userId}`,
+      newState
+    );
+    console.log(data);
     setDisplay("");
   };
+
+  if (!userDetails) {
+    return (
+      <div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  const { email, username, password } = userDetails;
 
   return (
     <div className="container-sm">
@@ -66,15 +86,17 @@ const MyAccount = () => {
                 placeholder="New email address"
                 className="form-control"
               />
+              {email && display === "email" && errors.email ? (
+                <p className="form-text">{errors.email}</p>
+              ) : undefined}
               <Button
                 className={["btn-outline-primary"]}
                 type="submit"
                 text="Save"
-                disabled={!userInput ? true : false}
+                disabled={!userInput || errors ? true : false}
               />
             </div>
           )}
-          {userInput.email && errors.email ? <p>{errors.email}</p> : undefined}
         </div>
 
         <div className="mb-3  d-flex flex-column">
@@ -97,17 +119,17 @@ const MyAccount = () => {
                 placeholder="New username"
                 className="form-control"
               />
+              {username && display === "username" && errors.username ? (
+                <p className="form-text">{errors.username}</p>
+              ) : undefined}
               <Button
                 className={["btn-outline-primary"]}
                 type="submit"
                 text="Save"
-                disabled={!userInput ? true : false}
+                disabled={!userInput || errors ? true : false}
               />
             </div>
           )}
-          {userInput.username && errors.username ? (
-            <p className="form-text">{errors.username}</p>
-          ) : undefined}
         </div>
 
         <div className="mb-3 d-flex flex-column">
@@ -146,7 +168,7 @@ const MyAccount = () => {
                 placeholder="New password"
                 className="form-control mb-3"
               />
-              {userInput.password && errors.password ? (
+              {password && display === "password" && errors.password ? (
                 <p className="form-text">{errors.password}</p>
               ) : undefined}
 
@@ -165,7 +187,7 @@ const MyAccount = () => {
                 className={["btn-outline-primary"]}
                 type="submit"
                 text="Save"
-                disabled={!userInput ? true : false}
+                disabled={!userInput || errors ? true : false}
               />
             </div>
           )}
