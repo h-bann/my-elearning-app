@@ -47,7 +47,6 @@ const LoginContainer = () => {
       <div className="form-floating">
         <Input
           className="form-control"
-          id="floatingInput"
           type="text"
           name="username"
           placeholder="username"
@@ -61,7 +60,6 @@ const LoginContainer = () => {
       <div className="form-floating ">
         <Input
           className="form-control"
-          id="floatingInput"
           type="password"
           name="password"
           placeholder="password"

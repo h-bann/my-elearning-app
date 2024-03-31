@@ -48,12 +48,11 @@ const SignupContainer = () => {
       <div className="form-floating">
         <Input
           className="form-control form-control-sm signup-email"
-          id="floatingInput"
           type="email"
           name="email"
           placeholder="name@example.com"
         />
-        <Label htmlFor="floatingInput" text="Email address" />
+        <Label htmlFor="email" text="Email address" />
         {userInput.email && errors.email ? (
           <p className="form-text">{errors.email}</p>
         ) : undefined}
@@ -62,12 +61,11 @@ const SignupContainer = () => {
       <div className="form-floating">
         <Input
           className="form-control"
-          id="floatingInput"
           type="text"
           name="username"
           placeholder="example"
         />
-        <Label htmlFor="floatingInput" text="Username" />
+        <Label htmlFor="username" text="Username" />
 
         {userInput.username && errors.username ? (
           <p className="form-text">{errors.username}</p>
@@ -77,12 +75,11 @@ const SignupContainer = () => {
       <div className="form-floating  ">
         <Input
           className="form-control"
-          id="floatingInput"
           type="password"
           name="password"
           placeholder="password"
         />
-        <Label htmlFor="floatingInput" text="Password" />
+        <Label htmlFor="password" text="Password" />
 
         {userInput.password && errors.password ? (
           <p className="form-text">{errors.password}</p>
@@ -92,12 +89,11 @@ const SignupContainer = () => {
       <div className="form-floating ">
         <Input
           className="form-control"
-          id="floatingInput"
           type="password"
           name="passwordConfirmation"
           placeholder="passwordConfirmation"
         />
-        <Label htmlFor="floatingInput" text="Confirm Password" />
+        <Label htmlFor="passwordConfirmation" text="Confirm Password" />
 
         {userInput.passwordConfirmation &&
           userInput.passwordConfirmation != userInput.password && (
