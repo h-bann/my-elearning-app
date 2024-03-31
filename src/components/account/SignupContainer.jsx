@@ -29,6 +29,7 @@ const SignupContainer = () => {
     const { passwordConfirmation, ...newState } = userInput;
 
     const { data } = await axios.post("http://localhost:6001/users", newState);
+    console.log(data);
     if (data.code === 0) {
       setAccountError(data.message);
       return;

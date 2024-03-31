@@ -8,34 +8,37 @@ import {
   selectError,
   setError,
   setLoginDetails,
+  setLoginState,
+  setMainScreen,
 } from "../../redux/accountSlice";
 import sha256 from "sha256";
 import { loginSchema, formValidation } from "../../utils/Joi";
+import axios from "axios";
 
 const LoginContainer = () => {
   const dispatch = useDispatch();
-  const signupDetails = useSelector(selectSignupDetails);
-  const error = useSelector(selectError);
-  const [state, setState] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [errors, setErrors] = useState("");
+  const [accountError, setAccountError] = useState();
 
   const onInput = (e) => {
-    const updatedState = { ...state, [e.target.name]: e.target.value };
-    formValidation(updatedState, loginSchema, setErrors);
-    setState(updatedState);
+    const updatedUserInput = { ...userInput, [e.target.name]: e.target.value };
+    formValidation(updatedUserInput, loginSchema, setErrors);
+    setUserInput(updatedUserInput);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const encryptedPassword = sha256(state.password + "myFunApp");
-    if (signupDetails) {
-      const { password, username } = signupDetails;
-      encryptedPassword === password && state.username === username
-        ? dispatch(setLoginDetails(state))
-        : dispatch(setError(true));
-      return;
-    } else {
-      dispatch(setError(true));
+    const { data } = await axios.post(
+      "http://localhost:6001/users/login",
+      userInput
+    );
+    if (data.code === 0) {
+      setAccountError(data.message);
+    }
+    if (data.code === 1) {
+      dispatch(setLoginState(true));
+      dispatch(setMainScreen(0));
     }
   };
   return (
@@ -50,7 +53,7 @@ const LoginContainer = () => {
           placeholder="username"
         />
         <Label htmlFor="username" text="Username" />
-        {state.username && errors.username ? (
+        {userInput.username && errors.username ? (
           <p className="form-text">{errors.username}</p>
         ) : undefined}
       </div>
@@ -64,19 +67,18 @@ const LoginContainer = () => {
           placeholder="password"
         />
         <Label htmlFor="password" text="Password" />
-        {state.password && errors.password ? (
+        {userInput.password && errors.password ? (
           <p className="form-text">{errors.password}</p>
         ) : undefined}
       </div>
-
-      {error && <p className="form-text">Username or password not valid</p>}
 
       <Button
         className={["btn btn-primary", "w-100"]}
         text="Login"
         type="submit"
-        disabled={!state || errors ? true : false}
+        disabled={!userInput || errors ? true : false}
       />
+      {accountError && <h6>{accountError}</h6>}
     </form>
   );
 };
