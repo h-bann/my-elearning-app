@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
+  selectCourses,
+  setCourses,
   selectModuleContent,
   setModuleContent,
   setCourseContent,
@@ -7,15 +9,24 @@ import {
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
-import data from "../../courseContent.json";
 import Button from "../genericComponents/Button";
+import axios from "axios";
 
 const Courses = () => {
   const [infoState, setInfoState] = useState();
+  const courses = useSelector(selectCourses);
   const moduleContent = useSelector(selectModuleContent);
   const dispatch = useDispatch();
 
   const styles = { width: "15rem" };
+
+  useEffect(() => {
+    const getCourses = async () => {
+      const { data } = await axios.get(`http://localhost:6001/courses`);
+      dispatch(setCourses(data.content));
+    };
+    getCourses();
+  }, []);
 
   const onCourseClick = (item) => {
     dispatch(setModuleContent(item));
@@ -23,13 +34,21 @@ const Courses = () => {
     dispatch(setMyLearning(item));
   };
 
+  if (!courses) {
+    return (
+      <div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <>
       {!moduleContent && (
         <div className="w-100 m-auto ">
           <h3 className="m-4">Available Courses</h3>
           <div className="w-100 d-flex flex-wrap justify-content-start m-4 ">
-            {data.map((item) => {
+            {courses.map((item) => {
               return (
                 <div
                   className="card m-2 course-card"

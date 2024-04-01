@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import {
   selectSignupDetails,
   selectUserId,
+  setLoginState,
+  setMainScreen,
   setSignupDetails,
 } from "../../redux/accountSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +13,7 @@ import Label from "../genericComponents/Label";
 import { formValidation, userDetailsResetSchema } from "../../utils/Joi";
 import sha256 from "sha256";
 import axios from "axios";
+import ChangeUsername from "./ChangeUsername";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
@@ -46,6 +49,15 @@ const MyAccount = () => {
     console.log(data);
     setDisplay("");
   };
+  const deleteAccount = async () => {
+    const { data } = await axios.delete(
+      `http://localhost:6001/users/${userId}`
+    );
+    dispatch(setLoginState(false));
+    dispatch(setMainScreen(0));
+
+    console.log(data);
+  };
 
   if (!userDetails) {
     return (
@@ -64,6 +76,8 @@ const MyAccount = () => {
         onInput={onInput}
         onSubmit={updateUserDetails}
       >
+        {/* CHANGE THIS BACK EVENTUALLY */}
+        {/* <ChangeUsername /> */}
         <h3 className="h3 mb-4">My Account Details</h3>
 
         <div className="mb-4 d-flex flex-column">
@@ -193,6 +207,14 @@ const MyAccount = () => {
           )}
         </div>
       </form>
+      <div className="p-3">
+        <Button
+          className={["btn-danger"]}
+          type="button"
+          text="Delete Account"
+          onClick={deleteAccount}
+        />
+      </div>
     </div>
   );
 };
