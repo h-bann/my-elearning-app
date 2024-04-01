@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  seclectMyLearning,
   selectModuleContent,
   setModuleContent,
   setCourseContent,
@@ -15,18 +14,18 @@ import axios from "axios";
 
 const MyLearning = () => {
   const dispatch = useDispatch();
-  // const myLearning = useSelector(seclectMyLearning);
   const courses = useSelector(selectCourses);
   const moduleContent = useSelector(selectModuleContent);
   const userId = useSelector(selectUserId);
   const styles = { width: "15rem" };
 
+  const getEnrolledCourses = async () => {
+    const { data } = await axios.get(`http://localhost:6001/users/${userId}`);
+    const { enrolledCourses } = data.user;
+    dispatch(setCourses(enrolledCourses));
+  };
+
   useEffect(() => {
-    const getEnrolledCourses = async () => {
-      const { data } = await axios.get(`http://localhost:6001/users/${userId}`);
-      const { enrolledCourses } = data.user;
-      dispatch(setCourses(enrolledCourses));
-    };
     getEnrolledCourses();
   }, [userId]);
 
@@ -35,13 +34,15 @@ const MyLearning = () => {
     dispatch(setCourseContent(item.modules[0]));
   };
 
-  const leaveCourse = () => {
-    const deleteCourse = async () => {
-      const { data } = await axios.delete(`http://localhost:6001/`);
-    };
+  const leaveCourse = async (item) => {
+    const { data } = await axios.delete(
+      `http://localhost:6001/courses/enrolled/${userId}/${item.id}`
+    );
+    getEnrolledCourses();
+    console.log(data);
   };
 
-  if (!courses) {
+  if (!courses || !courses.length) {
     return (
       <div className="w-100 m-auto">
         <h3 className="m-4">Enrolled Courses</h3>
@@ -74,14 +75,9 @@ const MyLearning = () => {
                     <Button
                       className={["btn-outline-primary", ""]}
                       text="Leave course"
-                      onClick={leaveCourse}
+                      onClick={() => leaveCourse(item)}
                       π
                     />
-                    {/* {infoState && infoState.id === item.id && (
-                      <div className="card-text text-wrap">
-                        {infoState.moreInformation}
-                      </div>
-                    )} */}
                   </div>
                 </div>
               );

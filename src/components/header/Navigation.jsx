@@ -1,11 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginState, setMainScreen } from "../../redux/accountSlice";
-import {
-  setModuleContent,
-  setCourseContent,
-  // setCoursesScreen,
-} from "../../redux/coursesSlice";
+import { setModuleContent, setCourseContent } from "../../redux/coursesSlice";
 import { selectMainScreen } from "../../redux/accountSlice";
 import Nav from "react-bootstrap/Nav";
 
@@ -32,7 +28,6 @@ const Navigation = () => {
         href="#"
         onClick={() => {
           dispatch(setMainScreen(1));
-          // dispatch(setCoursesScreen(0));
           dispatch(setModuleContent(null));
           dispatch(setCourseContent(null));
         }}

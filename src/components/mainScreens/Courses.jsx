@@ -5,7 +5,6 @@ import {
   selectModuleContent,
   setModuleContent,
   setCourseContent,
-  setMyLearning,
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
@@ -33,7 +32,6 @@ const Courses = () => {
   const onCourseClick = async (item) => {
     dispatch(setModuleContent(item));
     dispatch(setCourseContent(item.modules[0]));
-    dispatch(setMyLearning(item));
     if (userId) {
       const { data } = await axios.patch(
         `http://localhost:6001/courses/enrolled/${userId}`,
