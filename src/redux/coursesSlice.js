@@ -10,8 +10,8 @@ export const coursesSlice = createSlice({
   name: "courses",
   initialState,
   reducers: {
-    setCoursesScreen: (state, { payload }) => {
-      state.coursesScreen = payload;
+    setCourses: (state, { payload }) => {
+      state.courses = payload;
     },
     setModuleContent: (state, { payload }) => {
       state.moduleContent = payload;
@@ -34,7 +34,7 @@ export const coursesSlice = createSlice({
 });
 
 export const {
-  setCoursesScreen,
+  setCourses,
   setModuleContent,
   setCourseContent,
   setMoreInfoContent,
@@ -43,7 +43,7 @@ export const {
 
 // * this is how you retrieve from store
 
-export const selectCoursesScreen = (state) => state.courses.coursesScreen;
+export const selectCourses = (state) => state.courses.courses;
 export const selectModuleContent = (state) => state.courses.moduleContent;
 export const selectCourseContent = (state) => state.courses.courseContent;
 export const selectMoreInfoContent = (state) => state.courses.moreInfo;

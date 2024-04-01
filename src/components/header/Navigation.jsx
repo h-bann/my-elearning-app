@@ -4,7 +4,7 @@ import { selectLoginState, setMainScreen } from "../../redux/accountSlice";
 import {
   setModuleContent,
   setCourseContent,
-  setCoursesScreen,
+  // setCoursesScreen,
 } from "../../redux/coursesSlice";
 import { selectMainScreen } from "../../redux/accountSlice";
 import Nav from "react-bootstrap/Nav";
