@@ -11,10 +11,12 @@ import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
 import Button from "../genericComponents/Button";
 import axios from "axios";
+import { selectUserId } from "../../redux/accountSlice";
 
 const Courses = () => {
   const [infoState, setInfoState] = useState();
   const courses = useSelector(selectCourses);
+  const userId = useSelector(selectUserId);
   const moduleContent = useSelector(selectModuleContent);
   const dispatch = useDispatch();
 
@@ -28,10 +30,17 @@ const Courses = () => {
     getCourses();
   }, []);
 
-  const onCourseClick = (item) => {
+  const onCourseClick = async (item) => {
     dispatch(setModuleContent(item));
     dispatch(setCourseContent(item.modules[0]));
     dispatch(setMyLearning(item));
+    if (userId) {
+      const { data } = await axios.patch(
+        `http://localhost:6001/courses/enrolled/${userId}`,
+        item
+      );
+      console.log(data);
+    }
   };
 
   if (!courses) {

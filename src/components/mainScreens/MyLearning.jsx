@@ -1,31 +1,62 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   seclectMyLearning,
   selectModuleContent,
   setModuleContent,
   setCourseContent,
+  setCourses,
+  selectCourses,
 } from "../../redux/coursesSlice";
 import Button from "../genericComponents/Button";
 import ModuleContent from "../main/ModuleContent";
+import { selectUserId } from "../../redux/accountSlice";
+import axios from "axios";
 
 const MyLearning = () => {
-  const myLearning = useSelector(seclectMyLearning);
+  const dispatch = useDispatch();
+  // const myLearning = useSelector(seclectMyLearning);
+  const courses = useSelector(selectCourses);
   const moduleContent = useSelector(selectModuleContent);
+  const userId = useSelector(selectUserId);
   const styles = { width: "15rem" };
+
+  useEffect(() => {
+    const getEnrolledCourses = async () => {
+      const { data } = await axios.get(`http://localhost:6001/users/${userId}`);
+      const { enrolledCourses } = data.user;
+      dispatch(setCourses(enrolledCourses));
+    };
+    getEnrolledCourses();
+  }, [userId]);
 
   const onCourseClick = (item) => {
     dispatch(setModuleContent(item));
     dispatch(setCourseContent(item.modules[0]));
   };
 
+  const leaveCourse = () => {
+    const deleteCourse = async () => {
+      const { data } = await axios.delete(`http://localhost:6001/`);
+    };
+  };
+
+  if (!courses) {
+    return (
+      <div className="w-100 m-auto">
+        <h3 className="m-4">Enrolled Courses</h3>
+        <p className="m-4">You haven't enrolled on any courses yet.</p>
+      </div>
+    );
+  }
+
   return (
     <>
-      {myLearning && (
+      {!moduleContent && (
         <div className="w-100 m-auto ">
           <h3 className="m-4">Enrolled Courses</h3>
           <div className="w-100 d-flex flex-wrap justify-content-start m-4 ">
-            {myLearning.map((item) => {
+            {courses.map((item) => {
               return (
                 <div
                   className="card m-2 course-card"
@@ -37,15 +68,15 @@ const MyLearning = () => {
                     <h4 className="card-title">{item.title}</h4>
                     <Button
                       className={["btn-primary", "me-2", "my-2"]}
-                      text="Start"
+                      text="Continue"
                       onClick={() => onCourseClick(item)}
                     />
-                    {/* <Button
+                    <Button
                       className={["btn-outline-primary", ""]}
-                      text="More Info"
-                      onClick={() => setInfoState(item)}
+                      text="Leave course"
+                      onClick={leaveCourse}
                       π
-                    /> */}
+                    />
                     {/* {infoState && infoState.id === item.id && (
                       <div className="card-text text-wrap">
                         {infoState.moreInformation}

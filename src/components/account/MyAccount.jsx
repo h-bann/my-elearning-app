@@ -49,6 +49,7 @@ const MyAccount = () => {
     console.log(data);
     setDisplay("");
   };
+
   const deleteAccount = async () => {
     const { data } = await axios.delete(
       `http://localhost:6001/users/${userId}`
