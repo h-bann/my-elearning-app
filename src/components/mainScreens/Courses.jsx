@@ -43,12 +43,8 @@ const Courses = () => {
         }
       );
       console.log(data);
-      return;
     }
-
-    if (!loginState) {
-      console.log("not logged in");
-    }
+    // ! ADD MESSAGE SAYING CAN'T ENROL IF NOT LOGGED IN
   };
 
   if (!courses) {
