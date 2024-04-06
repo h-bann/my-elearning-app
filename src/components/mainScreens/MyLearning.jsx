@@ -4,14 +4,11 @@ import {
   selectModuleContent,
   setModuleContent,
   setCourseContent,
-  setCourses,
   setEnrolledCourses,
   selectEnrolledCourses,
-  selectCourses,
 } from "../../redux/coursesSlice";
 import Button from "../genericComponents/Button";
 import ModuleContent from "../main/ModuleContent";
-import { selectUserId } from "../../redux/accountSlice";
 import axios from "axios";
 import { getFromLocal } from "../../storage";
 
@@ -19,7 +16,6 @@ const MyLearning = () => {
   const dispatch = useDispatch();
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
-  const userId = useSelector(selectUserId);
   const styles = { width: "15rem" };
 
   const getEnrolledCourses = async () => {
@@ -32,7 +28,6 @@ const MyLearning = () => {
 
   useEffect(() => {
     getEnrolledCourses();
-    console.log("ran");
   }, []);
 
   const onCourseClick = (item) => {
@@ -42,10 +37,13 @@ const MyLearning = () => {
 
   const leaveCourse = async (item) => {
     const { data } = await axios.delete(
-      `http://localhost:6001/courses/enrolled/${userId}/${item.id}`
+      `http://localhost:6001/courses/deleteEnrolled/${item.id}`,
+      {
+        headers: { token: getFromLocal("token") },
+      }
     );
-    getEnrolledCourses();
     console.log(data);
+    getEnrolledCourses();
   };
 
   if (!enrolledCourses || !enrolledCourses.length) {

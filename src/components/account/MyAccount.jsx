@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { setLoginState, setMainScreen } from "../../redux/accountSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Button from "../genericComponents/Button";
 import Input from "../genericComponents/Input";
 import Label from "../genericComponents/Label";
