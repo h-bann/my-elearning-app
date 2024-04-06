@@ -10,13 +10,15 @@ import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
 import Button from "../genericComponents/Button";
 import axios from "axios";
-import { selectUserId } from "../../redux/accountSlice";
+import { selectLoginState, selectUserId } from "../../redux/accountSlice";
+import { getFromLocal } from "../../storage";
 
 const Courses = () => {
   const [infoState, setInfoState] = useState();
   const courses = useSelector(selectCourses);
   const userId = useSelector(selectUserId);
   const moduleContent = useSelector(selectModuleContent);
+  const loginState = useSelector(selectLoginState);
   const dispatch = useDispatch();
 
   const styles = { width: "15rem" };
@@ -30,14 +32,22 @@ const Courses = () => {
   }, []);
 
   const onCourseClick = async (item) => {
-    dispatch(setModuleContent(item));
-    dispatch(setCourseContent(item.modules[0]));
-    if (userId) {
+    if (loginState) {
+      dispatch(setModuleContent(item));
+      dispatch(setCourseContent(item.modules[0]));
       const { data } = await axios.patch(
-        `http://localhost:6001/courses/enrolled/${userId}`,
-        item
+        `http://localhost:6001/courses/enrolled`,
+        item,
+        {
+          headers: { token: getFromLocal("token") },
+        }
       );
       console.log(data);
+      return;
+    }
+
+    if (!loginState) {
+      console.log("not logged in");
     }
   };
 

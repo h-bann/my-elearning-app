@@ -1,20 +1,17 @@
 import Label from "../genericComponents/Label";
 import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import {
-  selectSignupDetails,
   selectError,
   setError,
-  setLoginDetails,
-  setUserId,
   setLoginState,
   setMainScreen,
 } from "../../redux/accountSlice";
-import sha256 from "sha256";
 import { loginSchema, formValidation } from "../../utils/Joi";
 import axios from "axios";
+import { storeSingleInLocal } from "../../storage";
 
 const LoginContainer = () => {
   const dispatch = useDispatch();
@@ -34,14 +31,13 @@ const LoginContainer = () => {
       "http://localhost:6001/users/login",
       userInput
     );
-    console.log(data);
-    if (data.code === 0) {
+    if (!data.code) {
       setAccountError(data.message);
     }
-    if (data.code === 1) {
+    if (data.code) {
       dispatch(setMainScreen(0));
       dispatch(setLoginState(true));
-      dispatch(setUserId(data.id));
+      storeSingleInLocal("token", data.token);
     }
   };
   return (
