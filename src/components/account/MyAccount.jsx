@@ -1,37 +1,31 @@
 import React, { useEffect, useState } from "react";
-import {
-  selectSignupDetails,
-  selectUserId,
-  setLoginState,
-  setMainScreen,
-  setSignupDetails,
-} from "../../redux/accountSlice";
+import { setLoginState, setMainScreen } from "../../redux/accountSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../genericComponents/Button";
 import Input from "../genericComponents/Input";
 import Label from "../genericComponents/Label";
 import { formValidation, userDetailsResetSchema } from "../../utils/Joi";
-import sha256 from "sha256";
 import axios from "axios";
-import ChangeUsername from "./ChangeUsername";
+import { getFromLocal } from "../../storage";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
-  const signupDetails = useSelector(selectSignupDetails);
   const [display, setDisplay] = useState("");
   const [errors, setErrors] = useState("");
   const [userInput, setUserInput] = useState();
-
-  const userId = useSelector(selectUserId);
   const [userDetails, setUserDetails] = useState();
 
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await axios.get(`http://localhost:6001/users/${userId}`);
-      setUserDetails(data.user);
+      const { data } = await axios.get("http://localhost:6001/users/getUser", {
+        headers: { token: getFromLocal("token") },
+      });
+      if (data.code) {
+        setUserDetails(data.user);
+      }
     };
     getUser();
-  }, [userId, display]);
+  }, [display]);
 
   const onInput = (e) => {
     const updatedState = { ...userInput, [e.target.name]: e.target.value };
@@ -43,21 +37,25 @@ const MyAccount = () => {
     e.preventDefault();
     const { passwordConfirmation, currentPassword, ...newState } = userInput;
     const { data } = await axios.patch(
-      `http://localhost:6001/users/${userId}`,
-      newState
+      `http://localhost:6001/users/update`,
+      newState,
+      {
+        headers: { token: getFromLocal("token") },
+      }
     );
-    console.log(data);
-    setDisplay("");
+    if (data.code) {
+      setDisplay("");
+    }
   };
 
   const deleteAccount = async () => {
-    const { data } = await axios.delete(
-      `http://localhost:6001/users/${userId}`
-    );
-    dispatch(setLoginState(false));
-    dispatch(setMainScreen(0));
-
-    console.log(data);
+    const { data } = await axios.delete(`http://localhost:6001/users/delete`, {
+      headers: { token: getFromLocal("token") },
+    });
+    if (data.code) {
+      dispatch(setLoginState(false));
+      dispatch(setMainScreen(0));
+    }
   };
 
   if (!userDetails) {

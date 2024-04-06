@@ -11,6 +11,7 @@ import {
 } from "../../redux/accountSlice";
 import { formValidation, signupSchema } from "../../utils/Joi";
 import axios from "axios";
+import { storeSingleInLocal } from "../../storage";
 
 const SignupContainer = () => {
   const dispatch = useDispatch();
@@ -31,16 +32,15 @@ const SignupContainer = () => {
 
     const { data } = await axios.post("http://localhost:6001/users", newState);
     console.log(data);
-    if (data.code === 0) {
+    if (!data.code) {
       setAccountError(data.message);
       return;
     }
-    if (data.code === 1) {
+    if (data.code) {
       dispatch(setMainScreen(0));
       dispatch(setLoginState(true));
-      dispatch(setUserId(data.id));
+      storeSingleInLocal("token", data.token);
     }
-    dispatch(setSignupDetails(newState));
   };
 
   return (
