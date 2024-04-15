@@ -24,6 +24,10 @@ const ModuleContent = () => {
     setState(item.id);
   };
 
+  if (!moduleContent) {
+    <p>Loading</p>;
+  }
+
   return (
     <div className="row d-flex flex-nowrap">
       <div className="col-3 modules">

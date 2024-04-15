@@ -15,7 +15,7 @@ const Navigation = () => {
     <>
       <Nav.Link
         className={` ${mainScreen === 0 && "link"}`}
-        href="#"
+        href="/homepage"
         onClick={() => {
           dispatch(setMainScreen(0));
         }}
@@ -24,10 +24,10 @@ const Navigation = () => {
       </Nav.Link>
 
       <Nav.Link
-        className={` ${mainScreen === 1 ? "link" : ""}`}
-        href="#"
+        className={`${mainScreen === 1 ? "link" : ""}`}
+        href="/courses"
         onClick={() => {
-          dispatch(setMainScreen(1));
+          // dispatch(setMainScreen(1));
           dispatch(setModuleContent(null));
           dispatch(setCourseContent(null));
         }}
@@ -38,7 +38,7 @@ const Navigation = () => {
       {loginState && (
         <Nav.Link
           className={` ${mainScreen === 2 ? "link" : ""}`}
-          href="#"
+          href="/myLearning"
           onClick={() => {
             dispatch(setMainScreen(2));
             dispatch(setModuleContent(null));
@@ -51,7 +51,7 @@ const Navigation = () => {
 
       <Nav.Link
         className={`${mainScreen === 3 ? "link" : ""}`}
-        href="#"
+        href="/contact"
         onClick={() => {
           dispatch(setMainScreen(3));
         }}

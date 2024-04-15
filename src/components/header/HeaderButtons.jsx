@@ -9,11 +9,18 @@ import {
 import { clearLocal, getFromLocal } from "../../storage";
 import Nav from "react-bootstrap/Nav";
 import axios from "axios";
+import { useEffect } from "react";
 
 const HeaderButtons = () => {
   const dispatch = useDispatch();
   const loginState = useSelector(selectLoginState);
   const mainScreen = useSelector(selectMainScreen);
+  // const loggedIn = getFromLocal("loggedIn");
+  // console.log(loggedIn);
+
+  useEffect(() => {
+    dispatch(setLoginState(getFromLocal("loggedIn")));
+  }, []);
 
   const onLogOutClick = async () => {
     const { data } = await axios.delete(`http://localhost:6001/users/logout`, {
@@ -22,16 +29,14 @@ const HeaderButtons = () => {
     if (data.code) {
       dispatch(setLoginState(false));
       dispatch(setMainScreen(0));
-      dispatch(setError(false));
       clearLocal();
     }
   };
-
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
   return loginState === false ? (
     <Nav.Link
       className={` ${mainScreen === 5 ? "link" : ""}`}
-      href="#"
+      href="/loginSignup"
       onClick={() => {
         dispatch(setMainScreen(5));
       }}
@@ -42,14 +47,14 @@ const HeaderButtons = () => {
     <>
       <Nav.Link
         className={`${mainScreen === 4 ? "link" : ""}`}
-        href="#"
+        href="/userAccount"
         onClick={() => {
           dispatch(setMainScreen(4));
         }}
       >
         My Account
       </Nav.Link>
-      <Nav.Link className="" href="#" onClick={onLogOutClick}>
+      <Nav.Link className="" href="/homepage" onClick={onLogOutClick}>
         Log Out
       </Nav.Link>
     </>
