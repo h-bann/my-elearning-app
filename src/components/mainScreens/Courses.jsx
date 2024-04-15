@@ -23,11 +23,13 @@ const Courses = () => {
 
   const styles = { width: "15rem" };
 
+  console.log(moduleContent);
   useEffect(() => {
     const getCourses = async () => {
       const { data } = await axios.get(`http://localhost:6001/courses`);
       dispatch(setCourses(data.content));
     };
+    console.log(data);
     getCourses();
   }, []);
 
