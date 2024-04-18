@@ -10,13 +10,13 @@ import { clearLocal, getFromLocal } from "../../storage";
 import Nav from "react-bootstrap/Nav";
 import axios from "axios";
 import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const HeaderButtons = () => {
   const dispatch = useDispatch();
   const loginState = useSelector(selectLoginState);
   const mainScreen = useSelector(selectMainScreen);
-  // const loggedIn = getFromLocal("loggedIn");
-  // console.log(loggedIn);
+  const loggedIn = getFromLocal("token");
 
   useEffect(() => {
     dispatch(setLoginState(getFromLocal("loggedIn")));
@@ -33,30 +33,30 @@ const HeaderButtons = () => {
     }
   };
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
-  return loginState === false ? (
-    <Nav.Link
+  return !loggedIn ? (
+    <Link
       className={` ${mainScreen === 5 ? "link" : ""}`}
-      href="/loginSignup"
+      to="/loginSignup"
       onClick={() => {
         dispatch(setMainScreen(5));
       }}
     >
       Sign up/Login
-    </Nav.Link>
+    </Link>
   ) : (
     <>
-      <Nav.Link
+      <Link
         className={`${mainScreen === 4 ? "link" : ""}`}
-        href="/userAccount"
+        to="/userAccount"
         onClick={() => {
           dispatch(setMainScreen(4));
         }}
       >
         My Account
-      </Nav.Link>
-      <Nav.Link className="" href="/homepage" onClick={onLogOutClick}>
+      </Link>
+      <Link className="" to="/homepage" onClick={onLogOutClick}>
         Log Out
-      </Nav.Link>
+      </Link>
     </>
   );
 };

@@ -1,31 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoginState, setMainScreen } from "../../redux/accountSlice";
+import {
+  selectLoginState,
+  setMainScreen,
+  setLoginState,
+} from "../../redux/accountSlice";
 import { setModuleContent, setCourseContent } from "../../redux/coursesSlice";
 import { selectMainScreen } from "../../redux/accountSlice";
 import Nav from "react-bootstrap/Nav";
+import { getFromLocal } from "../../storage";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
-  const loginState = useSelector(selectLoginState);
   const mainScreen = useSelector(selectMainScreen);
+  const loginState = useSelector(selectLoginState);
   const dispatch = useDispatch();
 
   return (
     // * if user is logged in, display My Learning in nav
     <>
-      <Nav.Link
+      <Link
         className={` ${mainScreen === 0 && "link"}`}
-        href="/homepage"
+        to="/homepage"
         onClick={() => {
           dispatch(setMainScreen(0));
         }}
       >
         Home
-      </Nav.Link>
+      </Link>
 
-      <Nav.Link
+      <Link
         className={`${mainScreen === 1 ? "link" : ""}`}
-        href="/courses"
+        to="/courses"
         onClick={() => {
           // dispatch(setMainScreen(1));
           dispatch(setModuleContent(null));
@@ -33,12 +39,12 @@ const Navigation = () => {
         }}
       >
         Courses
-      </Nav.Link>
+      </Link>
 
       {loginState && (
-        <Nav.Link
+        <Link
           className={` ${mainScreen === 2 ? "link" : ""}`}
-          href="/myLearning"
+          to="/myLearning"
           onClick={() => {
             dispatch(setMainScreen(2));
             dispatch(setModuleContent(null));
@@ -46,18 +52,18 @@ const Navigation = () => {
           }}
         >
           My Learning
-        </Nav.Link>
+        </Link>
       )}
 
-      <Nav.Link
+      <Link
         className={`${mainScreen === 3 ? "link" : ""}`}
-        href="/contact"
+        to="/contact"
         onClick={() => {
           dispatch(setMainScreen(3));
         }}
       >
         Contact
-      </Nav.Link>
+      </Link>
     </>
   );
 };

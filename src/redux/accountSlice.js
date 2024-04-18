@@ -1,9 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { storeMultipleInLocal, storeSingleInLocal } from "../storage";
+import {
+  getFromLocal,
+  storeMultipleInLocal,
+  storeSingleInLocal,
+} from "../storage";
 import sha256 from "sha256";
 
 const initialState = {
-  loggedIn: false,
+  loggedIn: getFromLocal("token") ? true : false,
   mainScreen: 0,
   error: false,
 };
@@ -31,16 +35,13 @@ export const accountSlice = createSlice({
       state.storeLogin = payload;
       state.setError = true;
       state.mainScreen = 0;
-      state.loggedIn = true;
       storeMultipleInLocal({ ...payload });
     },
     setUserId: (state, { payload }) => {
       state.userId = payload;
     },
-
     setLoginState: (state, { payload }) => {
       state.loggedIn = payload;
-      storeSingleInLocal("loggedIn", payload);
     },
     setMainScreen: (state, { payload }) => {
       state.mainScreen = payload;
