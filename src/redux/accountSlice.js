@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  getFromLocal,
-  storeMultipleInLocal,
-  storeSingleInLocal,
-} from "../storage";
+import { getFromLocal, storeMultipleInLocal } from "../storage";
 import sha256 from "sha256";
 
 const initialState = {

@@ -20,7 +20,8 @@ const ModuleContent = () => {
   };
 
   const onModuleClick = (item) => {
-    dispatch(setCourseContent(item));
+    console.log(item);
+    dispatch(setCourseContent(item.moduleContent));
     setState(item.id);
   };
 

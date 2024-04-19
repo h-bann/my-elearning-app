@@ -7,7 +7,7 @@ const CourseContent = () => {
 
   return (
     <div className="mb-5">
-      {courseContent.content.map(({ type, content }) => {
+      {courseContent.map(({ type, content }) => {
         switch (type) {
           case "mainHeading":
             return <h3>{content}</h3>;

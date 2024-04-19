@@ -7,13 +7,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./scss/custom.scss";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
-import Error from "./components/mainScreens/Error.jsx";
-import Courses from "./components/mainScreens/Courses.jsx";
-import Contact from "./components/mainScreens/Contact.jsx";
-import MyLearning from "./components/mainScreens/MyLearning.jsx";
-import UserAccount from "./components/mainScreens/UserAccount.jsx";
-import LoginSignup from "./components/mainScreens/LoginSignup.jsx";
-import Homepage from "./components/mainScreens/Homepage.jsx";
+import Error from "./components/pages/Error.jsx";
+import Courses from "./components/pages/Courses.jsx";
+import Contact from "./components/pages/Contact.jsx";
+import MyLearning from "./components/pages/MyLearning.jsx";
+import UserAccount from "./components/pages/UserAccount.jsx";
+import LoginSignup from "./components/pages/LoginSignup.jsx";
+import Homepage from "./components/pages/Homepage.jsx";
 
 const router = createBrowserRouter([
   {
