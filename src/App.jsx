@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "./components/mainScreens/Homepage";
-import Courses from "./components/mainScreens/Courses";
-import Contact from "./components/mainScreens/Contact";
-import MyLearning from "./components/mainScreens/MyLearning";
-import UserAccount from "./components/mainScreens/UserAccount";
-import LoginSignup from "./components/mainScreens/LoginSignup";
+import Homepage from "./components/pages/Homepage";
+import Courses from "./components/pages/Courses";
+import Contact from "./components/pages/Contact";
+import MyLearning from "./components/pages/MyLearning";
+import UserAccount from "./components/pages/UserAccount";
+import LoginSignup from "./components/pages/LoginSignup";
 import Layout from "./components/Layout";
-import Error from "./components/mainScreens/Error";
+import Error from "./components/pages/Error";
 
 const App = () => {
   return (

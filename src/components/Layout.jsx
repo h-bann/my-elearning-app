@@ -8,14 +8,6 @@ import { selectLoginState, setLoginState } from "../redux/accountSlice";
 import { clearLocal, getFromLocal } from "../storage";
 
 const Layout = () => {
-  const loginState = useSelector(selectLoginState);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setLoginState(getFromLocal("loggedIn")));
-  }, []);
-
   return (
     <>
       <Header />

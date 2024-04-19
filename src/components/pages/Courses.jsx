@@ -10,36 +10,35 @@ import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
 import Button from "../genericComponents/Button";
 import axios from "axios";
-import { selectLoginState, selectUserId } from "../../redux/accountSlice";
+import { selectLoginState } from "../../redux/accountSlice";
 import { getFromLocal } from "../../storage";
 
 const Courses = () => {
   const [infoState, setInfoState] = useState();
   const courses = useSelector(selectCourses);
-  const userId = useSelector(selectUserId);
   const moduleContent = useSelector(selectModuleContent);
   const loginState = useSelector(selectLoginState);
   const dispatch = useDispatch();
 
   const styles = { width: "15rem" };
 
-  console.log(moduleContent);
   useEffect(() => {
     const getCourses = async () => {
       const { data } = await axios.get(`http://localhost:6001/courses`);
       dispatch(setCourses(data.content));
-      console.log(data);
     };
+
     getCourses();
   }, []);
 
   const onCourseClick = async (item) => {
     if (loginState) {
+      console.log(item.modules[0].moduleContent);
       dispatch(setModuleContent(item));
-      dispatch(setCourseContent(item.modules[0]));
+      dispatch(setCourseContent(item.modules[0].moduleContent));
       const { data } = await axios.patch(
         `http://localhost:6001/courses/enrolled`,
-        item,
+        item.title,
         {
           headers: { token: getFromLocal("token") },
         }

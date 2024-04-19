@@ -18,10 +18,6 @@ const HeaderButtons = () => {
   const mainScreen = useSelector(selectMainScreen);
   const loggedIn = getFromLocal("token");
 
-  useEffect(() => {
-    dispatch(setLoginState(getFromLocal("loggedIn")));
-  }, []);
-
   const onLogOutClick = async () => {
     const { data } = await axios.delete(`http://localhost:6001/users/logout`, {
       headers: { token: getFromLocal("token") },

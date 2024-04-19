@@ -38,10 +38,9 @@ const LoginContainer = () => {
       setAccountError(data.message);
     }
     if (data.code) {
-      dispatch(setMainScreen(0));
       dispatch(setLoginState(true));
-      storeSingleInLocal("token", data.token);
       navigate("/homepage");
+      storeSingleInLocal("token", data.token);
     }
   };
 
