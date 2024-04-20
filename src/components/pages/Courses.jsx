@@ -12,6 +12,7 @@ import Button from "../genericComponents/Button";
 import axios from "axios";
 import { selectLoginState } from "../../redux/accountSlice";
 import { getFromLocal } from "../../storage";
+import { info } from "sass";
 
 const Courses = () => {
   const [infoState, setInfoState] = useState();
@@ -25,17 +26,17 @@ const Courses = () => {
   useEffect(() => {
     const getCourses = async () => {
       const { data } = await axios.get(`http://localhost:6001/courses`);
-      dispatch(setCourses(data.content));
+      dispatch(setCourses(data.courses));
+      console.log(data);
     };
-
     getCourses();
   }, []);
 
   const onCourseClick = async (item) => {
     if (loginState) {
-      console.log(item.modules[0].moduleContent);
-      dispatch(setModuleContent(item));
-      dispatch(setCourseContent(item.modules[0].moduleContent));
+      // records enrolled course against user's account
+      // dispatch(setModuleContent(item));
+      // dispatch(setCourseContent(item.modules[0].moduleContent));
       const { data } = await axios.patch(
         `http://localhost:6001/courses/enrolled`,
         item.title,
@@ -44,7 +45,14 @@ const Courses = () => {
         }
       );
       console.log(data);
+
+      // get's modules and content from database
+      const { courseContent } = await axios.get(
+        `http://localhost:6001/courses/${item.id}`
+      );
+      console.log(courseContent);
     }
+
     // ! ADD MESSAGE SAYING CAN'T ENROL IF NOT LOGGED IN
   };
 
@@ -71,7 +79,7 @@ const Courses = () => {
                 >
                   <img src={"../../../public/images/" + item.image} />
                   <div className="card-body">
-                    <h4 className="card-title">{item.title}</h4>
+                    <h4 className="card-title">{item.course_title}</h4>
                     <Button
                       className={["btn-primary", "me-2", "my-2"]}
                       text="Enrol"
@@ -81,11 +89,10 @@ const Courses = () => {
                       className={["btn-outline-primary", ""]}
                       text="More Info"
                       onClick={() => setInfoState(item)}
-                      π
                     />
                     {infoState && infoState.id === item.id && (
                       <div className="card-text text-wrap">
-                        {infoState.moreInformation}
+                        {infoState.more_info}
                       </div>
                     )}
                   </div>
