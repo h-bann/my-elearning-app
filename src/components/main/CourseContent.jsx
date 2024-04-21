@@ -20,20 +20,22 @@ const CourseContent = () => {
 
           case "list":
             return (
-              <ul>
-                {content.map((item) => {
+              <>
+                {/* {content.map((item) => {
                   return <li>{item}</li>;
-                })}
-              </ul>
+                })} */}
+                <li className="ms-3">{content}</li>
+              </>
             );
 
           case "subList":
             return (
-              <ul className="ms-5">
-                {content.map((item) => {
+              <>
+                {/* {content.map((item) => {
                   return <li>{item}</li>;
-                })}
-              </ul>
+                })} */}
+                <li className="ms-5">{content}</li>
+              </>
             );
 
           case "bold":
