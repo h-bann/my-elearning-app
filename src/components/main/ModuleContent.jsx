@@ -20,8 +20,7 @@ const ModuleContent = () => {
   };
 
   const onModuleClick = (item) => {
-    console.log(item);
-    dispatch(setCourseContent(item.moduleContent));
+    dispatch(setCourseContent(item.content));
     setState(item.id);
   };
 
@@ -32,7 +31,7 @@ const ModuleContent = () => {
   return (
     <div className="row d-flex flex-nowrap">
       <div className="col-3 modules">
-        {modules.map((item) => {
+        {moduleContent.map((item) => {
           return (
             <div
               className={`module-card card mb-3 d-flex justify-content-center align-items-center ${
@@ -42,7 +41,7 @@ const ModuleContent = () => {
               key={item.id}
               onClick={() => onModuleClick(item)}
             >
-              {item.moduleTitle}
+              {item.module_title}
             </div>
           );
         })}

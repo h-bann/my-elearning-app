@@ -12,7 +12,6 @@ import Button from "../genericComponents/Button";
 import axios from "axios";
 import { selectLoginState } from "../../redux/accountSlice";
 import { getFromLocal } from "../../storage";
-import { info } from "sass";
 
 const Courses = () => {
   const [infoState, setInfoState] = useState();
@@ -27,30 +26,35 @@ const Courses = () => {
     const getCourses = async () => {
       const { data } = await axios.get(`http://localhost:6001/courses`);
       dispatch(setCourses(data.courses));
-      console.log(data);
     };
     getCourses();
   }, []);
 
   const onCourseClick = async (item) => {
     if (loginState) {
-      // records enrolled course against user's account
-      // dispatch(setModuleContent(item));
-      // dispatch(setCourseContent(item.modules[0].moduleContent));
-      const { data } = await axios.patch(
-        `http://localhost:6001/courses/enrolled`,
-        item.title,
-        {
-          headers: { token: getFromLocal("token") },
-        }
-      );
-      console.log(data);
+      try {
+        // get's modules and content from database
+        const { data: courseContent } = await axios.get(
+          `http://localhost:6001/courses/${item.id}`,
+          {
+            headers: { token: getFromLocal("token") },
+          }
+        );
+        dispatch(setModuleContent(courseContent.course.modules));
+        dispatch(setCourseContent(courseContent.course.modules[0].content));
 
-      // get's modules and content from database
-      const { courseContent } = await axios.get(
-        `http://localhost:6001/courses/${item.id}`
-      );
-      console.log(courseContent);
+        // records enrolled course against user's account
+        const { data: enrolledCourse } = await axios.patch(
+          `http://localhost:6001/courses/enrolled`,
+          { course_title: item.course_title },
+          {
+            headers: { token: getFromLocal("token") },
+          }
+        );
+        // console.log(enrolledCourse);
+      } catch (error) {
+        console.error("Error", error);
+      }
     }
 
     // ! ADD MESSAGE SAYING CAN'T ENROL IF NOT LOGGED IN
