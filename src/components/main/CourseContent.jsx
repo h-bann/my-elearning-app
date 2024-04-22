@@ -7,7 +7,7 @@ const CourseContent = () => {
 
   return (
     <div className="mb-5">
-      {courseContent.content.map(({ type, content }) => {
+      {courseContent.map(({ type, content }) => {
         switch (type) {
           case "mainHeading":
             return <h3>{content}</h3>;
@@ -20,20 +20,22 @@ const CourseContent = () => {
 
           case "list":
             return (
-              <ul>
-                {content.map((item) => {
+              <>
+                {/* {content.map((item) => {
                   return <li>{item}</li>;
-                })}
-              </ul>
+                })} */}
+                <li className="ms-3">{content}</li>
+              </>
             );
 
           case "subList":
             return (
-              <ul className="ms-5">
-                {content.map((item) => {
+              <>
+                {/* {content.map((item) => {
                   return <li>{item}</li>;
-                })}
-              </ul>
+                })} */}
+                <li className="ms-5">{content}</li>
+              </>
             );
 
           case "bold":

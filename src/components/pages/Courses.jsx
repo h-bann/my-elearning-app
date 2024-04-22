@@ -10,13 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
 import Button from "../genericComponents/Button";
 import axios from "axios";
-import { selectLoginState, selectUserId } from "../../redux/accountSlice";
+import { selectLoginState } from "../../redux/accountSlice";
 import { getFromLocal } from "../../storage";
 
 const Courses = () => {
   const [infoState, setInfoState] = useState();
   const courses = useSelector(selectCourses);
-  const userId = useSelector(selectUserId);
   const moduleContent = useSelector(selectModuleContent);
   const loginState = useSelector(selectLoginState);
   const dispatch = useDispatch();
@@ -26,24 +25,38 @@ const Courses = () => {
   useEffect(() => {
     const getCourses = async () => {
       const { data } = await axios.get(`http://localhost:6001/courses`);
-      dispatch(setCourses(data.content));
+      dispatch(setCourses(data.courses));
     };
     getCourses();
   }, []);
 
   const onCourseClick = async (item) => {
     if (loginState) {
-      dispatch(setModuleContent(item));
-      dispatch(setCourseContent(item.modules[0]));
-      const { data } = await axios.patch(
-        `http://localhost:6001/courses/enrolled`,
-        item,
-        {
-          headers: { token: getFromLocal("token") },
-        }
-      );
-      console.log(data);
+      try {
+        // get's modules and content from database
+        const { data: courseContent } = await axios.get(
+          `http://localhost:6001/courses/${item.id}`,
+          {
+            headers: { token: getFromLocal("token") },
+          }
+        );
+        dispatch(setModuleContent(courseContent.course.modules));
+        dispatch(setCourseContent(courseContent.course.modules[0].content));
+
+        // records enrolled course against user's account
+        const { data: enrolledCourse } = await axios.patch(
+          `http://localhost:6001/courses/enrolled`,
+          { course_title: item.course_title },
+          {
+            headers: { token: getFromLocal("token") },
+          }
+        );
+        // console.log(enrolledCourse);
+      } catch (error) {
+        console.error("Error", error);
+      }
     }
+
     // ! ADD MESSAGE SAYING CAN'T ENROL IF NOT LOGGED IN
   };
 
@@ -70,7 +83,7 @@ const Courses = () => {
                 >
                   <img src={"../../../public/images/" + item.image} />
                   <div className="card-body">
-                    <h4 className="card-title">{item.title}</h4>
+                    <h4 className="card-title">{item.course_title}</h4>
                     <Button
                       className={["btn-primary", "me-2", "my-2"]}
                       text="Enrol"
@@ -80,11 +93,10 @@ const Courses = () => {
                       className={["btn-outline-primary", ""]}
                       text="More Info"
                       onClick={() => setInfoState(item)}
-                      π
                     />
                     {infoState && infoState.id === item.id && (
                       <div className="card-text text-wrap">
-                        {infoState.moreInformation}
+                        {infoState.more_info}
                       </div>
                     )}
                   </div>

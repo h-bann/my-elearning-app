@@ -12,12 +12,15 @@ import {
 import { loginSchema, formValidation } from "../../utils/Joi";
 import axios from "axios";
 import { storeSingleInLocal } from "../../storage";
+import Nav from "react-bootstrap/Nav";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginContainer = () => {
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState("");
   const [errors, setErrors] = useState("");
   const [accountError, setAccountError] = useState();
+  const navigate = useNavigate();
 
   const onInput = (e) => {
     const updatedUserInput = { ...userInput, [e.target.name]: e.target.value };
@@ -35,11 +38,12 @@ const LoginContainer = () => {
       setAccountError(data.message);
     }
     if (data.code) {
-      dispatch(setMainScreen(0));
       dispatch(setLoginState(true));
+      navigate("/homepage");
       storeSingleInLocal("token", data.token);
     }
   };
+
   return (
     <form className="form-signin" onInput={onInput} onSubmit={handleLogin}>
       <h1 className="h3 mb-3 fw-formal">Please sign in</h1>
@@ -69,12 +73,15 @@ const LoginContainer = () => {
         ) : undefined}
       </div>
 
+      {/* <Link to="/homepage"> */}
       <Button
         className={["btn btn-primary", "w-100"]}
         text="Login"
         type="submit"
         disabled={!userInput || errors ? true : false}
       />
+      {/* </Link> */}
+
       {accountError && <h6>{accountError}</h6>}
     </form>
   );
