@@ -1,63 +1,44 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoginState, setMainScreen } from "../../redux/accountSlice";
+import { selectLoginState } from "../../redux/accountSlice";
 import { setModuleContent, setCourseContent } from "../../redux/coursesSlice";
-import { selectMainScreen } from "../../redux/accountSlice";
-import Nav from "react-bootstrap/Nav";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const loginState = useSelector(selectLoginState);
-  const mainScreen = useSelector(selectMainScreen);
   const dispatch = useDispatch();
 
   return (
-    // * if user is logged in, display My Learning in nav
     <>
-      <Nav.Link
-        className={` ${mainScreen === 0 && "link"}`}
-        href="#"
-        onClick={() => {
-          dispatch(setMainScreen(0));
-        }}
-      >
+      <Link className="link" to="/homepage">
         Home
-      </Nav.Link>
-
-      <Nav.Link
-        className={` ${mainScreen === 1 ? "link" : ""}`}
-        href="#"
+      </Link>
+      <Link
+        className="link"
+        to="/courses"
         onClick={() => {
-          dispatch(setMainScreen(1));
           dispatch(setModuleContent(null));
           dispatch(setCourseContent(null));
         }}
       >
         Courses
-      </Nav.Link>
-
+      </Link>
+      {/* // * if user is logged in, display My Learning in nav */}
       {loginState && (
-        <Nav.Link
-          className={` ${mainScreen === 2 ? "link" : ""}`}
-          href="#"
+        <Link
+          className="link"
+          to="/myLearning"
           onClick={() => {
-            dispatch(setMainScreen(2));
             dispatch(setModuleContent(null));
             dispatch(setCourseContent(null));
           }}
         >
           My Learning
-        </Nav.Link>
+        </Link>
       )}
-
-      <Nav.Link
-        className={`${mainScreen === 3 ? "link" : ""}`}
-        href="#"
-        onClick={() => {
-          dispatch(setMainScreen(3));
-        }}
-      >
+      <Link className="link" to="/contact">
         Contact
-      </Nav.Link>
+      </Link>
     </>
   );
 };

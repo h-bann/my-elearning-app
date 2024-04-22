@@ -20,6 +20,7 @@ const MyAccount = () => {
       const { data } = await axios.get("http://localhost:6001/users/getUser", {
         headers: { token: getFromLocal("token") },
       });
+
       if (data.code) {
         setUserDetails(data.user);
       }
@@ -43,8 +44,10 @@ const MyAccount = () => {
         headers: { token: getFromLocal("token") },
       }
     );
+    console.log(data);
     if (data.code) {
-      setDisplay("");
+      setDisplay(null);
+      setUserInput(null);
     }
   };
 

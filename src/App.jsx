@@ -1,14 +1,29 @@
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
-import Interface from "./components/Interface";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from "./components/pages/Homepage";
+import Courses from "./components/pages/Courses";
+import Contact from "./components/pages/Contact";
+import MyLearning from "./components/pages/MyLearning";
+import UserAccount from "./components/pages/UserAccount";
+import LoginSignup from "./components/pages/LoginSignup";
+import Layout from "./components/Layout";
+import Error from "./components/pages/Error";
 
 const App = () => {
   return (
-    <>
-      <Header />
-      <Interface />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Homepage />} />
+          <Route path="courses" element={<Courses />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="myLearning" element={<MyLearning />} />
+          <Route path="loginSignup" element={<LoginSignup />} />
+          <Route path="userAccount" element={<UserAccount />} />
+          <Route path="*" element={<Error />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 
