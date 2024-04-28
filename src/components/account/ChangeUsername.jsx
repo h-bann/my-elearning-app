@@ -6,6 +6,7 @@ import axios from "axios";
 import Button from "../genericComponents/Button";
 import Input from "../genericComponents/Input";
 import { formValidation, userDetailsResetSchema } from "../../utils/Joi";
+import { url } from "../../config";
 
 const ChangeUsername = () => {
   const dispatch = useDispatch();
@@ -14,9 +15,10 @@ const ChangeUsername = () => {
   const userId = useSelector(selectUserId);
   const [errors, setErrors] = useState("");
   const [userDetails, setUserDetails] = useState();
+
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await axios.get(`http://localhost:6001/users/${userId}`);
+      const { data } = await axios.get(`${url}/users/${userId}`);
       setUserDetails(data.user);
     };
     getUser();
@@ -31,10 +33,7 @@ const ChangeUsername = () => {
   const updateUserDetails = async (e) => {
     e.preventDefault();
     const { passwordConfirmation, currentPassword, ...newState } = userInput;
-    const { data } = await axios.patch(
-      `http://localhost:6001/users/${userId}`,
-      newState
-    );
+    const { data } = await axios.patch(`${url}/users/${userId}`, newState);
     console.log(data);
     setDisplay("");
   };
