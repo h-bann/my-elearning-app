@@ -12,7 +12,6 @@ const ModuleContent = () => {
   const courseContent = useSelector(selectCourseContent);
   const dispatch = useDispatch();
   const [state, setState] = useState(1);
-  const { modules } = moduleContent;
 
   const styles = {
     width: "15rem",

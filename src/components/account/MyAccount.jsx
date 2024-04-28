@@ -7,6 +7,7 @@ import Label from "../genericComponents/Label";
 import { formValidation, userDetailsResetSchema } from "../../utils/Joi";
 import axios from "axios";
 import { getFromLocal } from "../../storage";
+import { url } from "../../config";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const MyAccount = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await axios.get("http://localhost:6001/users/getUser", {
+      const { data } = await axios.get(`${url}/users/getUser`, {
         headers: { token: getFromLocal("token") },
       });
 
@@ -37,14 +38,9 @@ const MyAccount = () => {
   const updateUserDetails = async (e) => {
     e.preventDefault();
     const { passwordConfirmation, currentPassword, ...newState } = userInput;
-    const { data } = await axios.patch(
-      `http://localhost:6001/users/update`,
-      newState,
-      {
-        headers: { token: getFromLocal("token") },
-      }
-    );
-    console.log(data);
+    const { data } = await axios.patch(`${url}/users/update`, newState, {
+      headers: { token: getFromLocal("token") },
+    });
     if (data.code) {
       setDisplay(null);
       setUserInput(null);
@@ -52,7 +48,7 @@ const MyAccount = () => {
   };
 
   const deleteAccount = async () => {
-    const { data } = await axios.delete(`http://localhost:6001/users/delete`, {
+    const { data } = await axios.delete(`${url}/users/delete`, {
       headers: { token: getFromLocal("token") },
     });
     if (data.code) {
