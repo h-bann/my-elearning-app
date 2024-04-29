@@ -82,7 +82,7 @@ const Courses = () => {
                   style={styles}
                   key={item.id}
                 >
-                  <img src={"../../../public/images/" + item.image} />
+                  <img src={"./images/" + item.image} />
                   <div className="card-body">
                     <h4 className="card-title">{item.course_title}</h4>
                     <Button
