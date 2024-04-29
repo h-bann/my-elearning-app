@@ -29,7 +29,7 @@ const SignupContainer = () => {
     // stops passwordConfirmation from being sent to store
     const { passwordConfirmation, ...newState } = userInput;
 
-    const { data } = await axios.post(`${url}/users`, newState);
+    const { data } = await axios.post(`${url}/users/addUser`, newState);
     console.log(data);
     if (!data.code) {
       setAccountError(data.message);

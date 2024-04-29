@@ -67,7 +67,7 @@ const MyLearning = () => {
                   style={styles}
                   key={item.id}
                 >
-                  <img src={"../../../public/images/" + item.image} />
+                  <img src={"./images/" + item.image} />
                   <div className="card-body">
                     <h4 className="card-title">{item.title}</h4>
                     <Button
