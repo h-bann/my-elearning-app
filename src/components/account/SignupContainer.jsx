@@ -8,6 +8,7 @@ import axios from "axios";
 import { storeSingleInLocal } from "../../storage";
 import { useNavigate } from "react-router-dom";
 import { setLoginState } from "../../redux/accountSlice";
+import { url } from "../../config";
 
 const SignupContainer = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const SignupContainer = () => {
     // stops passwordConfirmation from being sent to store
     const { passwordConfirmation, ...newState } = userInput;
 
-    const { data } = await axios.post("http://localhost:6001/users", newState);
+    const { data } = await axios.post(`${url}/users/addUser`, newState);
     console.log(data);
     if (!data.code) {
       setAccountError(data.message);

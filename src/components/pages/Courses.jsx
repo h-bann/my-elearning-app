@@ -12,6 +12,7 @@ import Button from "../genericComponents/Button";
 import axios from "axios";
 import { selectLoginState } from "../../redux/accountSlice";
 import { getFromLocal } from "../../storage";
+import { url } from "../../config";
 
 const Courses = () => {
   const [infoState, setInfoState] = useState();
@@ -24,7 +25,7 @@ const Courses = () => {
 
   useEffect(() => {
     const getCourses = async () => {
-      const { data } = await axios.get(`http://localhost:6001/courses`);
+      const { data } = await axios.get(`${url}/courses`);
       dispatch(setCourses(data.courses));
     };
     getCourses();
@@ -35,7 +36,7 @@ const Courses = () => {
       try {
         // get's modules and content from database
         const { data: courseContent } = await axios.get(
-          `http://localhost:6001/courses/${item.id}`,
+          `${url}/courses/getCourse/${item.id}`,
           {
             headers: { token: getFromLocal("token") },
           }
@@ -45,8 +46,8 @@ const Courses = () => {
 
         // records enrolled course against user's account
         const { data: enrolledCourse } = await axios.patch(
-          `http://localhost:6001/courses/enrolled`,
-          { course_title: item.course_title },
+          `${url}/courses/enrolled`,
+          { course_title: item.course_title, course_id: item.id },
           {
             headers: { token: getFromLocal("token") },
           }
@@ -81,7 +82,7 @@ const Courses = () => {
                   style={styles}
                   key={item.id}
                 >
-                  <img src={"../../../public/images/" + item.image} />
+                  <img src={"./images/" + item.image} />
                   <div className="card-body">
                     <h4 className="card-title">{item.course_title}</h4>
                     <Button

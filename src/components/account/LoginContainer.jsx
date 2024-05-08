@@ -14,6 +14,7 @@ import axios from "axios";
 import { storeSingleInLocal } from "../../storage";
 import Nav from "react-bootstrap/Nav";
 import { Link, useNavigate } from "react-router-dom";
+import { url } from "../../config";
 
 const LoginContainer = () => {
   const dispatch = useDispatch();
@@ -30,10 +31,7 @@ const LoginContainer = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post(
-      "http://localhost:6001/users/login",
-      userInput
-    );
+    const { data } = await axios.post(`${url}/users/login`, userInput);
     if (!data.code) {
       setAccountError(data.message);
     }

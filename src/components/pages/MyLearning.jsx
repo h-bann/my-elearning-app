@@ -11,6 +11,7 @@ import Button from "../genericComponents/Button";
 import ModuleContent from "../main/ModuleContent";
 import axios from "axios";
 import { getFromLocal } from "../../storage";
+import { url } from "../../config";
 
 const MyLearning = () => {
   const dispatch = useDispatch();
@@ -18,15 +19,13 @@ const MyLearning = () => {
   const moduleContent = useSelector(selectModuleContent);
   const styles = { width: "15rem" };
 
-  const getEnrolledCourses = async () => {
-    const { data } = await axios.get(`http://localhost:6001/users`, {
-      headers: { token: getFromLocal("token") },
-    });
-    const { enrolledCourses } = data[0];
-    dispatch(setEnrolledCourses(enrolledCourses));
-  };
-
   useEffect(() => {
+    const getEnrolledCourses = async () => {
+      const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
+        headers: { token: getFromLocal("token") },
+      });
+      dispatch(setEnrolledCourses(data.enrolledCourses));
+    };
     getEnrolledCourses();
   }, []);
 
@@ -37,7 +36,7 @@ const MyLearning = () => {
 
   const leaveCourse = async (item) => {
     const { data } = await axios.delete(
-      `http://localhost:6001/courses/deleteEnrolled/${item.id}`,
+      `${url}/courses/deleteEnrolled/${item.id}`,
       {
         headers: { token: getFromLocal("token") },
       }
@@ -68,7 +67,7 @@ const MyLearning = () => {
                   style={styles}
                   key={item.id}
                 >
-                  <img src={"../../../public/images/" + item.image} />
+                  <img src={"./images/" + item.image} />
                   <div className="card-body">
                     <h4 className="card-title">{item.title}</h4>
                     <Button
