@@ -6,8 +6,9 @@ import Input from "../genericComponents/Input";
 import Label from "../genericComponents/Label";
 import { formValidation, userDetailsResetSchema } from "../../utils/Joi";
 import axios from "axios";
-import { getFromLocal } from "../../storage";
+import { getFromLocal, clearLocal } from "../../storage";
 import { url } from "../../config";
+import { useNavigate } from "react-router-dom";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const MyAccount = () => {
   const [errors, setErrors] = useState("");
   const [userInput, setUserInput] = useState();
   const [userDetails, setUserDetails] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
@@ -53,7 +55,8 @@ const MyAccount = () => {
     });
     if (data.code) {
       dispatch(setLoginState(false));
-      dispatch(setMainScreen(0));
+      navigate("/homepage");
+      clearLocal();
     }
   };
 

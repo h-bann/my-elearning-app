@@ -2,9 +2,9 @@ TO DO
 
 <!-- - install rate limiter  -->
 <!-- - create .env files for credentials -->
+<!-- - link contact form to smtp -->
+<!-- - add delete account function -->
 
-- link contact form to smtp
-- add delete account function
 - add continue course function
 - add leave course function
 - add function to remember where user left off
