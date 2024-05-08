@@ -11,6 +11,7 @@ import Nav from "react-bootstrap/Nav";
 import axios from "axios";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { url } from "../../config";
 
 const HeaderButtons = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const HeaderButtons = () => {
   const loggedIn = getFromLocal("token");
 
   const onLogOutClick = async () => {
-    const { data } = await axios.delete(`http://localhost:6001/users/logout`, {
+    const { data } = await axios.delete(`${url}/users/logout`, {
       headers: { token: getFromLocal("token") },
     });
     if (data.code) {
