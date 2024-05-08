@@ -53,7 +53,7 @@ const CourseContent = () => {
             );
 
           case "image":
-            return <img src={"../../../public/images/" + content} />;
+            return <img src={"./images/" + content} />;
 
           default:
             break;
