@@ -19,15 +19,16 @@ const MyLearning = () => {
   const moduleContent = useSelector(selectModuleContent);
   const styles = { width: "15rem" };
 
+  const getEnrolledCourses = async () => {
+    const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
+      headers: { token: getFromLocal("token") },
+    });
+    dispatch(setEnrolledCourses(data.enrolledCourses));
+  };
+
   useEffect(() => {
-    const getEnrolledCourses = async () => {
-      const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
-        headers: { token: getFromLocal("token") },
-      });
-      dispatch(setEnrolledCourses(data.enrolledCourses));
-    };
     getEnrolledCourses();
-  }, []);
+  }, [enrolledCourses]);
 
   const onCourseClick = (item) => {
     dispatch(setModuleContent(item));
@@ -35,13 +36,9 @@ const MyLearning = () => {
   };
 
   const leaveCourse = async (item) => {
-    const { data } = await axios.delete(
-      `${url}/courses/deleteEnrolled/${item.id}`,
-      {
-        headers: { token: getFromLocal("token") },
-      }
-    );
-    console.log(data);
+    await axios.delete(`${url}/courses/deleteEnrolled/${item.id}`, {
+      headers: { token: getFromLocal("token") },
+    });
     getEnrolledCourses();
   };
 
