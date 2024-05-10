@@ -15,7 +15,7 @@ const ModuleContent = () => {
 
   const styles = {
     width: "15rem",
-    height: "5rem",
+    // height: "5rem",
   };
 
   const onModuleClick = (item) => {
@@ -29,11 +29,11 @@ const ModuleContent = () => {
 
   return (
     <div className="row d-flex flex-nowrap">
-      <div className="col-3 modules">
+      <div className="modules">
         {moduleContent.map((item) => {
           return (
             <div
-              className={`module-card card mb-3 d-flex justify-content-center align-items-center ${
+              className={`module-card d-flex p-1 align-items-center ${
                 state === item.id && "selected"
               }`}
               style={styles}
@@ -45,7 +45,7 @@ const ModuleContent = () => {
           );
         })}
       </div>
-      <div className="col-9 content">{courseContent && <CourseContent />}</div>
+      <div className="content">{courseContent && <CourseContent />}</div>
     </div>
   );
 };
