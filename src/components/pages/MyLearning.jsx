@@ -2,21 +2,27 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectModuleContent,
+  setCourses,
   setModuleContent,
   setCourseContent,
   setEnrolledCourses,
   selectEnrolledCourses,
+  selectCourses,
 } from "../../redux/coursesSlice";
 import Button from "../genericComponents/Button";
 import ModuleContent from "../main/ModuleContent";
 import axios from "axios";
 import { getFromLocal } from "../../storage";
 import { url } from "../../config";
+import { selectLoginState } from "../../redux/accountSlice";
 
 const MyLearning = () => {
   const dispatch = useDispatch();
+  const courses = useSelector(selectCourses);
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
+  const loginState = useSelector(selectLoginState);
+
   const styles = { width: "15rem" };
 
   const getEnrolledCourses = async () => {
@@ -28,11 +34,30 @@ const MyLearning = () => {
 
   useEffect(() => {
     getEnrolledCourses();
-  }, [enrolledCourses]);
+  }, []);
 
-  const onCourseClick = (item) => {
-    dispatch(setModuleContent(item));
-    dispatch(setCourseContent(item.modules[0]));
+  useEffect(() => {
+    const getCourses = async () => {
+      const { data } = await axios.get(`${url}/courses`);
+      dispatch(setCourses(data.courses));
+    };
+    getCourses();
+  }, []);
+
+  //
+
+  const onCourseClick = async (item) => {
+    if (loginState) {
+      // get's modules and content from database
+      const { data: courseContent } = await axios.get(
+        `${url}/courses/getCourse/${item.id}`,
+        {
+          headers: { token: getFromLocal("token") },
+        }
+      );
+      dispatch(setModuleContent(courseContent.course.modules));
+      dispatch(setCourseContent(courseContent.course.modules[0].content));
+    }
   };
 
   const leaveCourse = async (item) => {
