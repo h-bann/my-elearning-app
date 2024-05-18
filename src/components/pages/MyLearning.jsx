@@ -50,11 +50,12 @@ const MyLearning = () => {
     if (loginState) {
       // get's modules and content from database
       const { data: courseContent } = await axios.get(
-        `${url}/courses/getCourse/${item.id}`,
+        `${url}/courses/getCourse/${item.course_id}`,
         {
           headers: { token: getFromLocal("token") },
         }
       );
+      console.log(courseContent);
       dispatch(setModuleContent(courseContent.course.modules));
       dispatch(setCourseContent(courseContent.course.modules[0].content));
     }
