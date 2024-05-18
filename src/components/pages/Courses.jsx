@@ -47,7 +47,11 @@ const Courses = () => {
         // records enrolled course against user's account
         const { data: enrolledCourse } = await axios.patch(
           `${url}/courses/enrolled`,
-          { course_title: item.course_title, course_id: item.id },
+          {
+            course_title: item.course_title,
+            course_id: item.id,
+            image: item.image,
+          },
           {
             headers: { token: getFromLocal("token") },
           }

@@ -61,7 +61,7 @@ const MyLearning = () => {
   };
 
   const leaveCourse = async (item) => {
-    await axios.delete(`${url}/courses/deleteEnrolled/${item.id}`, {
+    await axios.delete(`${url}/courses/deleteEnrolled/${item.course_id}`, {
       headers: { token: getFromLocal("token") },
     });
     getEnrolledCourses();
