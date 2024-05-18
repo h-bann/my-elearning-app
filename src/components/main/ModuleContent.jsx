@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   selectModuleContent,
   selectCourseContent,
   setCourseContent,
   setCourseProgress,
   selectEnrolledCourses,
+  setEnrolledCourses,
 } from "../../redux/coursesSlice";
 import { url } from "../../config";
 import { clearLocal, getFromLocal } from "../../storage";
@@ -18,11 +19,30 @@ const ModuleContent = () => {
   const moduleContent = useSelector(selectModuleContent);
   const courseContent = useSelector(selectCourseContent);
   const dispatch = useDispatch();
+  const [state, setState] = useState(moduleContent[0].id);
 
-  const activeModuleState = enrolledCourses.find((item) => {
-    return item.course_id === moduleContent[0].course_id;
-  });
-  const [state, setState] = useState(activeModuleState.course_progress);
+  // const getEnrolledCourses = async () => {
+  //   const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
+  //     headers: { token: getFromLocal("token") },
+  //   });
+  //   dispatch(setEnrolledCourses(data.enrolledCourses));
+  // };
+
+  // useEffect(() => {
+  //   getEnrolledCourses();
+  // }, [moduleContent]);
+  // console.log(enrolledCourses);
+  useEffect(() => {
+    if (enrolledCourses.length) {
+      const index = enrolledCourses.find((item) => {
+        console.log(item.course_id);
+        return item.course_id === moduleContent[0].course_id;
+      });
+      console.log(moduleContent[0].course_id);
+      console.log(enrolledCourses);
+      setState(index.course_progress);
+    }
+  }, []);
 
   const styles = {
     width: "15rem",
@@ -33,7 +53,7 @@ const ModuleContent = () => {
     dispatch(setCourseContent(item.content));
     dispatch(setCourseProgress(item.id));
     setState(item.id);
-    const { datas } = await axios.patch(
+    const { data } = await axios.patch(
       `${url}/courses/courseProgress  `,
       { moduleId: item.id, courseId: item.course_id },
       {

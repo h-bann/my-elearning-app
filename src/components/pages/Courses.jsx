@@ -5,6 +5,7 @@ import {
   selectModuleContent,
   setModuleContent,
   setCourseContent,
+  setEnrolledCourses,
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
@@ -31,6 +32,17 @@ const Courses = () => {
     getCourses();
   }, []);
 
+  const getEnrolledCourses = async () => {
+    const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
+      headers: { token: getFromLocal("token") },
+    });
+    dispatch(setEnrolledCourses(data.enrolledCourses));
+  };
+
+  useEffect(() => {
+    getEnrolledCourses();
+  }, [moduleContent]);
+
   const onCourseClick = async (item) => {
     if (loginState) {
       try {
@@ -56,7 +68,16 @@ const Courses = () => {
             headers: { token: getFromLocal("token") },
           }
         );
-        // console.log(enrolledCourse);
+        const { data: progress } = await axios.patch(
+          `${url}/courses/courseProgress`,
+          {
+            moduleId: courseContent.course.modules[0].id,
+            courseId: item.id,
+          },
+          {
+            headers: { token: getFromLocal("token") },
+          }
+        );
       } catch (error) {
         console.error("Error", error);
       }
