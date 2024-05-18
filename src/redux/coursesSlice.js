@@ -24,6 +24,9 @@ export const coursesSlice = createSlice({
     setMoreInfoContent: (state, { payload }) => {
       state.moreInfo = payload;
     },
+    setCourseProgress: (state, { payload }) => {
+      state.courseProgress = payload;
+    },
   },
 });
 
@@ -33,6 +36,7 @@ export const {
   setModuleContent,
   setCourseContent,
   setMoreInfoContent,
+  setCourseProgress,
 } = coursesSlice.actions;
 
 // * this is how you retrieve from store
@@ -42,5 +46,6 @@ export const selectEnrolledCourses = (state) => state.courses.enrolledCourses;
 export const selectModuleContent = (state) => state.courses.moduleContent;
 export const selectCourseContent = (state) => state.courses.courseContent;
 export const selectMoreInfoContent = (state) => state.courses.moreInfo;
+export const selectCourseProgress = (state) => state.courses.courseProgress;
 
 export default coursesSlice.reducer;

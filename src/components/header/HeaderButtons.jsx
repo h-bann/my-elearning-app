@@ -5,7 +5,6 @@ import {
   selectMainScreen,
 } from "../../redux/accountSlice";
 import { clearLocal, getFromLocal } from "../../storage";
-import Nav from "react-bootstrap/Nav";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { url } from "../../config";
@@ -26,6 +25,7 @@ const HeaderButtons = () => {
       navigate("/homepage");
     }
   };
+
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
   return !loggedIn ? (
     <Link
@@ -42,7 +42,7 @@ const HeaderButtons = () => {
       <Link className={`${mainScreen === 4 ? "link" : ""}`} to="/userAccount">
         My Account
       </Link>
-      <Link className="" to="/homepage" onClick={onLogOutClick}>
+      <Link className="" onClick={onLogOutClick}>
         Log Out
       </Link>
     </>
