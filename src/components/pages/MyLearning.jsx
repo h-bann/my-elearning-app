@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectModuleContent,
@@ -8,6 +8,7 @@ import {
   setEnrolledCourses,
   selectEnrolledCourses,
   selectCourses,
+  selectCourseContent,
 } from "../../redux/coursesSlice";
 import Button from "../genericComponents/Button";
 import ModuleContent from "../main/ModuleContent";
@@ -18,7 +19,6 @@ import { selectLoginState } from "../../redux/accountSlice";
 
 const MyLearning = () => {
   const dispatch = useDispatch();
-  const courses = useSelector(selectCourses);
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
   const loginState = useSelector(selectLoginState);
@@ -34,17 +34,7 @@ const MyLearning = () => {
 
   useEffect(() => {
     getEnrolledCourses();
-  }, []);
-
-  useEffect(() => {
-    const getCourses = async () => {
-      const { data } = await axios.get(`${url}/courses`);
-      dispatch(setCourses(data.courses));
-    };
-    getCourses();
-  }, []);
-
-  //
+  }, [moduleContent]);
 
   const onCourseClick = async (item) => {
     if (loginState) {
@@ -55,9 +45,21 @@ const MyLearning = () => {
           headers: { token: getFromLocal("token") },
         }
       );
-      console.log(courseContent);
-      dispatch(setModuleContent(courseContent.course.modules));
-      dispatch(setCourseContent(courseContent.course.modules[0].content));
+      // look through enrolledCourses to find one that user clicked
+      const course = enrolledCourses.find((courses) => {
+        return courses.course_id === courseContent.course.courseId;
+      });
+
+      if (course) {
+        dispatch(setModuleContent(courseContent.course.modules));
+        const content = courseContent.course.modules.find((module) => {
+          // find the index that matches the course progress of user
+          return module.id === course.course_progress;
+        });
+
+        // set course content to match user course progress
+        dispatch(setCourseContent(content.content));
+      }
     }
   };
 
