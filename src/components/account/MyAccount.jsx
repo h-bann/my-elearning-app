@@ -43,6 +43,7 @@ const MyAccount = () => {
     const { data } = await axios.patch(`${url}/users/update`, newState, {
       headers: { token: getFromLocal("token") },
     });
+
     if (data.code) {
       setDisplay(null);
       setUserInput(null);
