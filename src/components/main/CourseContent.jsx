@@ -7,7 +7,7 @@ const CourseContent = () => {
 
   return (
     <div className="mb-5">
-      {courseContent.map(({ type, content }) => {
+      {courseContent.map(({ type, content, id }) => {
         switch (type) {
           case "mainHeading":
             return <h3>{content}</h3>;
@@ -24,7 +24,9 @@ const CourseContent = () => {
                 {/* {content.map((item) => {
                   return <li>{item}</li>;
                 })} */}
-                <li className="ms-3">{content}</li>
+                <li key={id} className="ms-3">
+                  {content}
+                </li>
               </>
             );
 
@@ -34,7 +36,9 @@ const CourseContent = () => {
                 {/* {content.map((item) => {
                   return <li>{item}</li>;
                 })} */}
-                <li className="ms-5">{content}</li>
+                <li key={id} className="ms-5">
+                  {content}
+                </li>
               </>
             );
 

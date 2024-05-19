@@ -6,8 +6,8 @@ TO DO
 <!-- - add delete account function -->
 <!-- - add leave course function -->
 <!-- - add continue course function -->
+<!-- - add function to remember where user left off -->
 
-- add function to remember where user left off
 - change structure of course and how it's displayed
 - create sidebar to display modules/days
 - add ticks or something to show progress
