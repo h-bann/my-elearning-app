@@ -6,6 +6,7 @@ import {
   setModuleContent,
   setCourseContent,
   setEnrolledCourses,
+  selectEnrolledCourses,
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
@@ -19,6 +20,7 @@ const Courses = () => {
   const [infoState, setInfoState] = useState();
   const courses = useSelector(selectCourses);
   const moduleContent = useSelector(selectModuleContent);
+  const enrolledCourses = useSelector(selectEnrolledCourses);
   const loginState = useSelector(selectLoginState);
   const dispatch = useDispatch();
 
@@ -55,7 +57,6 @@ const Courses = () => {
         );
         dispatch(setModuleContent(courseContent.course.modules));
         dispatch(setCourseContent(courseContent.course.modules[0].content));
-
         // records enrolled course against user's account
         const { data: enrolledCourse } = await axios.patch(
           `${url}/courses/enrolled`,
@@ -68,6 +69,7 @@ const Courses = () => {
             headers: { token: getFromLocal("token") },
           }
         );
+
         const { data: progress } = await axios.patch(
           `${url}/courses/courseProgress`,
           {
