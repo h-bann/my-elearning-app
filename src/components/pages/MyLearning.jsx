@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectModuleContent,
@@ -22,6 +22,8 @@ const MyLearning = () => {
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
   const loginState = useSelector(selectLoginState);
+  const [state, setState] = useState();
+  const [isStateReady, setIsStateReady] = useState(false);
 
   const styles = { width: "15rem" };
 
@@ -56,7 +58,8 @@ const MyLearning = () => {
           // find the index that matches the course progress of user
           return module.id === course.course_progress;
         });
-
+        setState(content.id);
+        setIsStateReady(true);
         // set course content to match user course progress
         dispatch(setCourseContent(content.content));
       }
@@ -113,7 +116,9 @@ const MyLearning = () => {
           </div>
         </div>
       )}
-      {moduleContent !== null && <div> {<ModuleContent />}</div>}
+      {moduleContent !== null && isStateReady && (
+        <div> {<ModuleContent moduleId={state} />}</div>
+      )}
     </>
   );
 };
