@@ -1,27 +1,26 @@
-@import "../node_modules/bootstrap/scss/bootstrap";
+// @import "../node_modules/bootstrap/scss/bootstrap";
 
 main {
   min-height: 82vh;
 }
 
 header {
-  // position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   height: 90px;
-  background-color: #3fa444;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
 .navbar-brand {
   font-size: 1.4rem;
-  color: #f2f4ff;
+  color: #000000;
+  cursor: pointer;
 }
 
 .navbar-brand:hover {
-  color: #cecece;
+  color: #60259c;
   transition: color 0.2s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
 }

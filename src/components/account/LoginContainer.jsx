@@ -37,7 +37,7 @@ const LoginContainer = () => {
     }
     if (data.code) {
       dispatch(setLoginState(true));
-      navigate("/homepage");
+      navigate("/");
       storeSingleInLocal("token", data.token);
     }
   };

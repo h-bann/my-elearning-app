@@ -10,11 +10,11 @@ const Navigation = () => {
 
   return (
     <>
-      <Link className="link" to="/homepage">
+      <Link className="navLink" to="/">
         Home
       </Link>
       <Link
-        className="link"
+        className="navLink"
         to="/courses"
         onClick={() => {
           dispatch(setModuleContent(null));
@@ -26,7 +26,7 @@ const Navigation = () => {
       {/* // * if user is logged in, display My Learning in nav */}
       {loginState && (
         <Link
-          className="link"
+          className="navLink"
           to="/myLearning"
           onClick={() => {
             dispatch(setModuleContent(null));
@@ -36,7 +36,7 @@ const Navigation = () => {
           My Learning
         </Link>
       )}
-      <Link className="link" to="/contact">
+      <Link className="navLink" to="/contact">
         Contact
       </Link>
     </>
