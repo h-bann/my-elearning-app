@@ -22,31 +22,57 @@ const HeaderButtons = () => {
     if (data.code) {
       dispatch(setLoginState(false));
       clearLocal();
-      navigate("/homepage");
+      navigate("/");
     }
   };
 
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
-  return !loggedIn ? (
-    <Link
-      className={` ${mainScreen === 5 ? "link" : ""}`}
-      to="/loginSignup"
-      onClick={() => {
-        dispatch(setMainScreen(5));
-      }}
-    >
-      Sign up/Login
-    </Link>
-  ) : (
-    <>
-      <Link className={`${mainScreen === 4 ? "link" : ""}`} to="/userAccount">
-        My Account
+  if (!loggedIn) {
+    return (
+      <Link
+        className=""
+        to="/loginSignup"
+        onClick={() => {
+          dispatch(setMainScreen(5));
+        }}
+      >
+        Sign up/Login
       </Link>
-      <Link className="" onClick={onLogOutClick}>
-        Log Out
-      </Link>
-    </>
-  );
+    );
+  }
+
+  if (loggedIn) {
+    return (
+      <>
+        <Link className="" to="/userAccount">
+          My Account
+        </Link>
+        <Link className="" onClick={onLogOutClick}>
+          Log Out
+        </Link>
+      </>
+    );
+  }
+  // !loggedIn ? (
+  //   <Link
+  //     className=""
+  //     to="/loginSignup"
+  //     onClick={() => {
+  //       dispatch(setMainScreen(5));
+  //     }}
+  //   >
+  //     Sign up/Login
+  //   </Link>
+  // ) : (
+  //   <>
+  //     <Link className="" to="/userAccount">
+  //       My Account
+  //     </Link>
+  //     <Link className="" onClick={onLogOutClick}>
+  //       Log Out
+  //     </Link>
+  //   </>
+  // );
 };
 
 export default HeaderButtons;

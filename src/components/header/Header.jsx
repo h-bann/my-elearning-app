@@ -5,19 +5,23 @@ import Logo from "./Logo";
 import HeaderButtons from "./HeaderButtons";
 import Navigation from "./Navigation";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   return (
-    <header className="d-flex align-items-center justify-content-between">
-      <Nav expand="md" className="w-100 m-auto">
-        <Container className="d-flex  justify-content-between align-items-center w-100">
-          <Navbar.Brand onClick={() => dispatch(setMainScreen(0))}>
-            <Logo /> We Learn
-          </Navbar.Brand>
+    <header className="">
+      <Nav expand="md" className="">
+        <Container className="">
+          <Link to="/" className="navLink">
+            <Navbar.Brand>
+              <Logo /> We Learn
+            </Navbar.Brand>
+          </Link>
 
-          <Nav className="me-0 ">
+          <Nav className="">
             <Navigation />
             <HeaderButtons />
           </Nav>

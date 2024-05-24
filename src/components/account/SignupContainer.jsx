@@ -36,7 +36,7 @@ const SignupContainer = () => {
       return;
     }
     if (data.code) {
-      navigate("/homepage");
+      navigate("/");
       storeSingleInLocal("token", data.token);
       dispatch(setLoginState(true));
     }
