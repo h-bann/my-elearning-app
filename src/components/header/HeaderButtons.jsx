@@ -6,7 +6,7 @@ import {
 } from "../../redux/accountSlice";
 import { clearLocal, getFromLocal } from "../../storage";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { url } from "../../config";
 
 const HeaderButtons = () => {
@@ -30,7 +30,7 @@ const HeaderButtons = () => {
   if (!loggedIn) {
     return (
       <Link
-        className=""
+        className="nav-link"
         to="/loginSignup"
         onClick={() => {
           dispatch(setMainScreen(5));
@@ -44,10 +44,15 @@ const HeaderButtons = () => {
   if (loggedIn) {
     return (
       <>
-        <Link className="" to="/userAccount">
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+          to="/userAccount"
+        >
           My Account
-        </Link>
-        <Link className="" onClick={onLogOutClick}>
+        </NavLink>
+        <Link className="nav-link" onClick={onLogOutClick}>
           Log Out
         </Link>
       </>

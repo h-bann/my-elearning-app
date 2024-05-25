@@ -1,4 +1,3 @@
-import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Logo from "./Logo";
@@ -14,18 +13,16 @@ const Header = () => {
   return (
     <header className="">
       <Nav expand="md" className="">
-        <Container className="">
-          <Link to="/" className="navLink">
-            <Navbar.Brand>
-              <Logo /> We Learn
-            </Navbar.Brand>
-          </Link>
+        <div className="nav-logo">
+          <Navbar.Brand>
+            <Logo />
+          </Navbar.Brand>
+        </div>
 
-          <Nav className="">
-            <Navigation />
-            <HeaderButtons />
-          </Nav>
-        </Container>
+        <dic className="navbar">
+          <Navigation />
+          <HeaderButtons />
+        </dic>
       </Nav>
     </header>
   );
