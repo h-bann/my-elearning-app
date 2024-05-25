@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginState } from "../../redux/accountSlice";
 import { setModuleContent, setCourseContent } from "../../redux/coursesSlice";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navigation = () => {
   const loginState = useSelector(selectLoginState);
@@ -10,11 +10,18 @@ const Navigation = () => {
 
   return (
     <>
-      <Link className="navLink" to="/">
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "nav-link active" : "nav-link"
+        }
+        to="/"
+      >
         Home
-      </Link>
-      <Link
-        className="navLink"
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "nav-link active" : "nav-link"
+        }
         to="/courses"
         onClick={() => {
           dispatch(setModuleContent(null));
@@ -22,11 +29,13 @@ const Navigation = () => {
         }}
       >
         Courses
-      </Link>
+      </NavLink>
       {/* // * if user is logged in, display My Learning in nav */}
       {loginState && (
-        <Link
-          className="navLink"
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
           to="/myLearning"
           onClick={() => {
             dispatch(setModuleContent(null));
@@ -34,11 +43,16 @@ const Navigation = () => {
           }}
         >
           My Learning
-        </Link>
+        </NavLink>
       )}
-      <Link className="navLink" to="/contact">
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "nav-link active" : "nav-link"
+        }
+        to="/contact"
+      >
         Contact
-      </Link>
+      </NavLink>
     </>
   );
 };

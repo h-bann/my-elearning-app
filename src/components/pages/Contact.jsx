@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectContactForm, setContactForm } from "../../redux/contactSlice";
 import { formValidation } from "../../utils/Joi";
 import { contactFormSchema } from "../../utils/Joi";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Form from "react-bootstrap/Form";
+import "../pages/contact.scss";
 
 const Contact = () => {
   const dispatch = useDispatch();
@@ -25,11 +28,10 @@ const Contact = () => {
   };
 
   return (
-    <div className=" mb-3 my-5">
-      <form className="form-contact" onInput={onInput} onSubmit={onSubmit}>
-        <h4>This is a form to contact us with</h4>
-
-        <div className="mb-3">
+    <div className="contact-form">
+      <h5>This is a form to contact us with</h5>
+      <form className="" onInput={onInput} onSubmit={onSubmit}>
+        <div className="">
           <Label htmlFor="name" text="Name" className="form-label" />
           <Input
             type="text"

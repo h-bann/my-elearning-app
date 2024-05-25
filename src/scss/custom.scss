@@ -1,53 +1,84 @@
 // @import "../node_modules/bootstrap/scss/bootstrap";
 
+body {
+  width: 90vw;
+  margin: auto;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 main {
   min-height: 82vh;
 }
 
 header {
+  margin-top: 10px;
   width: 100%;
-  top: 0;
-  left: 0;
-  height: 90px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  height: 71px;
+}
+
+.nav-logo {
+  width: 210px;
 }
 
 .navbar-brand {
   font-size: 1.4rem;
   color: #000000;
   cursor: pointer;
+  display: flex;
+
+  h1 {
+    margin-top: 24px;
+    font-size: xx-large;
+    text-decoration: none;
+  }
 }
 
 .navbar-brand:hover {
-  color: #60259c;
-  transition: color 0.2s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out;
+  filter: drop-shadow(3px 3px 3px #363636);
+  transition: filter 0.1s ease-in-out;
+}
+
+.logo-text {
+  margin: 0;
+}
+
+.navbar {
+  display: flex;
+  padding: 0;
 }
 
 .nav-link {
-  color: #f2f4ff;
+  color: #000000;
   width: auto;
-  padding: 0.5rem;
+  text-decoration: none;
+  padding: 0;
+  margin: 0 6px 0 6px;
 }
 
-.navbar-nav .nav-link {
-  color: white;
-  margin-left: 10px;
+.nav-link.active {
+  text-decoration: underline;
+  text-decoration-thickness: 2.4px;
+
+  color: black;
 }
 
-.navbar-nav .nav-link.active {
-  color: white;
+.nav-link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2.4px;
+  color: black;
 }
 
-.navbar-nav .nav-link.link {
-  font-weight: 600;
-}
-
-.nav-link:hover,
 .nav-link:focus {
-  color: white;
-  translate: 0px -1.5px;
+  text-decoration: underline;
+  text-decoration-thickness: 2.4px;
+
+  color: black;
 }
 
 .login-signup-container {
@@ -106,40 +137,6 @@ header {
   color: black;
 }
 
-.btn-primary {
-  background-color: #3fa444;
-  border-color: #348738;
-}
-
-.btn-primary:disabled {
-  background-color: #cecece;
-  border-color: #b5b2b2;
-}
-
-.btn-primary:hover {
-  background-color: #348738;
-  border-color: #348738;
-}
-
-.btn-outline-primary {
-  border-color: #348738;
-  color: #348738;
-}
-
-.btn-outline-primary:hover {
-  background-color: #40a645;
-  border-style: none;
-  border-color: #348738;
-}
-
-.btn-outline-primary.account {
-  width: 160px;
-}
-
-.btn-danger {
-  width: 160px;
-}
-
 .modules {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 265px; /* Set the width of the sidebar */
@@ -155,4 +152,19 @@ header {
 .content {
   margin-left: 265px; /* Same as the width of the sidebar */
   padding: 0px 20px;
+}
+
+footer {
+  text-align: center;
+}
+
+.btn-primary {
+  border-color: black;
+  background-color: rgb(159, 159, 159);
+  color: black;
+}
+.btn-primary:hover {
+  background-color: white;
+  color: black;
+  border-color: black;
 }
