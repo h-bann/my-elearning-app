@@ -104,11 +104,7 @@ const Courses = () => {
           <div className="w-100 d-flex flex-wrap justify-content-start m-4 ">
             {courses.map((item) => {
               return (
-                <div
-                  className="card m-2 course-card"
-                  style={styles}
-                  key={item.id}
-                >
+                <div className=" m-2 course-card" style={styles} key={item.id}>
                   <img src={"./images/" + item.image} />
                   <div className="card-body">
                     <h4 className="card-title">{item.course_title}</h4>
