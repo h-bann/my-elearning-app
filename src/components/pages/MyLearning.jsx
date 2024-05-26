@@ -16,6 +16,7 @@ import axios from "axios";
 import { getFromLocal } from "../../storage";
 import { url } from "../../config";
 import { selectLoginState } from "../../redux/accountSlice";
+import "../pages/courses.scss";
 
 const MyLearning = () => {
   const dispatch = useDispatch();
@@ -24,8 +25,6 @@ const MyLearning = () => {
   const loginState = useSelector(selectLoginState);
   const [state, setState] = useState();
   const [isStateReady, setIsStateReady] = useState(false);
-
-  const styles = { width: "15rem" };
 
   const getEnrolledCourses = async () => {
     const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
@@ -85,21 +84,17 @@ const MyLearning = () => {
   return (
     <>
       {!moduleContent && (
-        <div className="w-100 m-auto ">
-          <h3 className="m-4">Enrolled Courses</h3>
-          <div className="w-100 d-flex flex-wrap justify-content-start m-4 ">
+        <div className="main-container">
+          <h3 className="">Enrolled Courses</h3>
+          <div className="card-container">
             {enrolledCourses.map((item) => {
               return (
-                <div
-                  className="card m-2 course-card"
-                  style={styles}
-                  key={item.id}
-                >
+                <div className="card course-card" key={item.id}>
                   <img src={"./images/" + item.image} />
                   <div className="card-body">
-                    <h4 className="card-title">{item.title}</h4>
+                    <h4 className="card-title">{item.course_title}</h4>
                     <Button
-                      className={["btn-primary", "me-2", "my-2"]}
+                      className={["btn-primary"]}
                       text="Continue"
                       onClick={() => onCourseClick(item)}
                     />

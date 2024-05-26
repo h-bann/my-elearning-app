@@ -72,21 +72,19 @@ const MyAccount = () => {
   const { email, username, password } = userDetails;
 
   return (
-    <div className="container-sm">
+    <div className="main-container">
+      <h3 className="">My Account Details</h3>
+
       <form
         className="form-signin"
         onInput={onInput}
         onSubmit={updateUserDetails}
       >
-        {/* CHANGE THIS BACK EVENTUALLY */}
-        {/* <ChangeUsername /> */}
-        <h3 className="h3 mb-4">My Account Details</h3>
-
-        <div className="mb-4 d-flex flex-column">
-          <label htmlFor="email" className="form-label h5">
+        <div className="details-container">
+          <label htmlFor="email" className="form-label">
             Email
           </label>
-          <p className="fw-light">{email}</p>
+          <p className="">{email}</p>
           {display != "email" && (
             <Button
               className={["btn-outline-primary", "account"]}
@@ -95,7 +93,7 @@ const MyAccount = () => {
             />
           )}
           {display === "email" && (
-            <div className="mb-3">
+            <div className="">
               <Input
                 type="email"
                 name="email"
@@ -115,8 +113,8 @@ const MyAccount = () => {
           )}
         </div>
 
-        <div className="mb-3  d-flex flex-column">
-          <label htmlFor="username" className="form-label h5">
+        <div className="details-container">
+          <label htmlFor="username" className="form-label">
             Username
           </label>
           <p className="fw-light">{username}</p>
@@ -148,8 +146,8 @@ const MyAccount = () => {
           )}
         </div>
 
-        <div className="mb-3 d-flex flex-column">
-          <label htmlFor="password" className="form-label h5">
+        <div className="details-container password">
+          <label htmlFor="password" className="form-label">
             Password Reset
           </label>
           {display != "password" && (

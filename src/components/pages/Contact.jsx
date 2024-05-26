@@ -29,7 +29,11 @@ const Contact = () => {
 
   return (
     <div className="contact-form">
-      <h5>This is a form to contact us with</h5>
+      <h3>Contact us</h3>
+      <p>
+        Please don't hesitate to get in touch with any queries, concerns or
+        feedback by filling in the form below
+      </p>
       <form className="" onInput={onInput} onSubmit={onSubmit}>
         <div className="">
           <Label htmlFor="name" text="Name" className="form-label" />
