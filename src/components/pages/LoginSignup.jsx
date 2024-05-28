@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LoginContainer from "../account/LoginContainer";
 import SignupContainer from "../account/SignupContainer";
 import Button from "../genericComponents/Button";
+import "./loginSignup.scss";
 
 const LoginSignup = () => {
   const [view, setView] = useState(true);
@@ -13,12 +14,12 @@ const LoginSignup = () => {
   return (
     <>
       {view && (
-        <div className="login-signup-container row align-items-center ">
-          <div className="col ">
+        <div className="login-signup-container">
+          <div className="signup-subcontainer">
             <SignupContainer />
           </div>
 
-          <div className="col d-flex flex-column  justify-content-center align-items-center">
+          <div className="login-subcontainer">
             <h6>Already have an account?</h6>
 
             <Button
@@ -31,8 +32,8 @@ const LoginSignup = () => {
       )}
 
       {!view && (
-        <div className="login-signup-container row align-items-center ">
-          <div className="col d-flex flex-column  justify-content-center align-items-center">
+        <div className="login-signup-container">
+          <div className="signup-subcontainer">
             <h6>Need an account?</h6>
 
             <Button
@@ -41,7 +42,7 @@ const LoginSignup = () => {
               text={view ? "Sign In" : "Sign Up"}
             />
           </div>
-          <div className="col ">
+          <div className="login-subcontainer">
             <LoginContainer />
           </div>
         </div>
