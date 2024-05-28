@@ -9,6 +9,7 @@ import axios from "axios";
 import { getFromLocal, clearLocal } from "../../storage";
 import { url } from "../../config";
 import { useNavigate } from "react-router-dom";
+import "../account/myAccount.scss";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
@@ -48,8 +49,11 @@ const MyAccount = () => {
       setDisplay(null);
       setUserInput(null);
     }
+    if (!data.code) {
+      setUserInput(null);
+      setErrors(data.message);
+    }
   };
-
   const deleteAccount = async () => {
     const { data } = await axios.delete(`${url}/users/delete`, {
       headers: { token: getFromLocal("token") },
@@ -68,7 +72,6 @@ const MyAccount = () => {
       </div>
     );
   }
-
   const { email, username, password } = userDetails;
 
   return (
@@ -93,7 +96,7 @@ const MyAccount = () => {
             />
           )}
           {display === "email" && (
-            <div className="">
+            <div className="hidden-input">
               <Input
                 type="email"
                 name="email"
@@ -102,7 +105,9 @@ const MyAccount = () => {
               />
               {email && display === "email" && errors.email ? (
                 <p className="form-text">{errors.email}</p>
-              ) : undefined}
+              ) : (
+                <p className="form-text">{errors}</p>
+              )}
               <Button
                 className={["btn-outline-primary"]}
                 type="submit"
@@ -126,7 +131,7 @@ const MyAccount = () => {
             />
           )}
           {display === "username" && (
-            <div>
+            <div className="hidden-input">
               <Input
                 type="text"
                 name="username"
@@ -135,7 +140,9 @@ const MyAccount = () => {
               />
               {username && display === "username" && errors.username ? (
                 <p className="form-text">{errors.username}</p>
-              ) : undefined}
+              ) : (
+                <p className="form-text">{errors}</p>
+              )}
               <Button
                 className={["btn-outline-primary"]}
                 type="submit"
@@ -158,10 +165,10 @@ const MyAccount = () => {
             />
           )}
           {display === "password" && (
-            <div>
+            <div className="hidden-input">
               <Label
                 htmlFor="password"
-                className="form-label"
+                className="sub-form-label"
                 text="Current password:"
               />
               <Input
@@ -173,7 +180,7 @@ const MyAccount = () => {
 
               <Label
                 htmlFor="newPassword"
-                className="form-label"
+                className="sub-form-label"
                 text="New password:"
               />
               <Input
@@ -189,7 +196,7 @@ const MyAccount = () => {
               <Label
                 htmlFor="passwordConfirmation"
                 text="Confirm new password:"
-                className="form-label"
+                className="sub-form-label"
               />
               <Input
                 type="password"

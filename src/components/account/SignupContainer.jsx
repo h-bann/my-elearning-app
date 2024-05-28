@@ -9,6 +9,7 @@ import { storeSingleInLocal } from "../../storage";
 import { useNavigate } from "react-router-dom";
 import { setLoginState } from "../../redux/accountSlice";
 import { url } from "../../config";
+import "./signupContainer.scss";
 
 const SignupContainer = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const SignupContainer = () => {
 
   return (
     <form className="form-signin" onInput={onInput} onSubmit={onSubmit}>
-      <h1 className="h3 mb-3 fw-formal">Sign up here</h1>
+      <h3>Sign up here</h3>
 
       <div className="form-floating">
         <Input
@@ -101,9 +102,9 @@ const SignupContainer = () => {
             <p className="form-text">Passwords do not match</p>
           )}
       </div>
-      <div className="text-center">
+      <div className="">
         <Button
-          className={["btn-primary", "w-100"]}
+          className={["btn-primary"]}
           text="Sign Up"
           type="submit"
           disabled={!userInput || errors ? true : false}

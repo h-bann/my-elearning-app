@@ -15,6 +15,7 @@ import { storeSingleInLocal } from "../../storage";
 import Nav from "react-bootstrap/Nav";
 import { Link, useNavigate } from "react-router-dom";
 import { url } from "../../config";
+import "./loginContainer.scss";
 
 const LoginContainer = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const LoginContainer = () => {
 
   return (
     <form className="form-signin" onInput={onInput} onSubmit={handleLogin}>
-      <h1 className="h3 mb-3 fw-formal">Please sign in</h1>
+      <h3 className="">Please sign in</h3>
       <div className="form-floating">
         <Input
           className="form-control"
@@ -71,14 +72,12 @@ const LoginContainer = () => {
         ) : undefined}
       </div>
 
-      {/* <Link to="/homepage"> */}
       <Button
-        className={["btn btn-primary", "w-100"]}
+        className={["btn btn-primary"]}
         text="Login"
         type="submit"
         disabled={!userInput || errors ? true : false}
       />
-      {/* </Link> */}
 
       {accountError && <h6>{accountError}</h6>}
     </form>
