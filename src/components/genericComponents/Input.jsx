@@ -10,6 +10,7 @@ const Input = (props) => {
       value={props.value}
       onInput={props.onInput}
       className={props.className}
+      onBlur={props.onBlur}
     ></input>
   );
 };

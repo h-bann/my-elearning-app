@@ -26,9 +26,9 @@ export const loginSchema = Joi.object({
 export const userDetailsResetSchema = Joi.object({
   email: Joi.string().email({ tlds: { allow: false } }),
   username: Joi.string().alphanum().min(5).max(15),
-  currentPassword: Joi.string().min(5),
+  currentPassword: Joi.string(),
   password: Joi.string().min(5),
-  passwordConfirmation: Joi.string().min(5),
+  passwordConfirmation: Joi.string(),
 });
 
 export const formValidation = (state, schema, setErrors) => {

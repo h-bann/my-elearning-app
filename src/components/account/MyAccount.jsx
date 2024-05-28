@@ -24,7 +24,6 @@ const MyAccount = () => {
       const { data } = await axios.get(`${url}/users/getUser`, {
         headers: { token: getFromLocal("token") },
       });
-
       if (data.code) {
         setUserDetails(data.user);
       }
@@ -44,7 +43,6 @@ const MyAccount = () => {
     const { data } = await axios.patch(`${url}/users/update`, newState, {
       headers: { token: getFromLocal("token") },
     });
-
     if (data.code) {
       setDisplay(null);
       setUserInput(null);
@@ -54,6 +52,7 @@ const MyAccount = () => {
       setErrors(data.message);
     }
   };
+
   const deleteAccount = async () => {
     const { data } = await axios.delete(`${url}/users/delete`, {
       headers: { token: getFromLocal("token") },
@@ -73,7 +72,6 @@ const MyAccount = () => {
     );
   }
   const { email, username, password } = userDetails;
-
   return (
     <div className="main-container">
       <h3 className="">My Account Details</h3>
@@ -91,7 +89,10 @@ const MyAccount = () => {
           {display != "email" && (
             <Button
               className={["btn-outline-primary", "account"]}
-              onClick={() => setDisplay("email")}
+              onClick={() => {
+                setDisplay("email");
+                setErrors("");
+              }}
               text="Change Email"
             />
           )}
@@ -126,7 +127,10 @@ const MyAccount = () => {
           {display != "username" && (
             <Button
               className={["btn-outline-primary", "account"]}
-              onClick={() => setDisplay("username")}
+              onClick={() => {
+                setDisplay("username");
+                setErrors("");
+              }}
               text="Change username"
             />
           )}
@@ -141,7 +145,9 @@ const MyAccount = () => {
               {username && display === "username" && errors.username ? (
                 <p className="form-text">{errors.username}</p>
               ) : (
-                <p className="form-text">{errors}</p>
+                <p className="form-text">
+                  {typeof errors === "object" ? JSON.stringify(errors) : errors}
+                </p>
               )}
               <Button
                 className={["btn-outline-primary"]}
@@ -160,7 +166,10 @@ const MyAccount = () => {
           {display != "password" && (
             <Button
               className={["btn-outline-primary", "account"]}
-              onClick={() => setDisplay("password")}
+              onClick={() => {
+                setDisplay("password");
+                setErrors("");
+              }}
               text="Reset password"
             />
           )}
@@ -191,6 +200,8 @@ const MyAccount = () => {
               />
               {password && display === "password" && errors.password ? (
                 <p className="form-text">{errors.password}</p>
+              ) : errors ? (
+                <p className="form-text">{errors}</p>
               ) : undefined}
 
               <Label
@@ -204,11 +215,21 @@ const MyAccount = () => {
                 placeholder="Confirm new password"
                 className="form-control mb-3"
               />
+              {userInput &&
+                userInput.passwordConfirmation != userInput.password && (
+                  <p className="form-text">Passwords do not match</p>
+                )}
               <Button
                 className={["btn-outline-primary"]}
                 type="submit"
                 text="Save"
-                disabled={!userInput || errors ? true : false}
+                disabled={
+                  !userInput ||
+                  errors ||
+                  userInput.passwordConfirmation != userInput.password
+                    ? true
+                    : false
+                }
               />
             </div>
           )}
