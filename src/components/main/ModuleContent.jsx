@@ -24,7 +24,7 @@ const ModuleContent = ({ moduleId }) => {
   const [state, setState] = useState(moduleContent[0].id);
 
   const styles = {
-    width: "15rem",
+    // width: "15rem",
     // height: "5rem",
   };
 
@@ -66,26 +66,180 @@ const ModuleContent = ({ moduleId }) => {
     <p>Loading</p>;
   }
   console.log(window.innerWidth);
+  console.log(moduleContent);
+  console.log(state);
+
+  if (window.innerWidth < 365) {
+    return (
+      window.innerWidth < 365 && (
+        <div className="module-container">
+          <div className="modules">
+            {moduleContent.map((item) => {
+              return (
+                <div
+                  className={`individual-module`}
+                  key={item.id}
+                  onClick={() => onModuleClick(item)}
+                >
+                  <h1>{item.module_title}</h1>
+                  <div
+                    className={`content ${
+                      state && state !== item.id && "hidden"
+                    }`}
+                  >
+                    {item.content.map(({ type, content, id }) => {
+                      switch (type) {
+                        case "mainHeading":
+                          return <h3>{content}</h3>;
+
+                        case "subHeading":
+                          return <h4>{content}</h4>;
+
+                        case "paragraph":
+                          return <p>{content}</p>;
+
+                        case "list":
+                          return (
+                            <>
+                              {/* {content.map((item) => {
+                  return <li>{item}</li>;
+                })} */}
+                              <li key={id} className="ms-3">
+                                {content}
+                              </li>
+                            </>
+                          );
+
+                        case "subList":
+                          return (
+                            <>
+                              {/* {content.map((item) => {
+                  return <li>{item}</li>;
+                })} */}
+                              <li key={id} className="ms-5">
+                                {content}
+                              </li>
+                            </>
+                          );
+
+                        case "bold":
+                          return (
+                            <p className="text-center">
+                              <strong>{content}</strong>
+                            </p>
+                          );
+
+                        case "underlined":
+                          return (
+                            <p>
+                              <u>{content}</u>
+                            </p>
+                          );
+
+                        case "image":
+                          return <img src={"./images/" + content} />;
+
+                        default:
+                          break;
+                      }
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          {/* <div className="content">{courseContent && <CourseContent />}</div> */}
+        </div>
+      )
+    );
+  }
 
   return (
-    <div className="row d-flex flex-nowrap">
+    <div className="module-container">
       <div className="modules">
         {moduleContent.map((item) => {
           return (
+            <>
+              <div
+                className={`individual-module ${
+                  state === item.id && "selected"
+                }`}
+                key={item.id}
+                onClick={() => onModuleClick(item)}
+              >
+                <h1>{item.module_title}</h1>
+              </div>
+            </>
+          );
+        })}
+      </div>
+      <div>
+        {moduleContent.map((item) => {
+          return (
             <div
-              className={`module-card d-flex p-1 align-items-center ${
-                state === item.id && "selected"
-              }`}
-              style={styles}
-              key={item.id}
-              onClick={() => onModuleClick(item)}
+              className={`content ${state && state !== item.id && "hidden"}`}
             >
-              {item.module_title}
+              {item.content.map(({ type, content, id }) => {
+                switch (type) {
+                  case "mainHeading":
+                    return <h3>{content}</h3>;
+
+                  case "subHeading":
+                    return <h4>{content}</h4>;
+
+                  case "paragraph":
+                    return <p>{content}</p>;
+
+                  case "list":
+                    return (
+                      <>
+                        {/* {content.map((item) => {
+                  return <li>{item}</li>;
+                })} */}
+                        <li key={id} className="ms-3">
+                          {content}
+                        </li>
+                      </>
+                    );
+
+                  case "subList":
+                    return (
+                      <>
+                        {/* {content.map((item) => {
+                  return <li>{item}</li>;
+                })} */}
+                        <li key={id} className="ms-5">
+                          {content}
+                        </li>
+                      </>
+                    );
+
+                  case "bold":
+                    return (
+                      <p className="text-center">
+                        <strong>{content}</strong>
+                      </p>
+                    );
+
+                  case "underlined":
+                    return (
+                      <p>
+                        <u>{content}</u>
+                      </p>
+                    );
+
+                  case "image":
+                    return <img src={"./images/" + content} />;
+
+                  default:
+                    break;
+                }
+              })}
             </div>
           );
         })}
       </div>
-      <div className="content">{courseContent && <CourseContent />}</div>
+      {/* <div className="content">{courseContent && <CourseContent />}</div> */}
     </div>
   );
 };
