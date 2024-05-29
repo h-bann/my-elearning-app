@@ -299,3 +299,16 @@ header {
 footer {
   text-align: center;
 }
+
+.modules {
+  display: flex;
+  flex-direction: column;
+}
+
+.content.hidden {
+  display: none;
+}
+
+.content {
+  height: 300px;
+}
