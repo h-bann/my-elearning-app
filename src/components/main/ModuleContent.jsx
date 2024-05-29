@@ -65,6 +65,8 @@ const ModuleContent = ({ moduleId }) => {
   if (!moduleContent || state === null) {
     <p>Loading</p>;
   }
+  console.log(window.innerWidth);
+
   return (
     <div className="row d-flex flex-nowrap">
       <div className="modules">
