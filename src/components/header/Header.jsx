@@ -11,7 +11,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   return (
-    <header className="">
+    <header className="outfit-font">
       <Nav expand="md" className="">
         <div className="nav-logo">
           <Navbar.Brand>
