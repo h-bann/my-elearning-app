@@ -72,7 +72,6 @@ const ModuleContent = ({ moduleId }) => {
   if (!moduleContent || state === null) {
     <p>Loading</p>;
   }
-  console.log(innerWidth);
   // console.log(moduleContent);
   // console.log(state);
 
