@@ -320,6 +320,7 @@ footer {
 
 .content {
   height: auto;
+  padding: 5px;
 
   .main-list-item {
     margin-left: 20px;
@@ -327,6 +328,10 @@ footer {
 
   .sub-list-item {
     margin-left: 40px;
+  }
+
+  img {
+    width: 100%;
   }
 }
 
@@ -338,6 +343,7 @@ footer {
   border-width: 1px;
   padding: 5px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .svg-container {
