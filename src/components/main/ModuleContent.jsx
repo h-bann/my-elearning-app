@@ -40,6 +40,11 @@ const ModuleContent = ({ moduleId }) => {
     getEnrolledCourses();
   }, []);
 
+  // when user clicks new module and state changes, scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [state]);
+
   useEffect(() => {
     if (enrolledCourses.length) {
       const index = enrolledCourses.find((item) => {
