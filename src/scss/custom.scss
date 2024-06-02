@@ -300,9 +300,18 @@ footer {
   text-align: center;
 }
 
+.module-container {
+  width: 100%;
+}
+
 .modules {
   display: flex;
   flex-direction: column;
+}
+
+.individual-module h1 {
+  font-size: 1.4rem;
+  margin-bottom: 0;
 }
 
 .content.hidden {
@@ -310,5 +319,36 @@ footer {
 }
 
 .content {
-  height: 300px;
+  height: auto;
+
+  .main-list-item {
+    margin-left: 20px;
+  }
+
+  .sub-list-item {
+    margin-left: 40px;
+  }
+}
+
+.module-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-style: solid;
+  border-width: 1px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.svg-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  width: 25px;
+}
+
+.svg-container.rotated {
+  transform: rotate(90deg);
+  transform-origin: center center;
 }
