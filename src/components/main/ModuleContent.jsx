@@ -22,7 +22,9 @@ const ModuleContent = ({ moduleId }) => {
   const courseProgress = useSelector(selectCourseProgress);
   const dispatch = useDispatch();
   const [state, setState] = useState(moduleContent[0].id);
+  const [hiddenContent, setHiddenContent] = useState(false);
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const [imageZoom, setImageZoom] = useState(false);
 
   const styles = {
     // width: "15rem",
@@ -56,6 +58,7 @@ const ModuleContent = ({ moduleId }) => {
     }
   }, []);
 
+  // set component's innerWidth state to the width of the window as it is resized by user
   useEffect(() => {
     window.addEventListener("resize", () => {
       setInnerWidth(window.innerWidth);
@@ -63,8 +66,12 @@ const ModuleContent = ({ moduleId }) => {
   }, []);
 
   const onModuleClick = async (item) => {
-    // dispatch(setCourseContent(item.content));
+    setHiddenContent(true);
     setState(item.id);
+    if (state === item.id) {
+      setHiddenContent(!hiddenContent);
+    }
+
     const { data } = await axios.patch(
       `${url}/courses/courseProgress  `,
       { moduleId: item.id, courseId: item.course_id },
@@ -74,10 +81,14 @@ const ModuleContent = ({ moduleId }) => {
     );
   };
 
+  const onImageClick = () => {
+    setImageZoom(!imageZoom);
+  };
   if (!moduleContent || state === null) {
     <p>Loading</p>;
   }
 
+  // if window size less than 365 then render HTML option A
   if (innerWidth < 365) {
     return (
       <div className="module-container">
@@ -93,7 +104,7 @@ const ModuleContent = ({ moduleId }) => {
                   <h1>{item.module_title}</h1>
                   <div
                     className={`svg-container ${
-                      state && state !== item.id && "rotated"
+                      state === item.id && "rotated"
                     }`}
                   >
                     <svg
@@ -113,8 +124,8 @@ const ModuleContent = ({ moduleId }) => {
                 </div>
                 <div
                   className={`content ${
-                    state && state !== item.id && "hidden"
-                  }`}
+                    state === item.id && hiddenContent ? "displayed" : "hidden"
+                  } `}
                 >
                   {item.content.map(({ type, content, id }) => {
                     switch (type) {
@@ -160,7 +171,13 @@ const ModuleContent = ({ moduleId }) => {
                         );
 
                       case "image":
-                        return <img src={"./images/" + content} />;
+                        return (
+                          <img
+                            src={"./images/" + content}
+                            onClick={onImageClick}
+                            className={imageZoom ? "image-zoom" : null}
+                          />
+                        );
 
                       default:
                         break;
@@ -176,6 +193,7 @@ const ModuleContent = ({ moduleId }) => {
     );
   }
 
+  // otherwise, render HTML option B
   return (
     <div className="module-container">
       <div className="modules">
