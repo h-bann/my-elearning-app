@@ -66,6 +66,7 @@ const ModuleContent = ({ moduleId }) => {
   }, []);
 
   const onModuleClick = async (item) => {
+    // functionality to make modules toggle correctly in mobile view
     setHiddenContent(true);
     setState(item.id);
     if (state === item.id) {
@@ -104,7 +105,7 @@ const ModuleContent = ({ moduleId }) => {
                   <h1>{item.module_title}</h1>
                   <div
                     className={`svg-container ${
-                      state === item.id && "rotated"
+                      state === item.id && hiddenContent ? "rotated" : ""
                     }`}
                   >
                     <svg
