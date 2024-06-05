@@ -39,14 +39,17 @@ const MyAccount = () => {
 
   const updateUserDetails = async (e) => {
     e.preventDefault();
+    // spread userInput so as only to send newState to database
     const { passwordConfirmation, currentPassword, ...newState } = userInput;
     const { data } = await axios.patch(`${url}/users/update`, newState, {
       headers: { token: getFromLocal("token") },
     });
+    // if action is successful, reset display to start
     if (data.code) {
       setDisplay(null);
       setUserInput(null);
     }
+    // if action fails, display error message and set user input to null so that correct message is displayed
     if (!data.code) {
       setUserInput(null);
       setErrors(data.message);
@@ -71,7 +74,10 @@ const MyAccount = () => {
       </div>
     );
   }
+
+  // destructure user details
   const { email, username, password } = userDetails;
+
   return (
     <div className="main-container">
       <h3 className="">My Account Details</h3>
