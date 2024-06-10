@@ -21,6 +21,7 @@ const Contact = () => {
     formValidation(updatedState, contactFormSchema, setErrors);
     setState(updatedState);
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(setContactForm(state));

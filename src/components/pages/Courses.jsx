@@ -68,7 +68,6 @@ const Courses = () => {
             headers: { token: getFromLocal("token") },
           }
         );
-
         const { data: progress } = await axios.patch(
           `${url}/courses/courseProgress`,
           {
