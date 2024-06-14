@@ -73,7 +73,7 @@ const LoginContainer = () => {
       </div>
 
       <Button
-        className={["btn btn-primary"]}
+        className={["btn-primary"]}
         text="Login"
         type="submit"
         disabled={!userInput || errors ? true : false}

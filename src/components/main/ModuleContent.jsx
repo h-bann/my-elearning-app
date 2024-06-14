@@ -10,7 +10,7 @@ import {
 } from "../../redux/coursesSlice";
 import { url } from "../../config";
 import { clearLocal, getFromLocal } from "../../storage";
-
+import Button from "../genericComponents/Button";
 import { useDispatch, useSelector } from "react-redux";
 import CourseContent from "./CourseContent";
 import axios from "axios";
@@ -72,9 +72,6 @@ const ModuleContent = ({ moduleId }) => {
       }
     }
   };
-  console.log(courseComplete);
-  console.log(enrolledCourses);
-
   useEffect(() => {
     getEnrolledCourses();
   }, []);
@@ -110,24 +107,46 @@ const ModuleContent = ({ moduleId }) => {
       setHiddenContent(!hiddenContent);
     }
 
-    const { data } = await axios.patch(
-      `${url}/courses/courseProgress`,
-      { moduleId: item.id, courseId: item.course_id },
+    // const { data } = await axios.patch(
+    //   `${url}/courses/courseProgress`,
+    //   { moduleId: item.id, courseId: item.course_id },
+    //   {
+    //     headers: { token: getFromLocal("token") },
+    //   }
+    // );
+
+    // * records user progress of modules
+    const { data } = await axios.post(
+      `${url}/courses/moduleProgress`,
+      { moduleId: item.id },
       {
         headers: { token: getFromLocal("token") },
       }
     );
+    console.log(data);
+  };
+
+  // * records user completion of course
+  const onFinishClick = async () => {
+    const { data } = await axios.patch(
+      `${url}/courses/courseCompletion`,
+      { courseId: moduleContent[0].course_id },
+      {
+        headers: { token: getFromLocal("token") },
+      }
+    );
+    console.log(data);
   };
 
   useEffect(() => {
     const updateEnrolled = async () => {
       if (courseProgress === moduleContent.length && reachedBottom) {
         setCourseComplete(true);
-        const { data: courseComplete } = await axios.patch(
-          `${url}/courses/courseComplete`,
-          { courseId: 1 },
-          { headers: { token: getFromLocal("token") } }
-        );
+        // const { data: courseComplete } = await axios.patch(
+        //   `${url}/courses/courseComplete`,
+        //   { courseId: 1 },
+        //   { headers: { token: getFromLocal("token") } }
+        // );
       }
     };
     updateEnrolled();
@@ -242,7 +261,17 @@ const ModuleContent = ({ moduleId }) => {
               </div>
             );
           })}
+          {courseProgress === moduleContent.length && (
+            <div>
+              <Button
+                onClick={onFinishClick}
+                text="Finish Course"
+                className={["btn-primary"]}
+              />
+            </div>
+          )}
         </div>
+
         {/* <div className="content">{courseContent && <CourseContent />}</div> */}
       </div>
     );
