@@ -10,7 +10,6 @@ import {
 } from "../../redux/coursesSlice";
 import { url } from "../../config";
 import { clearLocal, getFromLocal } from "../../storage";
-
 import { useDispatch, useSelector } from "react-redux";
 import CourseContent from "./CourseContent";
 import axios from "axios";
@@ -72,7 +71,7 @@ const ModuleContent = ({ moduleId }) => {
       }
     }
   };
-  console.log(courseComplete);
+  // console.log(courseComplete);
   console.log(enrolledCourses);
 
   useEffect(() => {
@@ -109,14 +108,14 @@ const ModuleContent = ({ moduleId }) => {
     if (courseProgress === item.id) {
       setHiddenContent(!hiddenContent);
     }
-
     const { data } = await axios.patch(
-      `${url}/courses/courseProgress`,
+      `${url}/courses/moduleProgress`,
       { moduleId: item.id, courseId: item.course_id },
       {
         headers: { token: getFromLocal("token") },
       }
     );
+    console.log(data);
   };
 
   useEffect(() => {
@@ -124,10 +123,11 @@ const ModuleContent = ({ moduleId }) => {
       if (courseProgress === moduleContent.length && reachedBottom) {
         setCourseComplete(true);
         const { data: courseComplete } = await axios.patch(
-          `${url}/courses/courseComplete`,
-          { courseId: 1 },
+          `${url}/courses/courseCompletion`,
+          { courseId: moduleContent[0].id },
           { headers: { token: getFromLocal("token") } }
         );
+        console.log(courseComplete);
       }
     };
     updateEnrolled();
@@ -160,8 +160,8 @@ const ModuleContent = ({ moduleId }) => {
                   <div className="module-tabs-svgs">
                     <div>
                       {(courseProgress > item.id ||
-                        moduleContent.length === courseProgress ||
-                        courseComplete) &&
+                        (moduleContent.length === courseProgress &&
+                          courseComplete)) &&
                         tick}
                     </div>
                     <div
