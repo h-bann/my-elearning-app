@@ -68,16 +68,16 @@ const Courses = () => {
             headers: { token: getFromLocal("token") },
           }
         );
-        const { data: progress } = await axios.patch(
-          `${url}/courses/courseProgress`,
-          {
-            moduleId: courseContent.course.modules[0].id,
-            courseId: item.id,
-          },
-          {
-            headers: { token: getFromLocal("token") },
-          }
-        );
+        // const { data: progress } = await axios.patch(
+        //   `${url}/courses/moduleProgress`,
+        //   {
+        //     moduleId: courseContent.course.modules[0].id,
+        //     courseId: item.id,
+        //   },
+        //   {
+        //     headers: { token: getFromLocal("token") },
+        //   }
+        // );
       } catch (error) {
         console.error("Error", error);
       }
