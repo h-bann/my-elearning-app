@@ -78,6 +78,14 @@ const Courses = () => {
         //     headers: { token: getFromLocal("token") },
         //   }
         // );
+        console.log(item.id);
+        const { data: userProgress } = await axios.get(
+          `${url}/courses/userProgress`,
+          {
+            headers: { token: getFromLocal("token"), id: item.id },
+          }
+        );
+        console.log(userProgress);
       } catch (error) {
         console.error("Error", error);
       }

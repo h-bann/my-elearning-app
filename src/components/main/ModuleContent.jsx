@@ -71,11 +71,17 @@ const ModuleContent = ({ moduleId }) => {
       }
     }
   };
-  // console.log(courseComplete);
-  console.log(enrolledCourses);
+
+  // const getUserProgress = async () => {
+  //   const { data } = await axios.get(`${url}/courses/userProgress`, {
+  //     headers: { token: getFromLocal("token") },
+  //   });
+  //   console.log(data);
+  // };
 
   useEffect(() => {
     getEnrolledCourses();
+    // getUserProgress();
   }, []);
 
   // when user clicks new module and state changes, scroll to top
