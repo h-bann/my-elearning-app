@@ -27,8 +27,11 @@ const Courses = () => {
 
   useEffect(() => {
     const getCourses = async () => {
-      const { data } = await axios.get(`${url}/courses`);
+      const { data } = await axios.get(`${url}/courses/getCourses`, {
+        headers: { token: getFromLocal("token") },
+      });
       dispatch(setCourses(data.courses));
+      console.log(data);
     };
     getCourses();
   }, []);

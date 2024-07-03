@@ -66,26 +66,10 @@ const ModuleContent = React.memo(() => {
     getEnrolledCourses();
   }, []);
 
-  // useEffect(() => {
-  //   const moduleProgress = enrolledCourses.forEach((item) => {
-  //     console.log(item);
-  //     dispatch(setModuleProgress(item.module_id));
-  //   });
-  // }, []);
-
   // when user clicks new module and state changes, scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  // useEffect(() => {
-  //   console.log(enrolledCourses);
-  //   enrolledCourses.map((item) => {
-  //     if (item.module_status === "complete") {
-  //       dispatch(setCourseProgress(item.module_id));
-  //     }
-  //   });
-  // }, []);
 
   // set component's innerWidth state to the width of the window as it is resized by user
   // ! NEED TO OPTIMISE THIS TO STOP COMPONENT RE-RENDER
@@ -116,8 +100,9 @@ const ModuleContent = React.memo(() => {
         headers: { token: getFromLocal("token"), id: item.course_id },
       }
     );
-    console.log(userModuleProgress);
+    console.log(userModuleProgress.message);
   };
+  console.log(enrolledCourses);
 
   useEffect(() => {
     const updateEnrolled = async () => {
@@ -133,10 +118,7 @@ const ModuleContent = React.memo(() => {
     };
     updateEnrolled();
   }, [moduleProgress]);
-  // console.log(courseProgress);
-  // console.log(moduleContent.length);
-  // console.log(courseComplete);
-  // console.log(reachedBottom);
+
   const onImageClick = () => {
     setImageZoom(!imageZoom);
   };
