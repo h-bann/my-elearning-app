@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  coursesScreen: 0,
   courses: [],
+  moduleProgress: [],
 };
 
 export const coursesSlice = createSlice({
@@ -24,9 +24,9 @@ export const coursesSlice = createSlice({
     setMoreInfoContent: (state, { payload }) => {
       state.moreInfo = payload;
     },
-    setCourseProgress: (state, { payload }) => {
-      state.courseProgress = payload;
-    },
+    // setModuleProgress: (state, { payload }) => {
+    //   state.moduleProgress.push(payload);
+    // },
   },
 });
 
@@ -36,7 +36,7 @@ export const {
   setModuleContent,
   setCourseContent,
   setMoreInfoContent,
-  setCourseProgress,
+  setModuleProgress,
 } = coursesSlice.actions;
 
 // * this is how you retrieve from store
@@ -46,6 +46,6 @@ export const selectEnrolledCourses = (state) => state.courses.enrolledCourses;
 export const selectModuleContent = (state) => state.courses.moduleContent;
 export const selectCourseContent = (state) => state.courses.courseContent;
 export const selectMoreInfoContent = (state) => state.courses.moreInfo;
-export const selectCourseProgress = (state) => state.courses.courseProgress;
+export const selectModuleProgress = (state) => state.courses.moduleProgress;
 
 export default coursesSlice.reducer;
