@@ -3,10 +3,10 @@ import {
   selectModuleContent,
   selectCourseContent,
   setCourseContent,
-  setCourseProgress,
+  setModuleProgress,
   selectEnrolledCourses,
   setEnrolledCourses,
-  selectCourseProgress,
+  selectModuleProgress,
 } from "../../redux/coursesSlice";
 import { url } from "../../config";
 import { clearLocal, getFromLocal } from "../../storage";
@@ -15,13 +15,13 @@ import CourseContent from "./CourseContent";
 import axios from "axios";
 import usePageBottom from "../../utils/hooks";
 
-const ModuleContent = ({ moduleId }) => {
+const ModuleContent = React.memo(() => {
+  const dispatch = useDispatch();
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
   const courseContent = useSelector(selectCourseContent);
-  // const courseProgress = useSelector(selectCourseProgress);
-  const dispatch = useDispatch();
-  const [courseProgress, setCourseProgress] = useState(moduleContent[0].id);
+  const moduleProgress = useSelector(selectModuleProgress);
+  // const [courseProgress, setCourseProgress] = useState(moduleContent[0].id);
   const [hiddenContent, setHiddenContent] = useState(false);
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [imageZoom, setImageZoom] = useState(false);
@@ -60,47 +60,35 @@ const ModuleContent = ({ moduleId }) => {
       headers: { token: getFromLocal("token") },
     });
     dispatch(setEnrolledCourses(data.enrolledCourses));
-
-    const userProgress = enrolledCourses.find((item) => {
-      return item.course_progress === moduleContent[0].id;
-    });
-    if (userProgress) {
-      setCourseProgress(userProgress.course_progress);
-      if (userProgress.course_complete) {
-        setCourseComplete(true);
-      }
-    }
   };
-
-  // const getUserProgress = async () => {
-  //   const { data } = await axios.get(`${url}/courses/userProgress`, {
-  //     headers: { token: getFromLocal("token") },
-  //   });
-  //   console.log(data);
-  // };
 
   useEffect(() => {
     getEnrolledCourses();
-    // getUserProgress();
   }, []);
+
+  // useEffect(() => {
+  //   const moduleProgress = enrolledCourses.forEach((item) => {
+  //     console.log(item);
+  //     dispatch(setModuleProgress(item.module_id));
+  //   });
+  // }, []);
 
   // when user clicks new module and state changes, scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [courseProgress]);
-
-  useEffect(() => {
-    if (enrolledCourses.length) {
-      const index = enrolledCourses.find((item) => {
-        return item.course_id === moduleContent[0].course_id;
-      });
-      if (index) {
-        setCourseProgress(index.course_progress);
-      }
-    }
   }, []);
 
+  // useEffect(() => {
+  //   console.log(enrolledCourses);
+  //   enrolledCourses.map((item) => {
+  //     if (item.module_status === "complete") {
+  //       dispatch(setCourseProgress(item.module_id));
+  //     }
+  //   });
+  // }, []);
+
   // set component's innerWidth state to the width of the window as it is resized by user
+  // ! NEED TO OPTIMISE THIS TO STOP COMPONENT RE-RENDER
   useEffect(() => {
     window.addEventListener("resize", () => {
       setInnerWidth(window.innerWidth);
@@ -110,10 +98,10 @@ const ModuleContent = ({ moduleId }) => {
   const onModuleClick = async (item) => {
     // functionality to make modules toggle correctly in mobile view
     setHiddenContent(true);
-    setCourseProgress(item.id);
-    if (courseProgress === item.id) {
+    if (moduleProgress[1] === item.id) {
       setHiddenContent(!hiddenContent);
     }
+
     const { data } = await axios.patch(
       `${url}/courses/moduleProgress`,
       { moduleId: item.id, courseId: item.course_id },
@@ -121,12 +109,19 @@ const ModuleContent = ({ moduleId }) => {
         headers: { token: getFromLocal("token") },
       }
     );
-    console.log(data);
+
+    const { data: userModuleProgress } = await axios.get(
+      `${url}/courses/userProgress`,
+      {
+        headers: { token: getFromLocal("token"), id: item.course_id },
+      }
+    );
+    console.log(userModuleProgress);
   };
 
   useEffect(() => {
     const updateEnrolled = async () => {
-      if (courseProgress === moduleContent.length && reachedBottom) {
+      if (moduleProgress === moduleContent.length && reachedBottom) {
         setCourseComplete(true);
         const { data: courseComplete } = await axios.patch(
           `${url}/courses/courseCompletion`,
@@ -137,7 +132,7 @@ const ModuleContent = ({ moduleId }) => {
       }
     };
     updateEnrolled();
-  }, [courseProgress]);
+  }, [moduleProgress]);
   // console.log(courseProgress);
   // console.log(moduleContent.length);
   // console.log(courseComplete);
@@ -146,7 +141,7 @@ const ModuleContent = ({ moduleId }) => {
     setImageZoom(!imageZoom);
   };
 
-  if (!moduleContent || courseProgress === null) {
+  if (!moduleContent || moduleProgress === null) {
     <p>Loading</p>;
   }
   // if window size less than 365 then render HTML option A
@@ -165,14 +160,14 @@ const ModuleContent = ({ moduleId }) => {
                   <h1>{item.module_title}</h1>
                   <div className="module-tabs-svgs">
                     <div>
-                      {(courseProgress > item.id ||
-                        (moduleContent.length === courseProgress &&
+                      {(moduleProgress > item.id ||
+                        (moduleContent.length === moduleProgress &&
                           courseComplete)) &&
                         tick}
                     </div>
                     <div
                       className={`svg-container ${
-                        courseProgress === item.id && hiddenContent
+                        moduleProgress === item.id && hiddenContent
                           ? "rotated"
                           : ""
                       }`}
@@ -183,7 +178,7 @@ const ModuleContent = ({ moduleId }) => {
                 </div>
                 <div
                   className={`content ${
-                    courseProgress === item.id && hiddenContent
+                    moduleProgress === item.id && hiddenContent
                       ? "displayed"
                       : "hidden"
                   } `}
@@ -263,7 +258,7 @@ const ModuleContent = ({ moduleId }) => {
             <>
               <div
                 className={`individual-module ${
-                  courseProgress === item.id && "selected"
+                  moduleProgress === item.id && "selected"
                 }`}
                 key={item.id}
                 onClick={() => onModuleClick(item)}
@@ -279,7 +274,7 @@ const ModuleContent = ({ moduleId }) => {
           return (
             <div
               className={`content ${
-                courseProgress && courseProgress !== item.id && "hidden"
+                moduleProgress && moduleProgress !== item.id && "hidden"
               }`}
             >
               {item.content.map(({ type, content, id }) => {
@@ -345,6 +340,6 @@ const ModuleContent = ({ moduleId }) => {
       {/* <div className="content">{courseContent && <CourseContent />}</div> */}
     </div>
   );
-};
+});
 
 export default ModuleContent;
