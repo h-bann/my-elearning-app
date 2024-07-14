@@ -19,6 +19,7 @@ import "../pages/courses.scss";
 
 const Courses = () => {
   const [infoState, setInfoState] = useState();
+  const [modulesContent, setModulesContent] = useState(false);
   const courses = useSelector(selectCourses);
   const moduleContent = useSelector(selectModuleContent);
   const enrolledCourses = useSelector(selectEnrolledCourses);
@@ -48,50 +49,53 @@ const Courses = () => {
   }, [moduleContent]);
 
   const onCourseClick = async (item) => {
-    if (loginState) {
-      try {
-        // get's modules and content from database
-        const { data: courseContent } = await axios.get(
-          `${url}/courses/getCourse/${item.id}`,
-          {
-            headers: { token: getFromLocal("token") },
-          }
-        );
-        dispatch(setModuleContent(courseContent.course.modules));
-        dispatch(setCourseContent(courseContent.course.modules[0].content));
-        // records enrolled course against user's account
-        const { data: enrolledCourse } = await axios.patch(
-          `${url}/courses/enrolled`,
-          {
-            course_title: item.course_title,
-            course_id: item.id,
-            image: item.image,
-          },
-          {
-            headers: { token: getFromLocal("token") },
-          }
-        );
-        // const { data: progress } = await axios.patch(
-        //   `${url}/courses/moduleProgress`,
-        //   {
-        //     moduleId: courseContent.course.modules[0].id,
-        //     courseId: item.id,
-        //   },
-        //   {
-        //     headers: { token: getFromLocal("token") },
-        //   }
-        // );
+    console.log(item);
+    setModulesContent(true);
+    dispatch(setCourses(item));
+    // if (loginState) {
+    //   try {
+    //     // get's modules and content from database
+    //     const { data: courseContent } = await axios.get(
+    //       `${url}/courses/getCourse/${item.id}`,
+    //       {
+    //         headers: { token: getFromLocal("token") },
+    //       }
+    //     );
+    //     dispatch(setModuleContent(courseContent.course.modules));
+    //     dispatch(setCourseContent(courseContent.course.modules[0].content));
+    //     // records enrolled course against user's account
+    //     const { data: enrolledCourse } = await axios.patch(
+    //       `${url}/courses/enrolled`,
+    //       {
+    //         course_title: item.course_title,
+    //         course_id: item.id,
+    //         image: item.image,
+    //       },
+    //       {
+    //         headers: { token: getFromLocal("token") },
+    //       }
+    //     );
+    // const { data: progress } = await axios.patch(
+    //   `${url}/courses/moduleProgress`,
+    //   {
+    //     moduleId: courseContent.course.modules[0].id,
+    //     courseId: item.id,
+    //   },
+    //   {
+    //     headers: { token: getFromLocal("token") },
+    //   }
+    // );
 
-        const { data: userProgress } = await axios.get(
-          `${url}/courses/userProgress`,
-          {
-            headers: { token: getFromLocal("token"), id: item.id },
-          }
-        );
-      } catch (error) {
-        console.error("Error", error);
-      }
-    }
+    //   const { data: userProgress } = await axios.get(
+    //     `${url}/courses/userProgress`,
+    //     {
+    //       headers: { token: getFromLocal("token"), id: item.id },
+    //     }
+    //   );
+    // } catch (error) {
+    //   console.error("Error", error);
+    // }
+    // }
 
     // ! ADD MESSAGE SAYING CAN'T ENROL IF NOT LOGGED IN
   };
@@ -106,7 +110,7 @@ const Courses = () => {
 
   return (
     <>
-      {!moduleContent && (
+      {!modulesContent && (
         <div className="main-container">
           <h3 className="">Available Courses</h3>
           <div className="card-container">
@@ -139,7 +143,7 @@ const Courses = () => {
         </div>
       )}
 
-      {moduleContent !== null && <div> {<ModuleContent />}</div>}
+      {modulesContent && <div> {<ModuleContent />}</div>}
     </>
   );
 };

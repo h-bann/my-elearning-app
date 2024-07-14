@@ -7,6 +7,7 @@ import {
   selectEnrolledCourses,
   setEnrolledCourses,
   selectModuleProgress,
+  selectCourses,
 } from "../../redux/coursesSlice";
 import { url } from "../../config";
 import { clearLocal, getFromLocal } from "../../storage";
@@ -17,12 +18,14 @@ import usePageBottom from "../../utils/hooks";
 
 const ModuleContent = React.memo(() => {
   const dispatch = useDispatch();
+  const courses = useSelector(selectCourses);
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
   const courseContent = useSelector(selectCourseContent);
   const moduleProgress = useSelector(selectModuleProgress);
   // const [courseProgress, setCourseProgress] = useState(moduleContent[0].id);
-  const [hiddenContent, setHiddenContent] = useState(false);
+  const [hideContent, setHideContent] = useState(true);
+  const [activeModule, setActiveModule] = useState();
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [imageZoom, setImageZoom] = useState(false);
   const [courseComplete, setCourseComplete] = useState(false);
@@ -78,12 +81,12 @@ const ModuleContent = React.memo(() => {
       setInnerWidth(window.innerWidth);
     });
   }, []);
-
   const onModuleClick = async (item) => {
+    setHideContent(true);
     // functionality to make modules toggle correctly in mobile view
-    setHiddenContent(true);
-    if (moduleProgress[1] === item.id) {
-      setHiddenContent(!hiddenContent);
+    setActiveModule(item.id);
+    if (activeModule === item.id) {
+      setHideContent(!hideContent);
     }
 
     const { data } = await axios.patch(
@@ -100,17 +103,16 @@ const ModuleContent = React.memo(() => {
         headers: { token: getFromLocal("token"), id: item.course_id },
       }
     );
-    console.log(userModuleProgress.message);
+    setModuleProgress(userModuleProgress.message);
   };
-  console.log(enrolledCourses);
 
   useEffect(() => {
     const updateEnrolled = async () => {
-      if (moduleProgress === moduleContent.length && reachedBottom) {
+      if (moduleProgress === courses.modules.length && reachedBottom) {
         setCourseComplete(true);
         const { data: courseComplete } = await axios.patch(
           `${url}/courses/courseCompletion`,
-          { courseId: moduleContent[0].id },
+          { courseId: courses.modules[0].id },
           { headers: { token: getFromLocal("token") } }
         );
         console.log(courseComplete);
@@ -126,12 +128,13 @@ const ModuleContent = React.memo(() => {
   if (!moduleContent || moduleProgress === null) {
     <p>Loading</p>;
   }
+
   // if window size less than 365 then render HTML option A
   if (innerWidth < 365) {
     return (
       <div className="module-container">
         <div className="modules">
-          {moduleContent.map((item) => {
+          {courses.modules.map((item) => {
             return (
               <div
                 className={`individual-module`}
@@ -143,7 +146,7 @@ const ModuleContent = React.memo(() => {
                   <div className="module-tabs-svgs">
                     <div>
                       {(moduleProgress > item.id ||
-                        (moduleContent.length === moduleProgress &&
+                        (courses.modules.length === moduleProgress &&
                           courseComplete)) &&
                         tick}
                     </div>
@@ -160,7 +163,7 @@ const ModuleContent = React.memo(() => {
                 </div>
                 <div
                   className={`content ${
-                    moduleProgress === item.id && hiddenContent
+                    hideContent && activeModule === item.id
                       ? "displayed"
                       : "hidden"
                   } `}
