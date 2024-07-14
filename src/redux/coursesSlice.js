@@ -24,9 +24,9 @@ export const coursesSlice = createSlice({
     setMoreInfoContent: (state, { payload }) => {
       state.moreInfo = payload;
     },
-    // setModuleProgress: (state, { payload }) => {
-    //   state.moduleProgress.push(payload);
-    // },
+    setModuleProgress: (state, { payload }) => {
+      state.moduleProgress = payload;
+    },
   },
 });
 
