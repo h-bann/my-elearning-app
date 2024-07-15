@@ -81,9 +81,10 @@ const ModuleContent = React.memo(() => {
       setInnerWidth(window.innerWidth);
     });
   }, []);
+
   const onModuleClick = async (item) => {
-    setHideContent(true);
     // functionality to make modules toggle correctly in mobile view
+    setHideContent(true);
     setActiveModule(item.id);
     if (activeModule === item.id) {
       setHideContent(!hideContent);
@@ -103,7 +104,7 @@ const ModuleContent = React.memo(() => {
         headers: { token: getFromLocal("token"), id: item.course_id },
       }
     );
-    setModuleProgress(userModuleProgress.message);
+    dispatch(setModuleProgress(userModuleProgress.message));
   };
 
   useEffect(() => {
