@@ -63,11 +63,22 @@ const ModuleContent = React.memo(() => {
       headers: { token: getFromLocal("token") },
     });
     dispatch(setEnrolledCourses(data.enrolledCourses));
+    console.log("ran");
+    const { data: userModuleProgress } = await axios.get(
+      `${url}/courses/userProgress`,
+      {
+        headers: { token: getFromLocal("token"), id: courses[0].id },
+      }
+    );
+    dispatch(setModuleProgress(userModuleProgress.message));
+
+    console.log(userModuleProgress);
   };
 
   useEffect(() => {
+    console.log("ran");
     getEnrolledCourses();
-  }, []);
+  }, [courses]);
 
   // when user clicks new module and state changes, scroll to top
   useEffect(() => {
@@ -109,11 +120,11 @@ const ModuleContent = React.memo(() => {
 
   useEffect(() => {
     const updateEnrolled = async () => {
-      if (moduleProgress === courses.modules.length && reachedBottom) {
+      if (moduleProgress === courses[0].modules.length && reachedBottom) {
         setCourseComplete(true);
         const { data: courseComplete } = await axios.patch(
           `${url}/courses/courseCompletion`,
-          { courseId: courses.modules[0].id },
+          { courseId: courses[0].modules[0].id },
           { headers: { token: getFromLocal("token") } }
         );
         console.log(courseComplete);
@@ -126,16 +137,17 @@ const ModuleContent = React.memo(() => {
     setImageZoom(!imageZoom);
   };
 
-  if (!moduleContent || moduleProgress === null) {
+  if (!moduleContent || !moduleProgress || !moduleProgress.module_ids) {
     <p>Loading</p>;
   }
 
+  console.log(moduleProgress);
   // if window size less than 365 then render HTML option A
   if (innerWidth < 365) {
     return (
       <div className="module-container">
         <div className="modules">
-          {courses.modules.map((item) => {
+          {courses[0].modules.map((item) => {
             return (
               <div
                 className={`individual-module`}
@@ -146,10 +158,11 @@ const ModuleContent = React.memo(() => {
                   <h1>{item.module_title}</h1>
                   <div className="module-tabs-svgs">
                     <div>
-                      {(moduleProgress > item.id ||
-                        (courses.modules.length === moduleProgress &&
-                          courseComplete)) &&
-                        tick}
+                      {moduleProgress?.module_ids?.map((moduleId) => {
+                        if (moduleId === item.id) {
+                          return tick;
+                        }
+                      })}
                     </div>
                     <div
                       className={`svg-container ${

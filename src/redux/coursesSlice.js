@@ -10,7 +10,7 @@ export const coursesSlice = createSlice({
   initialState,
   reducers: {
     setCourses: (state, { payload }) => {
-      state.courses = payload;
+      state.courses = Array.isArray(payload) ? payload : [payload];
     },
     setEnrolledCourses: (state, { payload }) => {
       state.enrolledCourses = payload;

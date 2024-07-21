@@ -35,7 +35,7 @@ const Courses = () => {
       console.log(data);
     };
     getCourses();
-  }, []);
+  }, [dispatch]);
 
   const getEnrolledCourses = async () => {
     const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
@@ -49,7 +49,6 @@ const Courses = () => {
   }, [moduleContent]);
 
   const onCourseClick = async (item) => {
-    console.log(item);
     setModulesContent(true);
     dispatch(setCourses(item));
     // if (loginState) {
