@@ -90,7 +90,7 @@ const MyLearning = () => {
       </div>
     );
   }
-  console.log(modulesContent);
+
   return (
     <>
       {!modulesContent && (
@@ -99,7 +99,7 @@ const MyLearning = () => {
           <div className="card-container">
             {enrolledCourses.map((item) => {
               return (
-                <div className="card course-card" key={item.id}>
+                <div className="card course-card" key={item.course_id}>
                   <img src={"./images/" + item.image} />
                   <div className="card-body">
                     <h4 className="card-title">{item.course_title}</h4>
