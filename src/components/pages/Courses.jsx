@@ -37,53 +37,33 @@ const Courses = () => {
     getCourses();
   }, [dispatch]);
 
-  const getEnrolledCourses = async () => {
-    const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
-      headers: { token: getFromLocal("token") },
-    });
-    dispatch(setEnrolledCourses(data.enrolledCourses));
-  };
+  // const getEnrolledCourses = async () => {
+  //   const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
+  //     headers: { token: getFromLocal("token") },
+  //   });
+  //   dispatch(setEnrolledCourses(data.enrolledCourses));
+  // };
 
-  useEffect(() => {
-    getEnrolledCourses();
-  }, [moduleContent]);
+  // useEffect(() => {
+  //   getEnrolledCourses();
+  // }, [moduleContent]);
 
   const onCourseClick = async (item) => {
     setModulesContent(true);
     dispatch(setCourses(item));
-    // if (loginState) {
-    //   try {
-    //     // get's modules and content from database
-    //     const { data: courseContent } = await axios.get(
-    //       `${url}/courses/getCourse/${item.id}`,
-    //       {
-    //         headers: { token: getFromLocal("token") },
-    //       }
-    //     );
-    //     dispatch(setModuleContent(courseContent.course.modules));
-    //     dispatch(setCourseContent(courseContent.course.modules[0].content));
-    //     // records enrolled course against user's account
-    //     const { data: enrolledCourse } = await axios.patch(
-    //       `${url}/courses/enrolled`,
-    //       {
-    //         course_title: item.course_title,
-    //         course_id: item.id,
-    //         image: item.image,
-    //       },
-    //       {
-    //         headers: { token: getFromLocal("token") },
-    //       }
-    //     );
-    // const { data: progress } = await axios.patch(
-    //   `${url}/courses/moduleProgress`,
-    //   {
-    //     moduleId: courseContent.course.modules[0].id,
-    //     courseId: item.id,
-    //   },
-    //   {
-    //     headers: { token: getFromLocal("token") },
-    //   }
-    // );
+
+    // records enrolled course against user's account
+    const { data: enrolledCourse } = await axios.patch(
+      `${url}/courses/enrolled`,
+      {
+        course_title: item.course_title,
+        course_id: item.id,
+        image: item.image,
+      },
+      {
+        headers: { token: getFromLocal("token") },
+      }
+    );
 
     //   const { data: userProgress } = await axios.get(
     //     `${url}/courses/userProgress`,
@@ -121,7 +101,7 @@ const Courses = () => {
                     <h4 className="card-title">{item.course_title}</h4>
                     <Button
                       className={["btn-primary"]}
-                      text="Enrol"
+                      text="Buy course"
                       onClick={() => onCourseClick(item)}
                     />
                     <Button

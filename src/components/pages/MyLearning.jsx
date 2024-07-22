@@ -9,6 +9,8 @@ import {
   selectEnrolledCourses,
   selectCourses,
   selectCourseContent,
+  setModuleProgress,
+  setActiveCourse,
 } from "../../redux/coursesSlice";
 import Button from "../genericComponents/Button";
 import ModuleContent from "../main/ModuleContent";
@@ -20,17 +22,21 @@ import "../pages/courses.scss";
 
 const MyLearning = () => {
   const dispatch = useDispatch();
+  const [infoState, setInfoState] = useState();
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
-  const loginState = useSelector(selectLoginState);
-  const [state, setState] = useState();
-  const [isStateReady, setIsStateReady] = useState(false);
+  const [modulesContent, setModulesContent] = useState(false);
+
+  // const loginState = useSelector(selectLoginState);
+  // const [state, setState] = useState();
+  // const [isStateReady, setIsStateReady] = useState(false);
 
   const getEnrolledCourses = async () => {
     const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
       headers: { token: getFromLocal("token") },
     });
     dispatch(setEnrolledCourses(data.enrolledCourses));
+    // console.log(data);
   };
 
   useEffect(() => {
@@ -38,37 +44,41 @@ const MyLearning = () => {
   }, [moduleContent]);
 
   const onCourseClick = async (item) => {
-    if (loginState) {
-      // get's modules and content from database
-      const { data: courseContent } = await axios.get(
-        `${url}/courses/getCourse/${item.course_id}`,
-        {
-          headers: { token: getFromLocal("token") },
-        }
-      );
-      // look through enrolledCourses to find one that user clicked
-      const course = enrolledCourses.find((courses) => {
-        return courses.course_id === courseContent.course.courseId;
-      });
+    // if (loginState) {
+    //   // get's modules and content from database
+    //   const { data: courseContent } = await axios.get(
+    //     `${url}/courses/getCourse/${item.course_id}`,
+    //     {
+    //       headers: { token: getFromLocal("token") },
+    //     }
+    //   );
+    //   // look through enrolledCourses to find one that user clicked
+    //   const course = enrolledCourses.find((courses) => {
+    //     return courses.course_id === courseContent.course.courseId;
+    //   });
+    //   if (course) {
+    //     dispatch(setModuleContent(courseContent.course.modules));
+    //     const content = courseContent.course.modules.find((module) => {
+    //       // find the index that matches the course progress of user
+    //       return module.id === course.course_progress;
+    //     });
+    //     setState(content.id);
+    //     setIsStateReady(true);
+    //     // set course content to match user course progress
+    //     dispatch(setCourseContent(content.content));
+    //   }
+    // }
 
-      if (course) {
-        dispatch(setModuleContent(courseContent.course.modules));
-        const content = courseContent.course.modules.find((module) => {
-          // find the index that matches the course progress of user
-          return module.id === course.course_progress;
-        });
-        setState(content.id);
-        setIsStateReady(true);
-        // set course content to match user course progress
-        dispatch(setCourseContent(content.content));
-      }
-    }
+    setModulesContent(true);
+    dispatch(setActiveCourse(item.course_id));
   };
 
   const leaveCourse = async (item) => {
-    await axios.delete(`${url}/courses/deleteEnrolled`, {
+    dispatch(setModuleProgress(null));
+    const { data } = await axios.delete(`${url}/courses/deleteEnrolled`, {
       headers: { token: getFromLocal("token"), id: item.course_id },
     });
+    console.log(data);
     getEnrolledCourses();
   };
 
@@ -80,10 +90,10 @@ const MyLearning = () => {
       </div>
     );
   }
-
+  console.log(modulesContent);
   return (
     <>
-      {!moduleContent && (
+      {!modulesContent && (
         <div className="main-container">
           <h3 className="">Enrolled Courses</h3>
           <div className="card-container">
@@ -102,8 +112,17 @@ const MyLearning = () => {
                       className={["btn-outline-primary", ""]}
                       text="Leave course"
                       onClick={() => leaveCourse(item)}
-                      π
                     />
+                    <Button
+                      className={["btn-outline-primary", ""]}
+                      text="More Info"
+                      onClick={() => setInfoState(item)}
+                    />
+                    {infoState && infoState.id === item.id && (
+                      <div className="card-text text-wrap">
+                        {infoState.more_info}
+                      </div>
+                    )}
                   </div>
                 </div>
               );
@@ -111,9 +130,11 @@ const MyLearning = () => {
           </div>
         </div>
       )}
-      {moduleContent !== null && isStateReady && (
+
+      {modulesContent && <div> {<ModuleContent />}</div>}
+      {/* {moduleContent !== null && isStateReady && (
         <div> {<ModuleContent moduleId={state} />}</div>
-      )}
+      )} */}
     </>
   );
 };

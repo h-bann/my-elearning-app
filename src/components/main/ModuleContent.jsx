@@ -7,6 +7,7 @@ import {
   selectEnrolledCourses,
   setEnrolledCourses,
   selectModuleProgress,
+  selectActiveCourse,
   selectCourses,
 } from "../../redux/coursesSlice";
 import { url } from "../../config";
@@ -16,16 +17,18 @@ import CourseContent from "./CourseContent";
 import axios from "axios";
 import usePageBottom from "../../utils/hooks";
 
-const ModuleContent = React.memo(() => {
+const ModuleContent = () => {
   const dispatch = useDispatch();
   const courses = useSelector(selectCourses);
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
   const courseContent = useSelector(selectCourseContent);
   const moduleProgress = useSelector(selectModuleProgress);
+  const activeCourse = useSelector(selectActiveCourse);
   // const [courseProgress, setCourseProgress] = useState(moduleContent[0].id);
   const [hideContent, setHideContent] = useState(true);
   const [activeModule, setActiveModule] = useState();
+  const [loading, setLoading] = useState(true);
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [imageZoom, setImageZoom] = useState(false);
   const [courseComplete, setCourseComplete] = useState(false);
@@ -58,27 +61,19 @@ const ModuleContent = React.memo(() => {
     </svg>
   );
 
-  const getEnrolledCourses = async () => {
-    const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
-      headers: { token: getFromLocal("token") },
-    });
-    dispatch(setEnrolledCourses(data.enrolledCourses));
-    console.log("ran");
-    const { data: userModuleProgress } = await axios.get(
-      `${url}/courses/userProgress`,
-      {
-        headers: { token: getFromLocal("token"), id: courses[0].id },
-      }
-    );
-    dispatch(setModuleProgress(userModuleProgress.message));
-
-    console.log(userModuleProgress);
-  };
-
-  useEffect(() => {
-    console.log("ran");
-    getEnrolledCourses();
-  }, [courses]);
+  // useEffect(() => {
+  //   const getEnrolledCourses = async () => {
+  //     const { data: userModuleProgress } = await axios.get(
+  //       `${url}/courses/userProgress`,
+  //       {
+  //         headers: { token: getFromLocal("token"), id: courses[0].id },
+  //       }
+  //     );
+  //     dispatch(setModuleProgress(userModuleProgress.message));
+  //     setLoading(false);
+  //   };
+  //   getEnrolledCourses();
+  // }, [activeModule]);
 
   // when user clicks new module and state changes, scroll to top
   useEffect(() => {
@@ -108,30 +103,30 @@ const ModuleContent = React.memo(() => {
         headers: { token: getFromLocal("token") },
       }
     );
-
-    const { data: userModuleProgress } = await axios.get(
-      `${url}/courses/userProgress`,
-      {
-        headers: { token: getFromLocal("token"), id: item.course_id },
-      }
-    );
-    dispatch(setModuleProgress(userModuleProgress.message));
+    // const { data: userModuleProgress } = await axios.get(
+    //   `${url}/courses/userProgress`,
+    //   {
+    //     headers: { token: getFromLocal("token"), id: item.course_id },
+    //   }
+    // );
+    // dispatch(setModuleProgress(userModuleProgress.message));
+    // console.log(userModuleProgress);
   };
 
-  useEffect(() => {
-    const updateEnrolled = async () => {
-      if (moduleProgress === courses[0].modules.length && reachedBottom) {
-        setCourseComplete(true);
-        const { data: courseComplete } = await axios.patch(
-          `${url}/courses/courseCompletion`,
-          { courseId: courses[0].modules[0].id },
-          { headers: { token: getFromLocal("token") } }
-        );
-        console.log(courseComplete);
-      }
-    };
-    updateEnrolled();
-  }, [moduleProgress]);
+  // useEffect(() => {
+  //   const updateEnrolled = async () => {
+  //     if (moduleProgress === courses[0].modules.length && reachedBottom) {
+  //       setCourseComplete(true);
+  //       const { data: courseComplete } = await axios.patch(
+  //         `${url}/courses/courseCompletion`,
+  //         { courseId: courses[0].modules[0].id },
+  //         { headers: { token: getFromLocal("token") } }
+  //       );
+  //       console.log(courseComplete);
+  //     }
+  //   };
+  //   updateEnrolled();
+  // }, [moduleProgress]);
 
   const onImageClick = () => {
     setImageZoom(!imageZoom);
@@ -140,110 +135,116 @@ const ModuleContent = React.memo(() => {
   if (!moduleContent || !moduleProgress || !moduleProgress.module_ids) {
     <p>Loading</p>;
   }
+  // if (loading) return <p>Loading.....</p>;
 
-  console.log(moduleProgress);
   // if window size less than 365 then render HTML option A
   if (innerWidth < 365) {
     return (
       <div className="module-container">
         <div className="modules">
-          {courses[0].modules.map((item) => {
+          {enrolledCourses.map((enrolledCoursesItem) => {
+            const { modules } = enrolledCoursesItem;
             return (
-              <div
-                className={`individual-module`}
-                key={item.id}
-                onClick={() => onModuleClick(item)}
-              >
-                <div className="module-tabs">
-                  <h1>{item.module_title}</h1>
-                  <div className="module-tabs-svgs">
-                    <div>
-                      {moduleProgress?.module_ids?.map((moduleId) => {
-                        if (moduleId === item.id) {
-                          return tick;
+              enrolledCoursesItem.course_id === activeCourse &&
+              modules.map((modulesItem) => {
+                const { content } = modulesItem;
+                return (
+                  <div
+                    className="individual-module"
+                    key={modulesItem.id}
+                    onClick={() => onModuleClick(modulesItem)}
+                  >
+                    <div className="module-tabs">
+                      <h1>{modulesItem.module_title}</h1>
+                      <div className="module-tabs-svg">
+                        <div>
+                          {moduleProgress?.module_ids?.map((moduleId) => {
+                            if (moduleId === modulesItem.id) {
+                              return tick;
+                            }
+                          })}
+                        </div>
+                        <div
+                          className={`svg-container ${
+                            hideContent && activeModule === modulesItem.id
+                              ? "rotated"
+                              : ""
+                          }`}
+                        >
+                          {downArrow}
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className={`content ${
+                        hideContent && activeModule === modulesItem.id
+                          ? "displayed"
+                          : "hidden"
+                      }`}
+                    >
+                      {content.map(({ type, content, id }) => {
+                        switch (type) {
+                          case "mainHeading":
+                            return <h3>{content}</h3>;
+
+                          case "subHeading":
+                            return <h4>{content}</h4>;
+
+                          case "paragraph":
+                            return <p>{content}</p>;
+
+                          case "list":
+                            return (
+                              <>
+                                <li key={id} className="main-list-item">
+                                  {content}
+                                </li>
+                              </>
+                            );
+
+                          case "subList":
+                            return (
+                              <>
+                                <li key={id} className="sub-list-item">
+                                  {content}
+                                </li>
+                              </>
+                            );
+
+                          case "bold":
+                            return (
+                              <p className="text-center">
+                                <strong>{content}</strong>
+                              </p>
+                            );
+
+                          case "underlined":
+                            return (
+                              <p>
+                                <u>{content}</u>
+                              </p>
+                            );
+
+                          case "image":
+                            return (
+                              <img
+                                src={"./images/" + content}
+                                onClick={onImageClick}
+                                className={imageZoom ? "image-zoom" : null}
+                              />
+                            );
+
+                          default:
+                            break;
                         }
                       })}
                     </div>
-                    <div
-                      className={`svg-container ${
-                        moduleProgress === item.id && hiddenContent
-                          ? "rotated"
-                          : ""
-                      }`}
-                    >
-                      {downArrow}
-                    </div>
                   </div>
-                </div>
-                <div
-                  className={`content ${
-                    hideContent && activeModule === item.id
-                      ? "displayed"
-                      : "hidden"
-                  } `}
-                >
-                  {item.content.map(({ type, content, id }) => {
-                    switch (type) {
-                      case "mainHeading":
-                        return <h3>{content}</h3>;
-
-                      case "subHeading":
-                        return <h4>{content}</h4>;
-
-                      case "paragraph":
-                        return <p>{content}</p>;
-
-                      case "list":
-                        return (
-                          <>
-                            <li key={id} className="main-list-item">
-                              {content}
-                            </li>
-                          </>
-                        );
-
-                      case "subList":
-                        return (
-                          <>
-                            <li key={id} className="sub-list-item">
-                              {content}
-                            </li>
-                          </>
-                        );
-
-                      case "bold":
-                        return (
-                          <p className="text-center">
-                            <strong>{content}</strong>
-                          </p>
-                        );
-
-                      case "underlined":
-                        return (
-                          <p>
-                            <u>{content}</u>
-                          </p>
-                        );
-
-                      case "image":
-                        return (
-                          <img
-                            src={"./images/" + content}
-                            onClick={onImageClick}
-                            className={imageZoom ? "image-zoom" : null}
-                          />
-                        );
-
-                      default:
-                        break;
-                    }
-                  })}
-                </div>
-              </div>
+                );
+              })
             );
           })}
         </div>
-        {/* <div className="content">{courseContent && <CourseContent />}</div> */}
       </div>
     );
   }
@@ -339,6 +340,6 @@ const ModuleContent = React.memo(() => {
       {/* <div className="content">{courseContent && <CourseContent />}</div> */}
     </div>
   );
-});
+};
 
 export default ModuleContent;
