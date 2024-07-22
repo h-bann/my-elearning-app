@@ -176,6 +176,7 @@ const ModuleContent = () => {
                       </div>
                     </div>
                     <div
+                      key={modulesItem.id}
                       className={`content ${
                         hideContent && activeModule === modulesItem.id
                           ? "displayed"
@@ -185,13 +186,13 @@ const ModuleContent = () => {
                       {content.map(({ type, content, id }) => {
                         switch (type) {
                           case "mainHeading":
-                            return <h3>{content}</h3>;
+                            return <h3 key={id}>{content}</h3>;
 
                           case "subHeading":
-                            return <h4>{content}</h4>;
+                            return <h4 key={id}>{content}</h4>;
 
                           case "paragraph":
-                            return <p>{content}</p>;
+                            return <p key={id}>{content}</p>;
 
                           case "list":
                             return (
@@ -213,14 +214,14 @@ const ModuleContent = () => {
 
                           case "bold":
                             return (
-                              <p className="text-center">
+                              <p key={id} className="text-center">
                                 <strong>{content}</strong>
                               </p>
                             );
 
                           case "underlined":
                             return (
-                              <p>
+                              <p key={id}>
                                 <u>{content}</u>
                               </p>
                             );
@@ -228,6 +229,7 @@ const ModuleContent = () => {
                           case "image":
                             return (
                               <img
+                                key={id}
                                 src={"./images/" + content}
                                 onClick={onImageClick}
                                 className={imageZoom ? "image-zoom" : null}
