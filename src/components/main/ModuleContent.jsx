@@ -61,19 +61,22 @@ const ModuleContent = () => {
     </svg>
   );
 
-  // useEffect(() => {
-  //   const getEnrolledCourses = async () => {
-  //     const { data: userModuleProgress } = await axios.get(
-  //       `${url}/courses/userProgress`,
-  //       {
-  //         headers: { token: getFromLocal("token"), id: courses[0].id },
-  //       }
-  //     );
-  //     dispatch(setModuleProgress(userModuleProgress.message));
-  //     setLoading(false);
-  //   };
-  //   getEnrolledCourses();
-  // }, [activeModule]);
+  useEffect(() => {
+    const getEnrolledCourses = async () => {
+      try {
+        const { data: userModuleProgress } = await axios.get(
+          `${url}/courses/userProgress`,
+          {
+            headers: { token: getFromLocal("token"), id: activeCourse },
+          }
+        );
+        dispatch(setModuleProgress(userModuleProgress.message));
+      } catch (error) {
+        console.error("Failed to fetch module progress", error);
+      }
+    };
+    getEnrolledCourses();
+  }, [activeCourse]);
 
   // when user clicks new module and state changes, scroll to top
   useEffect(() => {
