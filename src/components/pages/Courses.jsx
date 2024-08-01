@@ -7,6 +7,7 @@ import {
   setCourseContent,
   setEnrolledCourses,
   selectEnrolledCourses,
+  setActiveCourse,
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
@@ -50,7 +51,8 @@ const Courses = () => {
 
   const onCourseClick = async (item) => {
     setModulesContent(true);
-    dispatch(setCourses(item));
+    // dispatch(setCourses(item));
+    dispatch(setActiveCourse(item.id));
 
     // records enrolled course against user's account
     const { data: enrolledCourse } = await axios.patch(
