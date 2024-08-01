@@ -26,9 +26,13 @@ export const coursesSlice = createSlice({
       state.moreInfo = payload;
     },
     setModuleProgress: (state, { payload }) => {
-      console.log(payload);
-      // state.moduleProgress.push(payload);
-      state.moduleProgress = payload.module_ids;
+      if (Array.isArray(payload) || payload === null) {
+        state.moduleProgress = payload;
+        return;
+      }
+      if (state.moduleProgress.includes(payload) === false) {
+        state.moduleProgress.push(payload);
+      }
     },
     setActiveCourse: (state, { payload }) => {
       state.activeCourse = payload;

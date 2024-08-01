@@ -70,7 +70,7 @@ const ModuleContent = () => {
             headers: { token: getFromLocal("token"), id: activeCourse },
           }
         );
-        dispatch(setModuleProgress(userModuleProgress.message));
+        dispatch(setModuleProgress(userModuleProgress.message.module_ids));
       } catch (error) {
         console.error("Failed to fetch module progress", error);
       }
@@ -93,6 +93,7 @@ const ModuleContent = () => {
 
   const onModuleClick = async (item) => {
     // functionality to make modules toggle correctly in mobile view
+    dispatch(setModuleProgress(item.id));
     setHideContent(true);
     setActiveModule(item.id);
     if (activeModule === item.id) {
@@ -161,7 +162,7 @@ const ModuleContent = () => {
                       <h1>{modulesItem.module_title}</h1>
                       <div className="module-tabs-svg">
                         <div>
-                          {moduleProgress?.module_ids?.map((moduleId) => {
+                          {moduleProgress?.map((moduleId) => {
                             if (moduleId === modulesItem.id) {
                               return tick;
                             }
