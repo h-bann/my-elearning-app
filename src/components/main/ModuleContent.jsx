@@ -17,6 +17,7 @@ import CourseContent from "./CourseContent";
 import axios from "axios";
 import usePageBottom from "../../utils/hooks";
 import { greenTick, downArrow } from "../../utils/svgs";
+import Button from "../genericComponents/Button";
 
 const ModuleContent = () => {
   const dispatch = useDispatch();
@@ -50,16 +51,17 @@ const ModuleContent = () => {
   }, [activeCourse]);
 
   const onModuleClick = async (item) => {
+    // functionality to make modules toggle correctly in mobile view
     setHideContent(true);
     setActiveModule(item.id);
-    // functionality to make modules toggle correctly in mobile view
-    if (reachedBottom) {
-      dispatch(setModuleProgress(item.id));
-    }
-
     if (activeModule === item.id) {
       setHideContent(!hideContent);
     }
+  };
+
+  const onNextClick = async (item) => {
+    setActiveModule(item.id + 1);
+    dispatch(setModuleProgress(item.id));
 
     const { data } = await axios.patch(
       `${url}/courses/moduleProgress`,
@@ -68,11 +70,11 @@ const ModuleContent = () => {
         headers: { token: getFromLocal("token") },
       }
     );
-
     const activeCourse = enrolledCourses.find((foundItem) => {
       return foundItem.course_id === item.course_id;
     });
-    if (activeCourse.modules.length === item.id) {
+    const lastItem = activeCourse.modules.slice(-1);
+    if (lastItem[0].id === item.id) {
       const { data: courseComplete } = await axios.patch(
         `${url}/courses/courseCompletion`,
         { courseId: item.course_id },
@@ -98,7 +100,7 @@ const ModuleContent = () => {
   if (!enrolledCourses) {
     <p>Loading</p>;
   }
-  console.log(reachedBottom);
+
   // if window size less than 365 then render HTML option A
   if (innerWidth < 365) {
     return (
@@ -109,6 +111,7 @@ const ModuleContent = () => {
             return (
               enrolledCoursesItem.course_id === activeCourse &&
               modules.map((modulesItem) => {
+                const lastItem = modules.slice(-1);
                 const { content } = modulesItem;
                 return (
                   <div className="individual-module" key={modulesItem.id}>
@@ -145,6 +148,15 @@ const ModuleContent = () => {
                       }`}
                     >
                       <CourseContent content={content} />
+                      <Button
+                        className={["btn-primary"]}
+                        text={
+                          lastItem[0].id === modulesItem.id
+                            ? "Finish Course"
+                            : "Next Module"
+                        }
+                        onClick={() => onNextClick(modulesItem)}
+                      />
                     </div>
                   </div>
                 );

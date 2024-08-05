@@ -42,7 +42,6 @@ const Courses = () => {
 
   const onCourseClick = async (item) => {
     setModulesContent(true);
-    // dispatch(setCourses(item));
     dispatch(setActiveCourse(item.id));
 
     // records enrolled course against user's account
@@ -68,7 +67,7 @@ const Courses = () => {
       </div>
     );
   }
-
+  console.log(infoState);
   return (
     <>
       {!modulesContent && (
@@ -89,7 +88,7 @@ const Courses = () => {
                     <Button
                       className={["btn-outline-primary", ""]}
                       text="More Info"
-                      onClick={() => setInfoState(item)}
+                      onClick={() => setInfoState(item.id)}
                     />
                     {infoState && infoState.id === item.id && (
                       <div className="card-text text-wrap">
