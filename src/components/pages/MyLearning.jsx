@@ -100,7 +100,7 @@ const MyLearning = () => {
                       text="More Info"
                       onClick={() => setInfoState(item)}
                     />
-                    {infoState && infoState.id === item.id && (
+                    {infoState && infoState.course_id === item.course_id && (
                       <div className="card-text text-wrap">
                         {infoState.more_info}
                       </div>

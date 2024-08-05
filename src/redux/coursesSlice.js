@@ -31,10 +31,7 @@ export const coursesSlice = createSlice({
         state.moduleProgress = payload;
         return;
       }
-      if (
-        // state.moduleProgress === null ||
-        state.moduleProgress.includes(payload) === false
-      ) {
+      if (state.moduleProgress.includes(payload) === false) {
         state.moduleProgress.push(payload);
       }
     },

@@ -8,9 +8,8 @@ const CourseContent = ({ content }) => {
   const onImageClick = () => {
     setImageZoom(!imageZoom);
   };
-
   return (
-    <div className="mb-5">
+    <>
       {content.map(({ type, content, id }) => {
         switch (type) {
           case "mainHeading":
@@ -68,7 +67,7 @@ const CourseContent = ({ content }) => {
             break;
         }
       })}
-    </div>
+    </>
   );
 };
 
