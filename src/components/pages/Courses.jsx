@@ -28,26 +28,17 @@ const Courses = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getCourses = async () => {
-      const { data } = await axios.get(`${url}/courses/getCourses`, {
-        headers: { token: getFromLocal("token") },
-      });
-      dispatch(setCourses(data.courses));
-      console.log(data);
-    };
-    getCourses();
-  }, [dispatch]);
-
-  // const getEnrolledCourses = async () => {
-  //   const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
-  //     headers: { token: getFromLocal("token") },
-  //   });
-  //   dispatch(setEnrolledCourses(data.enrolledCourses));
-  // };
-
-  // useEffect(() => {
-  //   getEnrolledCourses();
-  // }, [moduleContent]);
+    if (courses.length === 0) {
+      const getCourses = async () => {
+        const { data } = await axios.get(`${url}/courses/getCourses`, {
+          headers: { token: getFromLocal("token") },
+        });
+        dispatch(setCourses(data.courses));
+        console.log(data);
+      };
+      getCourses();
+    }
+  }, []);
 
   const onCourseClick = async (item) => {
     setModulesContent(true);
@@ -66,17 +57,6 @@ const Courses = () => {
         headers: { token: getFromLocal("token") },
       }
     );
-
-    //   const { data: userProgress } = await axios.get(
-    //     `${url}/courses/userProgress`,
-    //     {
-    //       headers: { token: getFromLocal("token"), id: item.id },
-    //     }
-    //   );
-    // } catch (error) {
-    //   console.error("Error", error);
-    // }
-    // }
 
     // ! ADD MESSAGE SAYING CAN'T ENROL IF NOT LOGGED IN
   };

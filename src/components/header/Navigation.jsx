@@ -1,11 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginState } from "../../redux/accountSlice";
-import { setModuleContent, setCourseContent } from "../../redux/coursesSlice";
+import {
+  setModuleContent,
+  setCourseContent,
+  selectModuleContent,
+} from "../../redux/coursesSlice";
 import { Link, NavLink } from "react-router-dom";
 
 const Navigation = () => {
   const loginState = useSelector(selectLoginState);
+  const moduleContent = useSelector(selectModuleContent);
   const dispatch = useDispatch();
 
   return (
@@ -23,10 +28,10 @@ const Navigation = () => {
           isActive ? "nav-link active" : "nav-link"
         }
         to="/courses"
-        onClick={() => {
-          dispatch(setModuleContent(null));
-          dispatch(setCourseContent(null));
-        }}
+        // onClick={() => {
+        //   dispatch(setModuleContent(null));
+        //   dispatch(setCourseContent(null));
+        // }}
       >
         Courses
       </NavLink>
@@ -38,8 +43,7 @@ const Navigation = () => {
           }
           to="/myLearning"
           onClick={() => {
-            dispatch(setModuleContent(null));
-            dispatch(setCourseContent(null));
+            dispatch(setModuleContent(false));
           }}
         >
           My Learning

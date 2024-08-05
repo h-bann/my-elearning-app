@@ -19,6 +19,7 @@ import { getFromLocal } from "../../storage";
 import { url } from "../../config";
 import { selectLoginState } from "../../redux/accountSlice";
 import "../pages/courses.scss";
+import { greenTick } from "../../utils/svgs";
 
 const MyLearning = () => {
   const dispatch = useDispatch();
@@ -44,37 +45,13 @@ const MyLearning = () => {
   }, [moduleContent]);
 
   const onCourseClick = async (item) => {
-    // if (loginState) {
-    //   // get's modules and content from database
-    //   const { data: courseContent } = await axios.get(
-    //     `${url}/courses/getCourse/${item.course_id}`,
-    //     {
-    //       headers: { token: getFromLocal("token") },
-    //     }
-    //   );
-    //   // look through enrolledCourses to find one that user clicked
-    //   const course = enrolledCourses.find((courses) => {
-    //     return courses.course_id === courseContent.course.courseId;
-    //   });
-    //   if (course) {
-    //     dispatch(setModuleContent(courseContent.course.modules));
-    //     const content = courseContent.course.modules.find((module) => {
-    //       // find the index that matches the course progress of user
-    //       return module.id === course.course_progress;
-    //     });
-    //     setState(content.id);
-    //     setIsStateReady(true);
-    //     // set course content to match user course progress
-    //     dispatch(setCourseContent(content.content));
-    //   }
-    // }
-
-    setModulesContent(true);
+    // setModulesContent(true);
+    dispatch(setModuleContent(true));
     dispatch(setActiveCourse(item.course_id));
   };
 
   const leaveCourse = async (item) => {
-    dispatch(setModuleProgress(null));
+    dispatch(setModuleProgress([]));
     const { data } = await axios.delete(`${url}/courses/deleteEnrolled`, {
       headers: { token: getFromLocal("token"), id: item.course_id },
     });
@@ -93,7 +70,7 @@ const MyLearning = () => {
 
   return (
     <>
-      {!modulesContent && (
+      {!moduleContent && (
         <div className="main-container">
           <h3 className="">Enrolled Courses</h3>
           <div className="card-container">
@@ -102,7 +79,12 @@ const MyLearning = () => {
                 <div className="card course-card" key={item.course_id}>
                   <img src={"./images/" + item.image} />
                   <div className="card-body">
-                    <h4 className="card-title">{item.course_title}</h4>
+                    <div>
+                      <h4 className="card-title">{item.course_title}</h4>
+                      <div>
+                        {item.course_status === "complete" && greenTick}
+                      </div>
+                    </div>
                     <Button
                       className={["btn-primary"]}
                       text="Continue"
@@ -131,7 +113,7 @@ const MyLearning = () => {
         </div>
       )}
 
-      {modulesContent && <div> {<ModuleContent />}</div>}
+      {moduleContent && <div> {<ModuleContent />}</div>}
       {/* {moduleContent !== null && isStateReady && (
         <div> {<ModuleContent moduleId={state} />}</div>
       )} */}

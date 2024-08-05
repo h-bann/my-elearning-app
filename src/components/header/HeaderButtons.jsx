@@ -32,9 +32,9 @@ const HeaderButtons = () => {
       <Link
         className="nav-link"
         to="/loginSignup"
-        onClick={() => {
-          dispatch(setMainScreen(5));
-        }}
+        // onClick={() => {
+        //   dispatch(setMainScreen(5));
+        // }}
       >
         Sign up/Login
       </Link>
