@@ -1,30 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCourseContent } from "../../redux/coursesSlice";
 
-const CourseContent = () => {
-  const courseContent = useSelector(selectCourseContent);
+const CourseContent = ({ content }) => {
+  const [imageZoom, setImageZoom] = useState(false);
+
+  const onImageClick = () => {
+    setImageZoom(!imageZoom);
+  };
 
   return (
     <div className="mb-5">
-      {courseContent.map(({ type, content, id }) => {
+      {content.map(({ type, content, id }) => {
         switch (type) {
           case "mainHeading":
-            return <h3>{content}</h3>;
+            return <h3 key={id}>{content}</h3>;
 
           case "subHeading":
-            return <h4>{content}</h4>;
+            return <h4 key={id}>{content}</h4>;
 
           case "paragraph":
-            return <p>{content}</p>;
+            return <p key={id}>{content}</p>;
 
           case "list":
             return (
               <>
-                {/* {content.map((item) => {
-                  return <li>{item}</li>;
-                })} */}
-                <li key={id} className="ms-3">
+                <li key={id} className="main-list-item">
                   {content}
                 </li>
               </>
@@ -33,10 +34,7 @@ const CourseContent = () => {
           case "subList":
             return (
               <>
-                {/* {content.map((item) => {
-                  return <li>{item}</li>;
-                })} */}
-                <li key={id} className="ms-5">
+                <li key={id} className="sub-list-item">
                   {content}
                 </li>
               </>
@@ -44,20 +42,27 @@ const CourseContent = () => {
 
           case "bold":
             return (
-              <p className="text-center">
+              <p key={id} className="text-center">
                 <strong>{content}</strong>
               </p>
             );
 
           case "underlined":
             return (
-              <p>
+              <p key={id}>
                 <u>{content}</u>
               </p>
             );
 
           case "image":
-            return <img src={"./images/" + content} />;
+            return (
+              <img
+                key={id}
+                src={"./images/" + content}
+                onClick={onImageClick}
+                className={imageZoom ? "image-zoom" : null}
+              />
+            );
 
           default:
             break;
