@@ -23,20 +23,16 @@ const CourseContent = ({ content }) => {
 
           case "list":
             return (
-              <>
-                <li key={id} className="main-list-item">
-                  {content}
-                </li>
-              </>
+              <li key={id} className="main-list-item">
+                {content}
+              </li>
             );
 
           case "subList":
             return (
-              <>
-                <li key={id} className="sub-list-item">
-                  {content}
-                </li>
-              </>
+              <li key={id} className="sub-list-item">
+                {content}
+              </li>
             );
 
           case "bold":

@@ -67,7 +67,7 @@ const Courses = () => {
       </div>
     );
   }
-  console.log(infoState);
+
   return (
     <>
       {!modulesContent && (
@@ -88,7 +88,7 @@ const Courses = () => {
                     <Button
                       className={["btn-outline-primary", ""]}
                       text="More Info"
-                      onClick={() => setInfoState(item.id)}
+                      onClick={() => setInfoState(item)}
                     />
                     {infoState && infoState.id === item.id && (
                       <div className="card-text text-wrap">
