@@ -1,23 +1,22 @@
 import { useState } from "react";
-import Label from "../genericComponents/Label";
-import Input from "../genericComponents/Input";
-import Button from "../genericComponents/Button";
 import { useDispatch } from "react-redux";
-import { formValidation, signupSchema } from "../../utils/Joi";
-import axios from "axios";
-import { storeSingleInLocal } from "../../storage";
 import { useNavigate } from "react-router-dom";
 import { setLoginState } from "../../redux/accountSlice";
 import { url } from "../../config";
+import { storeSingleInLocal } from "../../storage";
+import { formValidation, signupSchema } from "../../utils/Joi";
+import axios from "axios";
+import Label from "../genericComponents/Label";
+import Input from "../genericComponents/Input";
+import Button from "../genericComponents/Button";
 import "./signupContainer.scss";
 
 const SignupContainer = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [userInput, setUserInput] = useState("");
   const [errors, setErrors] = useState("");
   const [accountError, setAccountError] = useState();
-  const navigate = useNavigate();
 
   const onInput = (e) => {
     const updatedState = { ...userInput, [e.target.name]: e.target.value };

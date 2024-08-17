@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectContactForm, setContactForm } from "../../redux/contactSlice";
 import { formValidation } from "../../utils/Joi";
 import { contactFormSchema } from "../../utils/Joi";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Form from "react-bootstrap/Form";
 import "../pages/contact.scss";
 
 const Contact = () => {

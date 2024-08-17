@@ -3,13 +3,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Logo from "./Logo";
 import HeaderButtons from "./HeaderButtons";
 import Navigation from "./Navigation";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   return (
     <header className="outfit-font">
       <Nav expand="md" className="">

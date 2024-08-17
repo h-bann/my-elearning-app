@@ -2,13 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectModuleContent,
-  setCourses,
   setModuleContent,
-  setCourseContent,
   setEnrolledCourses,
   selectEnrolledCourses,
-  selectCourses,
-  selectCourseContent,
   setModuleProgress,
   setActiveCourse,
 } from "../../redux/coursesSlice";
@@ -17,7 +13,6 @@ import ModuleContent from "../main/ModuleContent";
 import axios from "axios";
 import { getFromLocal } from "../../storage";
 import { url } from "../../config";
-import { selectLoginState } from "../../redux/accountSlice";
 import "../pages/courses.scss";
 import { greenTick } from "../../utils/svgs";
 
@@ -26,26 +21,19 @@ const MyLearning = () => {
   const [infoState, setInfoState] = useState();
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
-  const [modulesContent, setModulesContent] = useState(false);
-
-  // const loginState = useSelector(selectLoginState);
-  // const [state, setState] = useState();
-  // const [isStateReady, setIsStateReady] = useState(false);
 
   const getEnrolledCourses = async () => {
     const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
       headers: { token: getFromLocal("token") },
     });
     dispatch(setEnrolledCourses(data.enrolledCourses));
-    // console.log(data);
   };
 
   useEffect(() => {
     getEnrolledCourses();
-  }, [moduleContent]);
+  }, []);
 
   const onCourseClick = async (item) => {
-    // setModulesContent(true);
     dispatch(setModuleContent(true));
     dispatch(setActiveCourse(item.course_id));
   };
