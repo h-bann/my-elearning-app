@@ -1,6 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { setMainScreen } from "../../redux/accountSlice";
 
 const Logo = () => {
   return (
@@ -21,6 +19,3 @@ const Logo = () => {
 };
 
 export default Logo;
-{
-  /* <div className="logo">We-Learn</div> */
-}

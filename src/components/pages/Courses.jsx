@@ -2,30 +2,22 @@ import React, { useState, useEffect } from "react";
 import {
   selectCourses,
   setCourses,
-  selectModuleContent,
-  setModuleContent,
-  setCourseContent,
-  setEnrolledCourses,
-  selectEnrolledCourses,
   setActiveCourse,
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ModuleContent from "../main/ModuleContent";
 import Button from "../genericComponents/Button";
 import axios from "axios";
-import { selectLoginState } from "../../redux/accountSlice";
 import { getFromLocal } from "../../storage";
 import { url } from "../../config";
 import "../pages/courses.scss";
 
 const Courses = () => {
+  const dispatch = useDispatch();
+  const [tempState, setTempState] = useState(false);
   const [infoState, setInfoState] = useState();
   const [modulesContent, setModulesContent] = useState(false);
   const courses = useSelector(selectCourses);
-  const moduleContent = useSelector(selectModuleContent);
-  const enrolledCourses = useSelector(selectEnrolledCourses);
-  const loginState = useSelector(selectLoginState);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (courses.length === 0) {
@@ -67,6 +59,15 @@ const Courses = () => {
       </div>
     );
   }
+  const setInfo = (clickedItem) => {
+    courses.map((item) => {
+      if (item.id === clickedItem.id) {
+        setInfoState(clickedItem);
+      }
+    });
+    // infoState ? setInfoState(!null) : setInfoState(item);
+    setTempState(!tempState);
+  };
 
   return (
     <>
@@ -86,11 +87,21 @@ const Courses = () => {
                       onClick={() => onCourseClick(item)}
                     />
                     <Button
-                      className={["btn-outline-primary", ""]}
+                      className={
+                        infoState && infoState.id === item.id
+                          ? ["btn-outline-secondary"]
+                          : ["btn-outline-primary", ""]
+                      }
                       text="More Info"
-                      onClick={() => setInfoState(item)}
+                      // onClick={() => setInfoState(item)}
+                      onClick={() => setInfo(item)}
                     />
-                    {infoState && infoState.id === item.id && (
+                    {/* {infoState && infoState.id === item.id && (
+                      <div className="card-text text-wrap">
+                        {infoState.more_info}
+                      </div>
+                    )} */}
+                    {tempState && infoState.id === item.id && (
                       <div className="card-text text-wrap">
                         {infoState.more_info}
                       </div>

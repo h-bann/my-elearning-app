@@ -3,26 +3,20 @@ import Input from "../genericComponents/Input";
 import Button from "../genericComponents/Button";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import {
-  selectError,
-  setError,
-  setLoginState,
-  setMainScreen,
-} from "../../redux/accountSlice";
+import { setLoginState } from "../../redux/accountSlice";
 import { loginSchema, formValidation } from "../../utils/Joi";
 import axios from "axios";
 import { storeSingleInLocal } from "../../storage";
-import Nav from "react-bootstrap/Nav";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { url } from "../../config";
 import "./loginContainer.scss";
 
 const LoginContainer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [userInput, setUserInput] = useState("");
   const [errors, setErrors] = useState("");
   const [accountError, setAccountError] = useState();
-  const navigate = useNavigate();
 
   const onInput = (e) => {
     const updatedUserInput = { ...userInput, [e.target.name]: e.target.value };

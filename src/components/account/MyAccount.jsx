@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { setLoginState, setMainScreen } from "../../redux/accountSlice";
+import { setLoginState } from "../../redux/accountSlice";
 import { useDispatch } from "react-redux";
 import Button from "../genericComponents/Button";
 import Input from "../genericComponents/Input";
@@ -13,11 +13,11 @@ import "../account/myAccount.scss";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [display, setDisplay] = useState("");
   const [errors, setErrors] = useState("");
   const [userInput, setUserInput] = useState();
   const [userDetails, setUserDetails] = useState();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {

@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
   selectModuleContent,
-  selectCourseContent,
-  setCourseContent,
   setModuleProgress,
   selectEnrolledCourses,
-  setEnrolledCourses,
   selectModuleProgress,
   selectActiveCourse,
-  selectCourses,
 } from "../../redux/coursesSlice";
 import { url } from "../../config";
-import { clearLocal, getFromLocal } from "../../storage";
+import { getFromLocal } from "../../storage";
 import { useDispatch, useSelector } from "react-redux";
 import CourseContent from "./CourseContent";
 import axios from "axios";
@@ -70,6 +66,8 @@ const ModuleContent = () => {
         headers: { token: getFromLocal("token") },
       }
     );
+    console.log(data);
+
     const activeCourse = enrolledCourses.find((foundItem) => {
       return foundItem.course_id === item.course_id;
     });
@@ -121,10 +119,10 @@ const ModuleContent = () => {
                     >
                       <h1>{modulesItem.module_title}</h1>
                       <div className="module-tabs-svg">
-                        <div>
+                        <div key={modulesItem.id}>
                           {moduleProgress?.map((moduleId) => {
                             if (moduleId === modulesItem.id) {
-                              return greenTick;
+                              return <span key={moduleId}>{greenTick}</span>;
                             }
                           })}
                         </div>
@@ -148,15 +146,17 @@ const ModuleContent = () => {
                       }`}
                     >
                       <CourseContent content={content} />
-                      <Button
-                        className={["btn-primary"]}
-                        text={
-                          lastItem[0].id === modulesItem.id
-                            ? "Finish Course"
-                            : "Next Module"
-                        }
-                        onClick={() => onNextClick(modulesItem)}
-                      />
+                      <div className="next-button">
+                        <Button
+                          className={["btn-primary"]}
+                          text={
+                            lastItem[0].id === modulesItem.id
+                              ? "Finish Course"
+                              : "Next Module"
+                          }
+                          onClick={() => onNextClick(modulesItem)}
+                        />
+                      </div>
                     </div>
                   </div>
                 );

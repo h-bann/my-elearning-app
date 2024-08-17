@@ -1,16 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginState } from "../../redux/accountSlice";
-import {
-  setModuleContent,
-  setCourseContent,
-  selectModuleContent,
-} from "../../redux/coursesSlice";
-import { Link, NavLink } from "react-router-dom";
+import { setModuleContent } from "../../redux/coursesSlice";
+import { NavLink } from "react-router-dom";
 
 const Navigation = () => {
   const loginState = useSelector(selectLoginState);
-  const moduleContent = useSelector(selectModuleContent);
   const dispatch = useDispatch();
 
   return (
@@ -28,10 +23,6 @@ const Navigation = () => {
           isActive ? "nav-link active" : "nav-link"
         }
         to="/courses"
-        // onClick={() => {
-        //   dispatch(setModuleContent(null));
-        //   dispatch(setCourseContent(null));
-        // }}
       >
         Courses
       </NavLink>

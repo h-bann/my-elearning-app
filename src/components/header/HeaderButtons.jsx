@@ -1,9 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setLoginState,
-  setMainScreen,
-  selectMainScreen,
-} from "../../redux/accountSlice";
+import { setLoginState, selectMainScreen } from "../../redux/accountSlice";
 import { clearLocal, getFromLocal } from "../../storage";
 import axios from "axios";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -11,7 +7,6 @@ import { url } from "../../config";
 
 const HeaderButtons = () => {
   const dispatch = useDispatch();
-  const mainScreen = useSelector(selectMainScreen);
   const loggedIn = getFromLocal("token");
   const navigate = useNavigate();
 
@@ -29,13 +24,7 @@ const HeaderButtons = () => {
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
   if (!loggedIn) {
     return (
-      <Link
-        className="nav-link"
-        to="/loginSignup"
-        // onClick={() => {
-        //   dispatch(setMainScreen(5));
-        // }}
-      >
+      <Link className="nav-link" to="/loginSignup">
         Sign up/Login
       </Link>
     );
@@ -58,26 +47,6 @@ const HeaderButtons = () => {
       </>
     );
   }
-  // !loggedIn ? (
-  //   <Link
-  //     className=""
-  //     to="/loginSignup"
-  //     onClick={() => {
-  //       dispatch(setMainScreen(5));
-  //     }}
-  //   >
-  //     Sign up/Login
-  //   </Link>
-  // ) : (
-  //   <>
-  //     <Link className="" to="/userAccount">
-  //       My Account
-  //     </Link>
-  //     <Link className="" onClick={onLogOutClick}>
-  //       Log Out
-  //     </Link>
-  //   </>
-  // );
 };
 
 export default HeaderButtons;
