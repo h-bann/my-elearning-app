@@ -5,7 +5,7 @@ import {
   setActiveCourse,
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
-import ModuleContent from "../main/ModuleContent";
+import ModuleContent from "../ModuleContent/ModuleContent";
 import Button from "../genericComponents/Button";
 import axios from "axios";
 import { getFromLocal } from "../../storage";

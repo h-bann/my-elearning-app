@@ -9,7 +9,7 @@ import {
   setActiveCourse,
 } from "../../redux/coursesSlice";
 import Button from "../genericComponents/Button";
-import ModuleContent from "../main/ModuleContent";
+import ModuleContent from "../ModuleContent/ModuleContent";
 import axios from "axios";
 import { getFromLocal } from "../../storage";
 import { url } from "../../config";
