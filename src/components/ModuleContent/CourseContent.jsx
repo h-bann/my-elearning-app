@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectCourseContent } from "../../redux/coursesSlice";
 
 const CourseContent = ({ content }) => {
   const [imageZoom, setImageZoom] = useState(false);
