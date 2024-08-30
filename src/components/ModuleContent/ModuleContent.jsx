@@ -14,8 +14,8 @@ import axios from "axios";
 import usePageBottom from "../../utils/hooks";
 import { greenTick, downArrow } from "../../utils/svgs";
 import Button from "../genericComponents/Button";
-import MobileView from "./MobileView";
 import ModuleTab from "./ModuleTab";
+import Content from "./Content";
 
 const ModuleContent = () => {
   const dispatch = useDispatch();
@@ -59,6 +59,17 @@ const ModuleContent = () => {
 
   //   setHandleModuleClick(innerHandleModuleClick);
   // }, []);
+  console.log(activeModule);
+  const handleModuleClick = useCallback((item) => {
+    // functionality to make modules toggle correctly in mobile view
+    setHideContent(true);
+    setActiveModule(item.id);
+    console.log(activeModule, item.id);
+    if (activeModule === item.id) {
+      setHideContent(!hideContent);
+    }
+    console.log(hideContent);
+  }, []);
 
   const onNextClick = async (item) => {
     setActiveModule(item.id + 1);
@@ -103,21 +114,6 @@ const ModuleContent = () => {
   if (!enrolledCourses) {
     <p>Loading</p>;
   }
-  // enrolledCourses
-  //   .find((course) => course.course_id === activeCourse)
-  //   .map((module) => {
-  //     console.log(module);
-  //   });
-
-  const handleModuleClick = useCallback((item) => {
-    // functionality to make modules toggle correctly in mobile view
-    setHideContent(true);
-    setActiveModule(item.id);
-    console.log(activeModule, item.id);
-    if (activeModule === item.id) {
-      setHideContent(!hideContent);
-    }
-  }, []);
 
   // if window size less than 365 then render HTML option A
   if (innerWidth < 365) {
@@ -137,30 +133,16 @@ const ModuleContent = () => {
                       onModuleClick={handleModuleClick}
                       module={modulesItem}
                       moduleProgress={moduleProgress}
-                      isActive={activeModule === modulesItem.id}
+                      activeModule={activeModule}
                       isHidden={hideContent}
                     />
-                    <div
-                      key={modulesItem.id}
-                      className={`content ${
-                        hideContent && activeModule === modulesItem.id
-                          ? "displayed"
-                          : "hidden"
-                      }`}
-                    >
-                      <CourseContent content={content} />
-                      <div className="next-button">
-                        <Button
-                          className={["btn-primary"]}
-                          text={
-                            lastItem[0].id === modulesItem.id
-                              ? "Finish Course"
-                              : "Next Module"
-                          }
-                          onClick={() => onNextClick(modulesItem)}
-                        />
-                      </div>
-                    </div>
+                    <Content
+                      activeModule={activeModule}
+                      isHidden={hideContent}
+                      module={modulesItem}
+                      lastItem={lastItem}
+                      onNextClick={onNextClick}
+                    />
                   </div>
                 );
               })
