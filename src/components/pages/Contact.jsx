@@ -7,6 +7,8 @@ import { selectContactForm, setContactForm } from "../../redux/contactSlice";
 import { formValidation } from "../../utils/Joi";
 import { contactFormSchema } from "../../utils/Joi";
 import "../pages/contact.scss";
+import { url } from "../../config";
+import axios from "axios";
 
 const Contact = () => {
   const dispatch = useDispatch();
@@ -20,10 +22,13 @@ const Contact = () => {
     setState(updatedState);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     dispatch(setContactForm(state));
     e.target.reset();
+    console.log(state);
+    const { data } = await axios.post(`${url}/contact`, state);
+    console.log(data);
   };
 
   return (

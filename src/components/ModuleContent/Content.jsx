@@ -4,7 +4,6 @@ import Button from "../genericComponents/Button";
 
 const Content = ({ activeModule, isHidden, module, lastItem, onNextClick }) => {
   const { content } = module;
-  console.log(activeModule);
   return (
     <div
       key={module.id}
