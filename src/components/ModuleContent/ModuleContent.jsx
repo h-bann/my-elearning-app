@@ -59,16 +59,14 @@ const ModuleContent = () => {
 
   //   setHandleModuleClick(innerHandleModuleClick);
   // }, []);
-  console.log(activeModule);
+
   const handleModuleClick = useCallback((item) => {
     // functionality to make modules toggle correctly in mobile view
     setHideContent(true);
     setActiveModule(item.id);
-    console.log(activeModule, item.id);
     if (activeModule === item.id) {
       setHideContent(!hideContent);
     }
-    console.log(hideContent);
   }, []);
 
   const onNextClick = async (item) => {

@@ -8,7 +8,6 @@ const ModuleTab = ({
   activeModule,
   isHidden,
 }) => {
-  console.log(activeModule);
   return (
     <div className="module-tab" onClick={() => onModuleClick(module)}>
       <h1>{module.module_title}</h1>
