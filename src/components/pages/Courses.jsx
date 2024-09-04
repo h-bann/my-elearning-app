@@ -5,7 +5,7 @@ import {
   setActiveCourse,
 } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
-import ModuleContent from "../main/ModuleContent";
+import ModuleContent from "../ModuleContent/ModuleContent";
 import Button from "../genericComponents/Button";
 import axios from "axios";
 import { getFromLocal } from "../../storage";
@@ -59,15 +59,6 @@ const Courses = () => {
       </div>
     );
   }
-  const setInfo = (clickedItem) => {
-    courses.map((item) => {
-      if (item.id === clickedItem.id) {
-        setInfoState(clickedItem);
-      }
-    });
-    // infoState ? setInfoState(!null) : setInfoState(item);
-    setTempState(!tempState);
-  };
 
   return (
     <>
@@ -81,31 +72,12 @@ const Courses = () => {
                   <img src={"./images/" + item.image} />
                   <div className="card-body">
                     <h4 className="card-title">{item.course_title}</h4>
+                    <div className="card-text text-wrap">{item.more_info}</div>
                     <Button
                       className={["btn-primary"]}
                       text="Buy course"
                       onClick={() => onCourseClick(item)}
                     />
-                    <Button
-                      className={
-                        infoState && infoState.id === item.id
-                          ? ["btn-outline-secondary"]
-                          : ["btn-outline-primary", ""]
-                      }
-                      text="More Info"
-                      // onClick={() => setInfoState(item)}
-                      onClick={() => setInfo(item)}
-                    />
-                    {/* {infoState && infoState.id === item.id && (
-                      <div className="card-text text-wrap">
-                        {infoState.more_info}
-                      </div>
-                    )} */}
-                    {tempState && infoState.id === item.id && (
-                      <div className="card-text text-wrap">
-                        {infoState.more_info}
-                      </div>
-                    )}
                   </div>
                 </div>
               );

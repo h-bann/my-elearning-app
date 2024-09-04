@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import Input from "../genericComponents/Input";
 import Label from "../genericComponents/Label";
 import Button from "../genericComponents/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { selectContactForm, setContactForm } from "../../redux/contactSlice";
 import { formValidation } from "../../utils/Joi";
 import { contactFormSchema } from "../../utils/Joi";
 import "../pages/contact.scss";
+import { url } from "../../config";
+import axios from "axios";
 
 const Contact = () => {
-  const dispatch = useDispatch();
-  const contact = useSelector(selectContactForm);
+  const [contactForm, setContactForm] = useState(false);
   const [state, setState] = useState("");
   const [errors, setErrors] = useState("");
 
@@ -20,10 +19,15 @@ const Contact = () => {
     setState(updatedState);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setContactForm(state));
+    setContactForm(true);
     e.target.reset();
+    const { data } = await axios.post(`${url}/contact`, state);
+    console.log(data);
+    setTimeout(() => {
+      setContactForm(false);
+    }, 5000);
   };
 
   return (
@@ -72,8 +76,10 @@ const Contact = () => {
             <p className="form-text">{errors.message}</p>
           ) : undefined}
         </div>
-        {contact && <p>Message sent!</p>}
-        <Button className={["btn-primary"]} type="submit" text="Submit" />
+        <div>
+          <Button className={["btn-primary"]} type="submit" text="Submit" />
+          {contactForm && <p>Message sent!</p>}
+        </div>
       </form>
     </div>
   );

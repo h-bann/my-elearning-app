@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   selectModuleContent,
   setModuleProgress,
@@ -14,6 +14,8 @@ import axios from "axios";
 import usePageBottom from "../../utils/hooks";
 import { greenTick, downArrow } from "../../utils/svgs";
 import Button from "../genericComponents/Button";
+import ModuleTab from "./ModuleTab";
+import Content from "./Content";
 
 const ModuleContent = () => {
   const dispatch = useDispatch();
@@ -21,11 +23,9 @@ const ModuleContent = () => {
   const moduleContent = useSelector(selectModuleContent);
   const moduleProgress = useSelector(selectModuleProgress);
   const activeCourse = useSelector(selectActiveCourse);
-  const [hideContent, setHideContent] = useState(true);
+  const [hideContent, setHideContent] = useState(false);
   const [activeModule, setActiveModule] = useState();
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
-  const [courseComplete, setCourseComplete] = useState(false);
-  const reachedBottom = usePageBottom();
 
   useEffect(() => {
     const getEnrolledCourses = async () => {
@@ -46,14 +46,10 @@ const ModuleContent = () => {
     getEnrolledCourses();
   }, [activeCourse]);
 
-  const onModuleClick = async (item) => {
-    // functionality to make modules toggle correctly in mobile view
-    setHideContent(true);
-    setActiveModule(item.id);
-    if (activeModule === item.id) {
-      setHideContent(!hideContent);
-    }
-  };
+  const handleModuleClick = useCallback((item) => {
+    // make modules toggle correctly in mobile view
+    setActiveModule((prev) => (prev === item.id ? null : item.id));
+  }, []);
 
   const onNextClick = async (item) => {
     setActiveModule(item.id + 1);
@@ -110,54 +106,22 @@ const ModuleContent = () => {
               enrolledCoursesItem.course_id === activeCourse &&
               modules.map((modulesItem) => {
                 const lastItem = modules.slice(-1);
-                const { content } = modulesItem;
                 return (
                   <div className="individual-module" key={modulesItem.id}>
-                    <div
-                      className="module-tabs"
-                      onClick={() => onModuleClick(modulesItem)}
-                    >
-                      <h1>{modulesItem.module_title}</h1>
-                      <div className="module-tabs-svg">
-                        <div key={modulesItem.id}>
-                          {moduleProgress?.map((moduleId) => {
-                            if (moduleId === modulesItem.id) {
-                              return <span key={moduleId}>{greenTick}</span>;
-                            }
-                          })}
-                        </div>
-                        <div
-                          className={`svg-container ${
-                            hideContent && activeModule === modulesItem.id
-                              ? "rotated"
-                              : ""
-                          }`}
-                        >
-                          {downArrow}
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      key={modulesItem.id}
-                      className={`content ${
-                        hideContent && activeModule === modulesItem.id
-                          ? "displayed"
-                          : "hidden"
-                      }`}
-                    >
-                      <CourseContent content={content} />
-                      <div className="next-button">
-                        <Button
-                          className={["btn-primary"]}
-                          text={
-                            lastItem[0].id === modulesItem.id
-                              ? "Finish Course"
-                              : "Next Module"
-                          }
-                          onClick={() => onNextClick(modulesItem)}
-                        />
-                      </div>
-                    </div>
+                    <ModuleTab
+                      onModuleClick={handleModuleClick}
+                      module={modulesItem}
+                      moduleProgress={moduleProgress}
+                      activeModule={activeModule}
+                      isHidden={hideContent}
+                    />
+                    {activeModule === modulesItem.id && (
+                      <Content
+                        module={modulesItem}
+                        lastItem={lastItem}
+                        onNextClick={onNextClick}
+                      />
+                    )}
                   </div>
                 );
               })
