@@ -20,9 +20,7 @@ const ModuleTab = ({
           })}
         </div>
         <div
-          className={`svg-container ${
-            isHidden && activeModule === module.id ? "rotated" : ""
-          }`}
+          className={`svg-container ${activeModule === module.id && "rotated"}`}
         >
           {downArrow}
         </div>
