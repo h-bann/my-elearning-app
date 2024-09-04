@@ -17,7 +17,7 @@ import Button from "../genericComponents/Button";
 import ModuleTab from "./ModuleTab";
 import Content from "./Content";
 
-const ModuleContent = () => {
+const ModulesContainer = () => {
   const dispatch = useDispatch();
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
@@ -98,8 +98,8 @@ const ModuleContent = () => {
   // if window size less than 365 then render HTML option A
   if (innerWidth < 365) {
     return (
-      <div className="module-container">
-        <div className="modules">
+      <div className="main-container">
+        <div className="modules-container">
           {enrolledCourses.map((enrolledCoursesItem) => {
             const { modules } = enrolledCoursesItem;
             return (
@@ -225,4 +225,4 @@ const ModuleContent = () => {
   );
 };
 
-export default ModuleContent;
+export default ModulesContainer;
