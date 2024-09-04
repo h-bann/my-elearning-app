@@ -23,7 +23,7 @@ const ModuleContent = () => {
   const moduleContent = useSelector(selectModuleContent);
   const moduleProgress = useSelector(selectModuleProgress);
   const activeCourse = useSelector(selectActiveCourse);
-  const [hideContent, setHideContent] = useState(true);
+  const [hideContent, setHideContent] = useState(false);
   const [activeModule, setActiveModule] = useState();
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
@@ -46,27 +46,9 @@ const ModuleContent = () => {
     getEnrolledCourses();
   }, [activeCourse]);
 
-  // useEffect(() => {
-  //   const innerHandleModuleClick = async (item) => {
-  //     // functionality to make modules toggle correctly in mobile view
-  //     setHideContent(true);
-  //     setActiveModule(item.id);
-  //     console.log(item);
-  //     if (activeModule === item.id) {
-  //       setHideContent(!hideContent);
-  //     }
-  //   };
-
-  //   setHandleModuleClick(innerHandleModuleClick);
-  // }, []);
-
   const handleModuleClick = useCallback((item) => {
-    // functionality to make modules toggle correctly in mobile view
-    setHideContent(true);
-    setActiveModule(item.id);
-    if (activeModule === item.id) {
-      setHideContent(!hideContent);
-    }
+    // make modules toggle correctly in mobile view
+    setActiveModule((prev) => (prev === item.id ? null : item.id));
   }, []);
 
   const onNextClick = async (item) => {
@@ -124,7 +106,6 @@ const ModuleContent = () => {
               enrolledCoursesItem.course_id === activeCourse &&
               modules.map((modulesItem) => {
                 const lastItem = modules.slice(-1);
-                const { content } = modulesItem;
                 return (
                   <div className="individual-module" key={modulesItem.id}>
                     <ModuleTab
@@ -134,13 +115,13 @@ const ModuleContent = () => {
                       activeModule={activeModule}
                       isHidden={hideContent}
                     />
-                    <Content
-                      activeModule={activeModule}
-                      isHidden={hideContent}
-                      module={modulesItem}
-                      lastItem={lastItem}
-                      onNextClick={onNextClick}
-                    />
+                    {activeModule === modulesItem.id && (
+                      <Content
+                        module={modulesItem}
+                        lastItem={lastItem}
+                        onNextClick={onNextClick}
+                      />
+                    )}
                   </div>
                 );
               })

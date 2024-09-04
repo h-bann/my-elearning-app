@@ -5,12 +5,7 @@ import Button from "../genericComponents/Button";
 const Content = ({ activeModule, isHidden, module, lastItem, onNextClick }) => {
   const { content } = module;
   return (
-    <div
-      key={module.id}
-      className={`content ${
-        isHidden && activeModule === module.id ? "displayed" : "hidden"
-      }`}
-    >
+    <div key={module.id} className="content displayed">
       <CourseContent content={content} />
       <div className="next-button">
         <Button
