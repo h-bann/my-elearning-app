@@ -9,7 +9,7 @@ import {
   setActiveCourse,
 } from "../../redux/coursesSlice";
 import Button from "../genericComponents/Button";
-import ModuleContent from "../ModuleContent/ModuleContent";
+import ModulesContainer from "../Content/ModulesContainer";
 import axios from "axios";
 import { getFromLocal } from "../../storage";
 import { url } from "../../config";
@@ -101,7 +101,7 @@ const MyLearning = () => {
         </div>
       )}
 
-      {moduleContent && <div> {<ModuleContent />}</div>}
+      {moduleContent && <div> {<ModulesContainer />}</div>}
       {/* {moduleContent !== null && isStateReady && (
         <div> {<ModuleContent moduleId={state} />}</div>
       )} */}
