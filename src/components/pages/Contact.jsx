@@ -13,6 +13,7 @@ import axios from "axios";
 const Contact = () => {
   const dispatch = useDispatch();
   const contact = useSelector(selectContactForm);
+  const [contactForm, setContactForm] = useState(false);
   const [state, setState] = useState("");
   const [errors, setErrors] = useState("");
 
@@ -24,11 +25,13 @@ const Contact = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setContactForm(state));
+    setContactForm(true);
     e.target.reset();
-    console.log(state);
     const { data } = await axios.post(`${url}/contact`, state);
     console.log(data);
+    setTimeout(() => {
+      setContactForm(false);
+    }, 5000);
   };
 
   return (
@@ -77,8 +80,10 @@ const Contact = () => {
             <p className="form-text">{errors.message}</p>
           ) : undefined}
         </div>
-        {contact && <p>Message sent!</p>}
-        <Button className={["btn-primary"]} type="submit" text="Submit" />
+        <div>
+          <Button className={["btn-primary"]} type="submit" text="Submit" />
+          {contactForm && <p>Message sent!</p>}
+        </div>
       </form>
     </div>
   );
