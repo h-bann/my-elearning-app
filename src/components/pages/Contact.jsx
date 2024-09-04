@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Input from "../genericComponents/Input";
 import Label from "../genericComponents/Label";
 import Button from "../genericComponents/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { selectContactForm, setContactForm } from "../../redux/contactSlice";
 import { formValidation } from "../../utils/Joi";
 import { contactFormSchema } from "../../utils/Joi";
 import "../pages/contact.scss";
@@ -11,8 +9,6 @@ import { url } from "../../config";
 import axios from "axios";
 
 const Contact = () => {
-  const dispatch = useDispatch();
-  const contact = useSelector(selectContactForm);
   const [contactForm, setContactForm] = useState(false);
   const [state, setState] = useState("");
   const [errors, setErrors] = useState("");
