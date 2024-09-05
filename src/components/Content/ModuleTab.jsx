@@ -1,13 +1,7 @@
 import React from "react";
 import { greenTick, downArrow } from "../../utils/svgs";
 
-const ModuleTab = ({
-  onModuleClick,
-  module,
-  moduleProgress,
-  activeModule,
-  isHidden,
-}) => {
+const ModuleTab = ({ onModuleClick, module, moduleProgress, activeModule }) => {
   return (
     <div className="module-tab" onClick={() => onModuleClick(module)}>
       <h1>{module.module_title}</h1>
