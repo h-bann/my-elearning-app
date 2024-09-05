@@ -9,11 +9,8 @@ import {
 import { url } from "../../config";
 import { getFromLocal } from "../../storage";
 import { useDispatch, useSelector } from "react-redux";
-import CourseContent from "./CourseContent";
 import axios from "axios";
 import usePageBottom from "../../utils/hooks";
-import { greenTick, downArrow } from "../../utils/svgs";
-import Button from "../genericComponents/Button";
 import ModuleTab from "./ModuleTab";
 import Content from "./Content";
 

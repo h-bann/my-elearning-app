@@ -2,7 +2,7 @@ import React from "react";
 import CourseContent from "./CourseContent";
 import Button from "../genericComponents/Button";
 
-const Content = ({ activeModule, isHidden, module, lastItem, onNextClick }) => {
+const Content = ({ module, lastItem, onNextClick }) => {
   const { content } = module;
   return (
     <div key={module.id} className="content displayed">
