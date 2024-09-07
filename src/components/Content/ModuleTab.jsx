@@ -10,9 +10,7 @@ const ModuleTab = ({ onModuleClick, module, moduleProgress, activeModule }) => {
           {moduleProgress?.map((moduleId) => {
             if (moduleId === module.id) {
               return (
-                <span key={moduleId}>
-                  <GreenTick className="module-complete-symbol" />
-                </span>
+                <GreenTick key={moduleId} className="module-complete-symbol" />
               );
             }
           })}

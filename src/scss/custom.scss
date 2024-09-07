@@ -5,6 +5,7 @@ footer {
   font-family: "Outfit", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  background-color: rgb(255, 241, 230);
 }
 
 body {
@@ -24,7 +25,6 @@ header {
   width: 100%;
   top: 0;
   left: 0;
-  background-color: white;
   z-index: 3;
 }
 
@@ -44,21 +44,24 @@ header {
   font-size: 1.4rem;
   cursor: pointer;
   display: flex;
+  opacity: 100%;
 
   h1 {
     margin-top: 16px;
     font-size: 1.5rem;
     text-decoration: none;
+    font-weight: 600;
   }
 
   svg {
     height: 60px;
+    vertical-align: baseline;
   }
 }
 
 .navbar-brand:hover {
-  filter: drop-shadow(3px 3px 3px #363636);
-  transition: filter 0.1s ease-in-out;
+  transform: translate(2px, 2px);
+  transition: transform 0.2s;
 }
 
 .navbar {
@@ -136,6 +139,11 @@ header {
 }
 
 // MAIN
+
+.course-card {
+  background-color: #ffffff;
+  border-color: #000000;
+}
 
 .btn-primary {
   border-color: rgb(66, 129, 56);
@@ -267,7 +275,7 @@ footer {
 }
 
 .content.displayed {
-  display: contents;
+  display: block;
 }
 
 .content {
@@ -298,10 +306,15 @@ footer {
   margin-bottom: 5px;
   cursor: pointer;
   box-shadow: 2px 2px 2px rgb(125, 125, 125);
+  background-color: white;
 }
 
 .module-tab-svg {
   display: flex;
+
+  div {
+    height: 25px;
+  }
 }
 
 .module-complete-symbol {

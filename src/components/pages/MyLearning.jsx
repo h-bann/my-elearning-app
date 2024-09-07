@@ -6,7 +6,10 @@ import {
   setEnrolledCourses,
   selectEnrolledCourses,
   setModuleProgress,
+  setProgressBar,
+  selectProgressBar,
   setActiveCourse,
+  selectModuleProgress,
 } from "../../redux/coursesSlice";
 import Button from "../genericComponents/Button";
 import ModulesContainer from "../Content/ModulesContainer";
@@ -18,9 +21,10 @@ import { GreenTick } from "../../utils/svgs";
 
 const MyLearning = () => {
   const dispatch = useDispatch();
-  const [infoState, setInfoState] = useState();
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
+  const moduleProgress = useSelector(selectModuleProgress);
+  const progressBar = useSelector(selectProgressBar);
 
   const getEnrolledCourses = async () => {
     const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
@@ -31,7 +35,33 @@ const MyLearning = () => {
 
   useEffect(() => {
     getEnrolledCourses();
+  }, [moduleContent]);
+
+  const getModuleProgress = async () => {
+    const { data: progressBar } = await axios.get(
+      `${url}/courses/progressBar`,
+      {
+        headers: { token: getFromLocal("token") },
+      }
+    );
+    if (progressBar.code) {
+      dispatch(setProgressBar(progressBar.message));
+    }
+  };
+  useEffect(() => {
+    getModuleProgress();
   }, []);
+
+  const progressBarFunction = (item) => {
+    const progress = progressBar.find(
+      (progress) => progress.course_id === item.course_id
+    );
+    if (progress) {
+      return (progress.module_ids.length / item.modules.length) * 100;
+    }
+
+    return 0;
+  };
 
   const onCourseClick = async (item) => {
     dispatch(setModuleContent(true));
@@ -55,7 +85,6 @@ const MyLearning = () => {
       </div>
     );
   }
-
   return (
     <>
       {!moduleContent && (
@@ -63,6 +92,9 @@ const MyLearning = () => {
           <h3 className="">Enrolled Courses</h3>
           <div className="card-container">
             {enrolledCourses.map((item) => {
+              {
+                /* console.log(item); */
+              }
               return (
                 <div className="card course-card" key={item.course_id}>
                   <img src={"./images/" + item.image} />
@@ -72,6 +104,12 @@ const MyLearning = () => {
                       <h4 className="card-title">{item.course_title}</h4>
                       {item.course_status && (
                         <h6 className="course-complete-symbol">Complete</h6>
+                      )}
+                      {!item.course_status && (
+                        <progress
+                          max="100"
+                          value={progressBarFunction(item)}
+                        ></progress>
                       )}
                       <div className="card-text text-wrap">
                         {item.more_info}
