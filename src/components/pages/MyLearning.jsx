@@ -14,7 +14,7 @@ import axios from "axios";
 import { getFromLocal } from "../../storage";
 import { url } from "../../config";
 import "../pages/courses.scss";
-import { greenTick } from "../../utils/svgs";
+import { GreenTick } from "../../utils/svgs";
 
 const MyLearning = () => {
   const dispatch = useDispatch();
@@ -67,10 +67,14 @@ const MyLearning = () => {
                 <div className="card course-card" key={item.course_id}>
                   <img src={"./images/" + item.image} />
                   <div className="card-body">
+                    <div className="course-complete-container"></div>
                     <div>
                       <h4 className="card-title">{item.course_title}</h4>
-                      <div>
-                        {item.course_status === "complete" && greenTick}
+                      {item.course_status && (
+                        <h6 className="course-complete-symbol">Complete</h6>
+                      )}
+                      <div className="card-text text-wrap">
+                        {item.more_info}
                       </div>
                     </div>
                     <Button
@@ -83,16 +87,6 @@ const MyLearning = () => {
                       text="Leave course"
                       onClick={() => leaveCourse(item)}
                     />
-                    <Button
-                      className={["btn-outline-primary", ""]}
-                      text="More Info"
-                      onClick={() => setInfoState(item)}
-                    />
-                    {infoState && infoState.course_id === item.course_id && (
-                      <div className="card-text text-wrap">
-                        {infoState.more_info}
-                      </div>
-                    )}
                   </div>
                 </div>
               );
@@ -102,9 +96,6 @@ const MyLearning = () => {
       )}
 
       {moduleContent && <div> {<ModulesContainer />}</div>}
-      {/* {moduleContent !== null && isStateReady && (
-        <div> {<ModuleContent moduleId={state} />}</div>
-      )} */}
     </>
   );
 };

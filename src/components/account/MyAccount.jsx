@@ -10,6 +10,7 @@ import { getFromLocal, clearLocal } from "../../storage";
 import { url } from "../../config";
 import { useNavigate } from "react-router-dom";
 import "../account/myAccount.scss";
+import { DownArrow } from "../../utils/svgs";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
@@ -91,10 +92,13 @@ const MyAccount = () => {
           <label htmlFor="email" className="form-label">
             Email
           </label>
-          <p className="">{email}</p>
+          <div className="flex">
+            <DownArrow className="arrow rotated-right" />
+            <p>{email}</p>
+          </div>
           {display != "email" && (
             <Button
-              className={["btn-outline-primary", "account"]}
+              className={["btn-primary", "account"]}
               onClick={() => {
                 setDisplay("email");
                 setErrors("");
@@ -116,7 +120,7 @@ const MyAccount = () => {
                 <p className="form-text">{errors}</p>
               )}
               <Button
-                className={["btn-outline-primary"]}
+                className={["btn-primary"]}
                 type="submit"
                 text="Save"
                 disabled={!userInput || errors ? true : false}
@@ -129,10 +133,13 @@ const MyAccount = () => {
           <label htmlFor="username" className="form-label">
             Username
           </label>
-          <p className="fw-light">{username}</p>
+          <div className="flex">
+            <DownArrow className="arrow rotated-right" />
+            <p>{username}</p>
+          </div>
           {display != "username" && (
             <Button
-              className={["btn-outline-primary", "account"]}
+              className={["btn-primary", "account"]}
               onClick={() => {
                 setDisplay("username");
                 setErrors("");
@@ -156,7 +163,7 @@ const MyAccount = () => {
                 </p>
               )}
               <Button
-                className={["btn-outline-primary"]}
+                className={["btn-primary"]}
                 type="submit"
                 text="Save"
                 disabled={!userInput || errors ? true : false}
@@ -171,7 +178,7 @@ const MyAccount = () => {
           </label>
           {display != "password" && (
             <Button
-              className={["btn-outline-primary", "account"]}
+              className={["btn-primary", "account"]}
               onClick={() => {
                 setDisplay("password");
                 setErrors("");
@@ -226,7 +233,7 @@ const MyAccount = () => {
                   <p className="form-text">Passwords do not match</p>
                 )}
               <Button
-                className={["btn-outline-primary"]}
+                className={["btn-primary"]}
                 type="submit"
                 text="Save"
                 disabled={

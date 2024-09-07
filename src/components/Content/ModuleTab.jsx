@@ -1,5 +1,5 @@
 import React from "react";
-import { greenTick, downArrow } from "../../utils/svgs";
+import { GreenTick, DownArrow } from "../../utils/svgs";
 
 const ModuleTab = ({ onModuleClick, module, moduleProgress, activeModule }) => {
   return (
@@ -9,14 +9,20 @@ const ModuleTab = ({ onModuleClick, module, moduleProgress, activeModule }) => {
         <div key={module.id}>
           {moduleProgress?.map((moduleId) => {
             if (moduleId === module.id) {
-              return <span key={moduleId}>{greenTick}</span>;
+              return (
+                <span key={moduleId}>
+                  <GreenTick className="module-complete-symbol" />
+                </span>
+              );
             }
           })}
         </div>
         <div
-          className={`svg-container ${activeModule === module.id && "rotated"}`}
+          className={`arrow ${
+            activeModule === module.id ? "rotated-left" : null
+          }`}
         >
-          {downArrow}
+          <DownArrow />
         </div>
       </div>
     </div>
