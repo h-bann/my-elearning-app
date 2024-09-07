@@ -4,6 +4,7 @@ const initialState = {
   courses: [],
   enrolledCourses: [],
   moduleProgress: [],
+  // progressBar: [],
   moduleContent: false,
 };
 
@@ -35,6 +36,16 @@ export const coursesSlice = createSlice({
         state.moduleProgress.push(payload);
       }
     },
+    setProgressBar: (state, { payload }) => {
+      state.progressBar = payload;
+
+      // if (payload && typeof payload === "object") {
+      //   const { course_id, progress_percentage } = payload;
+      //   if (course_id) {
+      //     state.progressBar[course_id] = progress_percentage;
+      //   }
+      // }
+    },
     setActiveCourse: (state, { payload }) => {
       state.activeCourse = payload;
     },
@@ -48,6 +59,7 @@ export const {
   setCourseContent,
   setMoreInfoContent,
   setModuleProgress,
+  setProgressBar,
   setActiveCourse,
 } = coursesSlice.actions;
 
@@ -59,6 +71,7 @@ export const selectModuleContent = (state) => state.courses.moduleContent;
 export const selectCourseContent = (state) => state.courses.courseContent;
 export const selectMoreInfoContent = (state) => state.courses.moreInfo;
 export const selectModuleProgress = (state) => state.courses.moduleProgress;
+export const selectProgressBar = (state) => state.courses.progressBar;
 export const selectActiveCourse = (state) => state.courses.activeCourse;
 
 export default coursesSlice.reducer;

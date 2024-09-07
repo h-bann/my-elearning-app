@@ -25,7 +25,7 @@ const ModulesContainer = () => {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    const getEnrolledCourses = async () => {
+    const getModuleProgress = async () => {
       try {
         const { data: userModuleProgress } = await axios.get(
           `${url}/courses/userProgress`,
@@ -40,7 +40,7 @@ const ModulesContainer = () => {
         console.error("Failed to fetch module progress", error);
       }
     };
-    getEnrolledCourses();
+    getModuleProgress();
   }, [activeCourse]);
 
   const handleModuleClick = useCallback((item) => {
