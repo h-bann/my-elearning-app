@@ -2,10 +2,10 @@ import React from "react";
 import CourseContent from "./CourseContent";
 import Button from "../genericComponents/Button";
 
-const Content = ({ module, lastItem, onNextClick }) => {
+const Content = ({ className, module, lastItem, onNextClick }) => {
   const { content } = module;
   return (
-    <div key={module.id} className="content displayed">
+    <div key={module.id} className={className}>
       <CourseContent content={content} />
       <div className="next-button">
         <Button

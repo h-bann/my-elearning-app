@@ -1,11 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginState } from "../../redux/accountSlice";
-import { setModuleContent } from "../../redux/coursesSlice";
+import {
+  selectModuleContent,
+  setActiveCourse,
+  setModuleContent,
+} from "../../redux/coursesSlice";
 import { NavLink } from "react-router-dom";
+import ModulesContainer from "../Content/ModulesContainer";
 
 const Navigation = () => {
   const loginState = useSelector(selectLoginState);
+  const moduleContent = useSelector(selectModuleContent);
   const dispatch = useDispatch();
 
   return (
