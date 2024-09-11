@@ -10,6 +10,7 @@ import {
   selectProgressBar,
   setActiveCourse,
   selectModuleProgress,
+  selectActiveCourse,
 } from "../../redux/coursesSlice";
 import Button from "../genericComponents/Button";
 import ModulesContainer from "../Content/ModulesContainer";
@@ -22,6 +23,7 @@ import { GreenTick } from "../../utils/svgs";
 const MyLearning = () => {
   const dispatch = useDispatch();
   const enrolledCourses = useSelector(selectEnrolledCourses);
+  const activeCourse = useSelector(selectActiveCourse);
   const moduleContent = useSelector(selectModuleContent);
   const moduleProgress = useSelector(selectModuleProgress);
   const progressBar = useSelector(selectProgressBar);
@@ -48,6 +50,7 @@ const MyLearning = () => {
       dispatch(setProgressBar(progressBar.message));
     }
   };
+
   useEffect(() => {
     getModuleProgress();
   }, []);
@@ -64,8 +67,7 @@ const MyLearning = () => {
   };
 
   const onCourseClick = async (item) => {
-    dispatch(setModuleContent(true));
-    dispatch(setActiveCourse(item.course_id));
+    dispatch(setEnrolledCourses(item));
   };
 
   const leaveCourse = async (item) => {
@@ -77,7 +79,7 @@ const MyLearning = () => {
     getEnrolledCourses();
   };
 
-  if (!enrolledCourses || !enrolledCourses.length) {
+  if (!enrolledCourses) {
     return (
       <div className="w-100 m-auto">
         <h3 className="m-4">Enrolled Courses</h3>
@@ -87,14 +89,11 @@ const MyLearning = () => {
   }
   return (
     <>
-      {!moduleContent && (
+      {enrolledCourses.length > 1 && (
         <div className="main-container">
           <h3 className="">Enrolled Courses</h3>
           <div className="card-container">
             {enrolledCourses.map((item) => {
-              {
-                /* console.log(item); */
-              }
               return (
                 <div className="card course-card" key={item.course_id}>
                   <img src={"./images/" + item.image} />
@@ -133,7 +132,7 @@ const MyLearning = () => {
         </div>
       )}
 
-      {moduleContent && <div> {<ModulesContainer />}</div>}
+      {!Array.isArray(enrolledCourses) && <div> {<ModulesContainer />}</div>}
     </>
   );
 };
