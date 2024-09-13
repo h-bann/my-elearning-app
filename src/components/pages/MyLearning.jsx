@@ -19,6 +19,7 @@ import { getFromLocal } from "../../storage";
 import { url } from "../../config";
 import "../pages/courses.scss";
 import { GreenTick } from "../../utils/svgs";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const MyLearning = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const MyLearning = () => {
   const moduleContent = useSelector(selectModuleContent);
   const moduleProgress = useSelector(selectModuleProgress);
   const progressBar = useSelector(selectProgressBar);
+  const navigate = useNavigate();
 
   const getEnrolledCourses = async () => {
     const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
@@ -37,7 +39,7 @@ const MyLearning = () => {
 
   useEffect(() => {
     getEnrolledCourses();
-  }, [moduleContent]);
+  }, []);
 
   const getModuleProgress = async () => {
     const { data: progressBar } = await axios.get(
@@ -62,12 +64,12 @@ const MyLearning = () => {
     if (progress) {
       return (progress.module_ids.length / item.modules.length) * 100;
     }
-
     return 0;
   };
 
   const onCourseClick = async (item) => {
     dispatch(setEnrolledCourses(item));
+    navigate("/content");
   };
 
   const leaveCourse = async (item) => {
@@ -79,7 +81,7 @@ const MyLearning = () => {
     getEnrolledCourses();
   };
 
-  if (!enrolledCourses) {
+  if (!enrolledCourses.length) {
     return (
       <div className="w-100 m-auto">
         <h3 className="m-4">Enrolled Courses</h3>
@@ -89,50 +91,44 @@ const MyLearning = () => {
   }
   return (
     <>
-      {enrolledCourses.length > 1 && (
-        <div className="main-container">
-          <h3 className="">Enrolled Courses</h3>
-          <div className="card-container">
-            {enrolledCourses.map((item) => {
-              return (
-                <div className="card course-card" key={item.course_id}>
-                  <img src={"./images/" + item.image} />
-                  <div className="card-body">
-                    <div className="course-complete-container"></div>
-                    <div>
-                      <h4 className="card-title">{item.course_title}</h4>
-                      {item.course_status && (
-                        <h6 className="course-complete-symbol">Complete</h6>
-                      )}
-                      {!item.course_status && (
-                        <progress
-                          max="100"
-                          value={progressBarFunction(item)}
-                        ></progress>
-                      )}
-                      <div className="card-text text-wrap">
-                        {item.more_info}
-                      </div>
-                    </div>
-                    <Button
-                      className={["btn-primary"]}
-                      text="Continue"
-                      onClick={() => onCourseClick(item)}
-                    />
-                    <Button
-                      className={["btn-outline-primary", ""]}
-                      text="Leave course"
-                      onClick={() => leaveCourse(item)}
-                    />
+      <div className="main-container">
+        <h3 className="">Enrolled Courses</h3>
+        <div className="card-container">
+          {enrolledCourses.map((item) => {
+            return (
+              <div className="card course-card" key={item.course_id}>
+                <img src={"./images/" + item.image} />
+                <div className="card-body">
+                  <div className="course-complete-container"></div>
+                  <div>
+                    <h4 className="card-title">{item.course_title}</h4>
+                    {item.course_status && (
+                      <h6 className="course-complete-symbol">Complete</h6>
+                    )}
+                    {!item.course_status && (
+                      <progress
+                        max="100"
+                        value={progressBarFunction(item)}
+                      ></progress>
+                    )}
+                    <div className="card-text text-wrap">{item.more_info}</div>
                   </div>
+                  <Button
+                    className={["btn-primary"]}
+                    text="Continue"
+                    onClick={() => onCourseClick(item)}
+                  />
+                  <Button
+                    className={["btn-outline-primary", ""]}
+                    text="Leave course"
+                    onClick={() => leaveCourse(item)}
+                  />
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
-      )}
-
-      {!Array.isArray(enrolledCourses) && <div> {<ModulesContainer />}</div>}
+      </div>
     </>
   );
 };

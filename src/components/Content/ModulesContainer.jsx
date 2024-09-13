@@ -91,16 +91,16 @@ const ModulesContainer = () => {
   if (!enrolledCourses) {
     <p>Loading</p>;
   }
-  console.log(enrolledCourses);
+
   const { modules } = enrolledCourses;
-  let lastItem = modules.slice(-1);
+  let lastItem = modules?.slice(-1);
 
   // if window size less than 365 then render HTML option A
   if (innerWidth < 360) {
     return (
       <div className="main-container">
         <div className="modules-container-mobile">
-          {modules.map((modulesItem) => {
+          {modules?.map((modulesItem) => {
             return (
               <div className="module-card-mobile" key={modulesItem.id}>
                 <ModuleTab

@@ -33,8 +33,8 @@ const Courses = () => {
   }, []);
 
   const onCourseClick = async (item) => {
-    setModulesContent(true);
-    dispatch(setActiveCourse(item.id));
+    // setModulesContent(true);
+    // dispatch(setActiveCourse(item.id));
 
     // records enrolled course against user's account
     const { data: enrolledCourse } = await axios.patch(
@@ -86,7 +86,7 @@ const Courses = () => {
         </div>
       )}
 
-      {modulesContent && <div> {<ModulesContainer />}</div>}
+      {/* {modulesContent && <div> {<ModulesContainer />}</div>} */}
     </>
   );
 };
