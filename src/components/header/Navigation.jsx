@@ -39,9 +39,9 @@ const Navigation = () => {
             isActive ? "nav-link active" : "nav-link"
           }
           to="/myLearning"
-          onClick={() => {
-            dispatch(setModuleContent(false));
-          }}
+          // onClick={() => {
+          //   dispatch(setModuleContent(false));
+          // }}
         >
           My Learning
         </NavLink>
