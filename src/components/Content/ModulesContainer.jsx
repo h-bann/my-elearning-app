@@ -132,7 +132,7 @@ const ModulesContainer = () => {
         {modules.map((modulesItem) => {
           return (
             <>
-              <div className="module-card-desktop">
+              <div key={modulesItem.id} className="module-card-desktop">
                 <ModuleTab
                   onModuleClick={handleModuleClick}
                   module={modulesItem}
@@ -146,20 +146,18 @@ const ModulesContainer = () => {
         })}
       </div>
       {modules.map((contentItem) => {
-        return (
-          <div>
+        if (activeModule === contentItem.id) {
+          return (
             <div>
-              {activeModule === contentItem.id && (
-                <Content
-                  className={"content-desktop displayed"}
-                  module={contentItem}
-                  lastItem={lastItem}
-                  onNextClick={onNextClick}
-                />
-              )}
+              <Content
+                className={"content-desktop displayed"}
+                module={contentItem}
+                lastItem={lastItem}
+                onNextClick={onNextClick}
+              />
             </div>
-          </div>
-        );
+          );
+        }
       })}
     </div>
   );
