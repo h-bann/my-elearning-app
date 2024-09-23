@@ -1,0 +1,21 @@
+.login-signup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.login-signup-container button {
+  width: 100px;
+}
+
+.login-subcontainer {
+  margin-top: 50px;
+}
+
+.login-subcontainer,
+.signup-subcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+  width: 100%;
+}/*# sourceMappingURL=loginSignup.css.map */
