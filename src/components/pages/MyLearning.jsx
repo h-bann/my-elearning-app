@@ -1,32 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectModuleContent,
-  setModuleContent,
   setEnrolledCourses,
   selectEnrolledCourses,
   setModuleProgress,
   setProgressBar,
   selectProgressBar,
-  setActiveCourse,
-  selectModuleProgress,
-  selectActiveCourse,
 } from "../../redux/coursesSlice";
 import Button from "../genericComponents/Button";
-import ModulesContainer from "../Content/ModulesContainer";
 import axios from "axios";
 import { getFromLocal } from "../../storage";
 import { url } from "../../config";
+import { useNavigate } from "react-router-dom";
 import "../pages/courses.scss";
-import { GreenTick } from "../../utils/svgs";
-import { Navigate, useNavigate } from "react-router-dom";
 
 const MyLearning = () => {
   const dispatch = useDispatch();
   const enrolledCourses = useSelector(selectEnrolledCourses);
-  const activeCourse = useSelector(selectActiveCourse);
-  const moduleContent = useSelector(selectModuleContent);
-  const moduleProgress = useSelector(selectModuleProgress);
   const progressBar = useSelector(selectProgressBar);
   const navigate = useNavigate();
 

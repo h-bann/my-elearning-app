@@ -25,10 +25,10 @@ const router = createBrowserRouter([
       { index: true, element: <Homepage /> },
       { path: "courses", element: <Courses /> },
       { path: "contact", element: <Contact /> },
-      { path: "myLearning", element: <MyLearning /> },
+      { path: "my-learning", element: <MyLearning /> },
       { path: "content", element: <ModulesContainer /> },
-      { path: "userAccount", element: <UserAccount /> },
-      { path: "loginSignup", element: <LoginSignup /> },
+      { path: "my-account", element: <UserAccount /> },
+      { path: "login-signup", element: <LoginSignup /> },
     ],
   },
 ]);

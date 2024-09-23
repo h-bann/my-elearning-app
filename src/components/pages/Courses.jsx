@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  selectCourses,
-  setCourses,
-  setActiveCourse,
-} from "../../redux/coursesSlice";
+import { selectCourses, setCourses } from "../../redux/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
-import ModulesContainer from "../Content/ModulesContainer";
 import Button from "../genericComponents/Button";
 import axios from "axios";
 import { getFromLocal } from "../../storage";
