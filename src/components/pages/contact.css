@@ -1,0 +1,19 @@
+.contact-form {
+  width: 70vw;
+  min-width: 300px;
+  margin: auto;
+  margin-top: 50px;
+}
+.contact-form h5 {
+  margin-bottom: 15px;
+}
+.contact-form p {
+  margin-bottom: 30px;
+}
+
+@media screen and (min-width: 770px) {
+  .contact-form {
+    width: 80vw;
+    max-width: 500px;
+  }
+}/*# sourceMappingURL=contact.css.map */

@@ -40,8 +40,13 @@ const ModuleTab = ({ onModuleClick, module, moduleProgress, activeModule }) => {
   }
 
   return (
-    <div className="" onClick={() => onModuleClick(module)}>
-      <h1>{module.module_title}</h1>
+    <div
+      className={`module-tab-desktop ${
+        activeModule === module.id ? "active" : ""
+      }`}
+      onClick={() => onModuleClick(module)}
+    >
+      <h4>{module.module_title}</h4>
       <div className="module-tab-svg">
         <div key={module.id}>
           {moduleProgress?.map((moduleId) => {
@@ -51,13 +56,6 @@ const ModuleTab = ({ onModuleClick, module, moduleProgress, activeModule }) => {
               );
             }
           })}
-        </div>
-        <div
-          className={`arrow ${
-            activeModule === module.id ? "rotated-left" : null
-          }`}
-        >
-          <DownArrow />
         </div>
       </div>
     </div>
