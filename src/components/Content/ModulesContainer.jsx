@@ -13,9 +13,11 @@ import axios from "axios";
 import usePageBottom from "../../utils/hooks";
 import ModuleTab from "./ModuleTab";
 import Content from "./Content";
+import { useNavigate } from "react-router-dom";
 
 const ModulesContainer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const enrolledCourses = useSelector(selectEnrolledCourses);
   const moduleContent = useSelector(selectModuleContent);
   const moduleProgress = useSelector(selectModuleProgress);
@@ -66,12 +68,16 @@ const ModulesContainer = () => {
 
     const lastItem = enrolledCourses.modules.slice(-1);
     if (lastItem[0].id === item.id) {
+      alert(
+        "You have completed the course. You will now be taken back to your dashboard"
+      );
       const { data: courseComplete } = await axios.patch(
         `${url}/courses/courseCompletion`,
         { courseId: item.course_id },
         { headers: { token: getFromLocal("token") } }
       );
       console.log(courseComplete);
+      navigate("/myLearning");
     }
   };
 

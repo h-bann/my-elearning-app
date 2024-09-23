@@ -24,7 +24,7 @@ const HeaderButtons = () => {
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
   if (!loggedIn) {
     return (
-      <Link className="nav-link" to="/loginSignup">
+      <Link className="nav-link" to="/login-signup">
         Sign up/Login
       </Link>
     );
@@ -37,7 +37,7 @@ const HeaderButtons = () => {
           className={({ isActive }) =>
             isActive ? "nav-link active" : "nav-link"
           }
-          to="/userAccount"
+          to="/my-account"
         >
           My Account
         </NavLink>
