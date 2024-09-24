@@ -22,6 +22,7 @@ const MyAccount = () => {
   const [userEmail, setUserEmail] = useState();
   const [userUsername, setUserUsername] = useState();
   const [userPassword, setUserPassword] = useState();
+  const [userPasswordConfirmation, setUserPasswordConfirmation] = useState();
 
   useEffect(() => {
     const getUser = async () => {
@@ -37,16 +38,22 @@ const MyAccount = () => {
 
   const onInput = (e) => {
     const userInput = { [e.target.name]: e.target.value };
-    switch (e.target.type) {
+    formValidation(userInput, userDetailsResetSchema, setErrors);
+    console.log(e.target);
+    switch (e.target.name) {
       case "email":
-        formValidation(userInput, userDetailsResetSchema, setErrors);
+        // formValidation(userInput, userDetailsResetSchema, setErrors);
         setUserEmail(e.target.value);
         break;
-      case "text":
+      case "username":
         setUserUsername(e.target.value);
         break;
       case "password":
         setUserPassword(e.target.value);
+        break;
+      case "passwordConfirmation":
+        setUserPasswordConfirmation(e.target.value);
+        break;
       default:
         null;
         break;
@@ -56,9 +63,11 @@ const MyAccount = () => {
     // formValidation(updatedState, userDetailsResetSchema, setErrors);
     // setUserInput(updatedState);
   };
-  console.log(userEmail);
-  console.log(userUsername);
-  console.log(userPassword);
+  // console.log(userEmail);
+  // console.log(userUsername);
+  // console.log(userPassword);
+  console.log(errors);
+  console.log(userPasswordConfirmation);
 
   const updateUserDetails = async (e) => {
     e.preventDefault();
@@ -75,15 +84,7 @@ const MyAccount = () => {
         headers: { token: getFromLocal("token") },
       }
     );
-    console.log(e);
-    switch (e.target.type) {
-      case "email":
-        setUserEmail("");
-        break;
 
-      default:
-        break;
-    }
     // if action is successful, reset display to start
     if (data.code) {
       setDisplay(null);
@@ -139,6 +140,8 @@ const MyAccount = () => {
             <Button
               className={["btn-primary", "account"]}
               onClick={() => {
+                setUserUsername("");
+                setUserPassword("");
                 setDisplay("email");
                 setErrors("");
               }}
@@ -156,7 +159,9 @@ const MyAccount = () => {
               {userEmail && display === "email" && errors.email ? (
                 <p className="form-text">{errors.email}</p>
               ) : (
-                <p className="form-text">{errors}</p>
+                <p className="form-text">
+                  {typeof errors === "object" ? JSON.stringify(errors) : errors}
+                </p>
               )}
               <Button
                 className={["btn-primary"]}
@@ -180,6 +185,8 @@ const MyAccount = () => {
             <Button
               className={["btn-primary", "account"]}
               onClick={() => {
+                setUserEmail("");
+                setUserPassword("");
                 setDisplay("username");
                 setErrors("");
               }}
@@ -219,6 +226,8 @@ const MyAccount = () => {
             <Button
               className={["btn-primary", "account"]}
               onClick={() => {
+                setUserEmail("");
+                setUserUsername("");
                 setDisplay("password");
                 setErrors("");
               }}
@@ -252,8 +261,6 @@ const MyAccount = () => {
               />
               {password && display === "password" && errors.password ? (
                 <p className="form-text">{errors.password}</p>
-              ) : errors ? (
-                <p className="form-text">{errors}</p>
               ) : undefined}
 
               <Label
@@ -267,18 +274,17 @@ const MyAccount = () => {
                 placeholder="Confirm new password"
                 className="form-control mb-3"
               />
-              {userInput &&
-                userInput.passwordConfirmation != userInput.password && (
-                  <p className="form-text">Passwords do not match</p>
-                )}
+              {userPassword && userPasswordConfirmation != userPassword && (
+                <p className="form-text">Passwords do not match</p>
+              )}
               <Button
                 className={["btn-primary"]}
                 type="submit"
                 text="Save"
                 disabled={
-                  !userInput ||
+                  !userPassword ||
                   errors ||
-                  userInput.passwordConfirmation != userInput.password
+                  userPasswordConfirmation != userPassword
                     ? true
                     : false
                 }
