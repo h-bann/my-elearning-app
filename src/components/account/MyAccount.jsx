@@ -36,43 +36,63 @@ const MyAccount = () => {
   }, [display]);
 
   const onInput = (e) => {
-    // console.log(e.target.type);
+    const userInput = { [e.target.name]: e.target.value };
     switch (e.target.type) {
       case "email":
+        formValidation(userInput, userDetailsResetSchema, setErrors);
         setUserEmail(e.target.value);
         break;
       case "text":
         setUserUsername(e.target.value);
         break;
+      case "password":
+        setUserPassword(e.target.value);
       default:
         null;
         break;
     }
 
-    const updatedState = { ...userInput, [e.target.name]: e.target.value };
-    formValidation(updatedState, userDetailsResetSchema, setErrors);
-    setUserInput(updatedState);
+    // const updatedState = { ...userInput, [e.target.name]: e.target.value };
+    // formValidation(updatedState, userDetailsResetSchema, setErrors);
+    // setUserInput(updatedState);
   };
-
   console.log(userEmail);
   console.log(userUsername);
+  console.log(userPassword);
 
   const updateUserDetails = async (e) => {
     e.preventDefault();
     // spread userInput so as only to send newState to database
-    const { passwordConfirmation, currentPassword, ...newState } = userInput;
-    const { data } = await axios.patch(`${url}/users/update`, newState, {
-      headers: { token: getFromLocal("token") },
-    });
+    // const { passwordConfirmation, currentPassword, ...newState } = userInput;
+    // const { data } = await axios.patch(`${url}/users/update`, newState, {
+    //   headers: { token: getFromLocal("token") },
+    // });
+
+    const { data } = await axios.patch(
+      `${url}/users/update`,
+      { email: userEmail, username: userUsername, password: userPassword },
+      {
+        headers: { token: getFromLocal("token") },
+      }
+    );
+    console.log(e);
+    switch (e.target.type) {
+      case "email":
+        setUserEmail("");
+        break;
+
+      default:
+        break;
+    }
     // if action is successful, reset display to start
     if (data.code) {
       setDisplay(null);
-      setUserInput(null);
     }
     // if action fails, display error message and set user input to null so that correct message is displayed
     if (!data.code) {
       setUserInput(null);
       setErrors(data.message);
+      console.log(data.message);
     }
   };
 
@@ -102,7 +122,11 @@ const MyAccount = () => {
     <div className="main-container">
       <h3 className="">My Account Details</h3>
 
-      <form className="form-signin" onInput={onInput}>
+      <form
+        className="form-signin"
+        onInput={onInput}
+        onSubmit={updateUserDetails}
+      >
         <div className="details-container">
           <label htmlFor="email" className="form-label">
             Email
@@ -138,7 +162,7 @@ const MyAccount = () => {
                 className={["btn-primary"]}
                 type="submit"
                 text="Save"
-                disabled={!userInput || errors ? true : false}
+                disabled={!userEmail || errors ? true : false}
               />
             </div>
           )}
@@ -149,11 +173,118 @@ const MyAccount = () => {
             Username
           </label>
           <div className="flex">
+            <DownArrow className="arrow rotated-right" />
             <p>{username}</p>
           </div>
-          <div className="">
-            <Input type="username" name="username" className="form-control" />
-          </div>
+          {display != "username" && (
+            <Button
+              className={["btn-primary", "account"]}
+              onClick={() => {
+                setDisplay("username");
+                setErrors("");
+              }}
+              text="Change username"
+            />
+          )}
+          {display === "username" && (
+            <div className="hidden-input">
+              <Input
+                type="text"
+                name="username"
+                placeholder="New username"
+                className="form-control"
+              />
+              {username && display === "username" && errors.username ? (
+                <p className="form-text">{errors.username}</p>
+              ) : (
+                <p className="form-text">
+                  {typeof errors === "object" ? JSON.stringify(errors) : errors}
+                </p>
+              )}
+              <Button
+                className={["btn-primary"]}
+                type="submit"
+                text="Save"
+                disabled={!userUsername || errors ? true : false}
+              />
+            </div>
+          )}
+        </div>
+
+        <div className="details-container password">
+          <label htmlFor="password" className="form-label">
+            Password Reset
+          </label>
+          {display != "password" && (
+            <Button
+              className={["btn-primary", "account"]}
+              onClick={() => {
+                setDisplay("password");
+                setErrors("");
+              }}
+              text="Reset password"
+            />
+          )}
+          {display === "password" && (
+            <div className="hidden-input">
+              <Label
+                htmlFor="password"
+                className="sub-form-label"
+                text="Current password:"
+              />
+              <Input
+                type="password"
+                name="currentPassword"
+                placeholder="Current password"
+                className="form-control mb-3"
+              />
+
+              <Label
+                htmlFor="newPassword"
+                className="sub-form-label"
+                text="New password:"
+              />
+              <Input
+                type="password"
+                name="password"
+                placeholder="New password"
+                className="form-control mb-3"
+              />
+              {password && display === "password" && errors.password ? (
+                <p className="form-text">{errors.password}</p>
+              ) : errors ? (
+                <p className="form-text">{errors}</p>
+              ) : undefined}
+
+              <Label
+                htmlFor="passwordConfirmation"
+                text="Confirm new password:"
+                className="sub-form-label"
+              />
+              <Input
+                type="password"
+                name="passwordConfirmation"
+                placeholder="Confirm new password"
+                className="form-control mb-3"
+              />
+              {userInput &&
+                userInput.passwordConfirmation != userInput.password && (
+                  <p className="form-text">Passwords do not match</p>
+                )}
+              <Button
+                className={["btn-primary"]}
+                type="submit"
+                text="Save"
+                disabled={
+                  !userInput ||
+                  errors ||
+                  userInput.passwordConfirmation != userInput.password
+                    ? true
+                    : false
+                }
+              />
+            </div>
+          )}
         </div>
       </form>
 
