@@ -35,6 +35,7 @@ export const formValidation = (state, schema, setErrors) => {
   const { error } = schema.validate(state, {
     abortEarly: false,
   });
+  console.log(error);
   let errors = {};
   if (error) {
     error.details.forEach((error) => {
@@ -42,6 +43,8 @@ export const formValidation = (state, schema, setErrors) => {
       errors[error.context.key] = formattedError;
       setErrors(errors);
     });
+    console.log(errors);
+    console.log(error);
   } else if (!error) {
     setErrors("");
   }
