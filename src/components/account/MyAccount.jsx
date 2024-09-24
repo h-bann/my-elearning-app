@@ -19,6 +19,9 @@ const MyAccount = () => {
   const [errors, setErrors] = useState("");
   const [userInput, setUserInput] = useState();
   const [userDetails, setUserDetails] = useState();
+  const [userEmail, setUserEmail] = useState();
+  const [userUsername, setUserUsername] = useState();
+  const [userPassword, setUserPassword] = useState();
 
   useEffect(() => {
     const getUser = async () => {
@@ -33,10 +36,26 @@ const MyAccount = () => {
   }, [display]);
 
   const onInput = (e) => {
+    // console.log(e.target.type);
+    switch (e.target.type) {
+      case "email":
+        setUserEmail(e.target.value);
+        break;
+      case "text":
+        setUserUsername(e.target.value);
+        break;
+      default:
+        null;
+        break;
+    }
+
     const updatedState = { ...userInput, [e.target.name]: e.target.value };
     formValidation(updatedState, userDetailsResetSchema, setErrors);
     setUserInput(updatedState);
   };
+
+  console.log(userEmail);
+  console.log(userUsername);
 
   const updateUserDetails = async (e) => {
     e.preventDefault();
@@ -83,7 +102,62 @@ const MyAccount = () => {
     <div className="main-container">
       <h3 className="">My Account Details</h3>
 
-      <form
+      <form className="form-signin" onInput={onInput}>
+        <div className="details-container">
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
+          <div className="flex">
+            <DownArrow className="arrow rotated-right" />
+            <p>{email}</p>
+          </div>
+          {display != "email" && (
+            <Button
+              className={["btn-primary", "account"]}
+              onClick={() => {
+                setDisplay("email");
+                setErrors("");
+              }}
+              text="Change Email"
+            />
+          )}
+          {display === "email" && (
+            <div className="hidden-input">
+              <Input
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="New email address"
+              />
+              {userEmail && display === "email" && errors.email ? (
+                <p className="form-text">{errors.email}</p>
+              ) : (
+                <p className="form-text">{errors}</p>
+              )}
+              <Button
+                className={["btn-primary"]}
+                type="submit"
+                text="Save"
+                disabled={!userInput || errors ? true : false}
+              />
+            </div>
+          )}
+        </div>
+
+        <div className="details-container">
+          <label htmlFor="username" className="form-label">
+            Username
+          </label>
+          <div className="flex">
+            <p>{username}</p>
+          </div>
+          <div className="">
+            <Input type="username" name="username" className="form-control" />
+          </div>
+        </div>
+      </form>
+
+      {/* <form
         className="form-signin"
         onInput={onInput}
         onSubmit={updateUserDetails}
@@ -247,7 +321,7 @@ const MyAccount = () => {
             </div>
           )}
         </div>
-      </form>
+      </form> */}
       <div className="p-3">
         <Button
           className={["btn-danger"]}
