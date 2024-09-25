@@ -36,15 +36,22 @@ export const formValidation = (state, schema, setErrors) => {
     abortEarly: false,
   });
   console.log(error);
-  let errors = {};
+  // let errors = "";
+  // console.log(error.message);
+  if (!error) {
+    setErrors("");
+    return;
+  }
+  const path = error.details[0].path[0];
+
+  if (path === "passwordConfirmation" || "currentPassword") {
+    setErrors("");
+    return;
+  }
   if (error) {
-    error.details.forEach((error) => {
-      const formattedError = formatValidation(error.message);
-      errors[error.context.key] = formattedError;
-      setErrors(errors);
-    });
-    console.log(errors);
-    console.log(error);
+    console.log(path);
+    const formattedError = formatValidation(error.message);
+    setErrors(formattedError);
   } else if (!error) {
     setErrors("");
   }
