@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectBasketCount, selectBasketItems } from "../../redux/basketSlice";
 
@@ -14,15 +14,20 @@ const Basket = () => {
       {!basketItems.length && <p>There are no items in your basket</p>}
 
       <table>
-        <th>Item </th>
-        {basketItems.map((item) => {
-          return (
-            <tr>
-              <td>{item.id}</td>
-              <td>{item.course_title}</td>
-            </tr>
-          );
-        })}
+        <tr>
+          <th>Item</th>
+          <th>Name</th>
+        </tr>
+        <tbody>
+          {basketItems.map((item, index) => {
+            return (
+              <tr>
+                <td>{index + 1}</td>
+                <td>{item.course_title}</td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );

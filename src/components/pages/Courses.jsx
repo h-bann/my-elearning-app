@@ -22,30 +22,24 @@ const Courses = () => {
   const basketCount = useSelector(selectBasketCount);
 
   useEffect(() => {
-    if (courses.length === 0) {
-      const getCourses = async () => {
-        const { data } = await axios.get(`${url}/courses/getCourses`, {
-          headers: { token: getFromLocal("token") },
-        });
-        dispatch(setCourses(data.courses));
+    const getCourses = async () => {
+      if (courses.length === 0) {
+        try {
+          const { data } = await axios.get(`${url}/courses/getCourses`, {
+            headers: { token: getFromLocal("token") },
+          });
+          dispatch(setCourses(data.courses));
+        } catch (error) {
+          console.error("Failed to fetch courses:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
         setIsLoading(false);
-      };
-      getCourses();
-    }
+      }
+    };
+    getCourses();
   }, [courses.length, dispatch]);
-
-  useEffect(() => {
-    if (basketError) {
-      toast.error("Already in basket!");
-      dispatch(setBasketError(false));
-    }
-  }, [basketError, dispatch]);
-
-  useEffect(() => {
-    if (basketCount) {
-      toast.success("Added to basket!");
-    }
-  }, [basketCount]);
 
   const onCourseClick = useCallback(
     async (item) => {
@@ -68,6 +62,19 @@ const Courses = () => {
     },
     [dispatch]
   );
+
+  useEffect(() => {
+    if (basketError) {
+      toast.error("Already in basket!");
+      dispatch(setBasketError(false));
+    }
+  }, [basketError, dispatch]);
+
+  useEffect(() => {
+    if (basketCount) {
+      toast.success("Added to basket!");
+    }
+  }, [basketCount]);
 
   if (isLoading) {
     return (
