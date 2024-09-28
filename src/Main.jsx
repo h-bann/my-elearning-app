@@ -15,6 +15,7 @@ import UserAccount from "./components/pages/UserAccount.jsx";
 import LoginSignup from "./components/pages/LoginSignup.jsx";
 import Homepage from "./components/pages/Homepage.jsx";
 import ModulesContainer from "./components/Content/ModulesContainer.jsx";
+import Basket from "./components/pages/Basket.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: "my-learning", element: <MyLearning /> },
       { path: "content", element: <ModulesContainer /> },
       { path: "my-account", element: <UserAccount /> },
+      { path: "basket", element: <Basket /> },
       { path: "login-signup", element: <LoginSignup /> },
     ],
   },

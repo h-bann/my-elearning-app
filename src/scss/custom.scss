@@ -9,7 +9,7 @@ footer {
 }
 
 body {
-  width: 90vw;
+  width: 99vw;
   margin: auto;
 }
 
@@ -110,6 +110,16 @@ header {
 .burger-menu {
   color: black;
   cursor: pointer;
+}
+
+.basket {
+  display: flex;
+  align-items: center;
+
+  p {
+    margin: 0px 5px;
+    text-align: center;
+  }
 }
 
 // MAIN
@@ -252,6 +262,7 @@ footer {
 
 .content-mobile.displayed {
   display: block;
+  padding: 0px 10px;
 }
 
 .content {
@@ -384,7 +395,7 @@ footer {
 
 .content-desktop {
   margin-left: 265px; /* Same as the width of the sidebar */
-  padding: 0px 20px;
+  padding: 0px 10px;
 }
 
 @media screen and (min-width: 360px) {
