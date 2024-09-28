@@ -18,14 +18,16 @@ export const basketSlice = createSlice({
         state.basketError = true;
         return;
       }
-
       state.basketItems.push(payload[0]);
       state.basketCount = state.basketCount + payload[1];
+    },
+    setBasketError: (state, { payload }) => {
+      state.basketError = payload;
     },
   },
 });
 
-export const { setBasketItems } = basketSlice.actions;
+export const { setBasketItems, setBasketError } = basketSlice.actions;
 
 // * this is how you retrieve from store
 
