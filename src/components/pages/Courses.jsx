@@ -66,13 +66,14 @@ const Courses = () => {
   useEffect(() => {
     if (basketError) {
       toast.error("Already in basket!");
-      dispatch(setBasketError(false));
+      dispatch(setBasketError(null));
     }
   }, [basketError, dispatch]);
 
   useEffect(() => {
-    if (basketCount) {
+    if (basketError === false) {
       toast.success("Added to basket!");
+      dispatch(setBasketError(null));
     }
   }, [basketCount]);
 

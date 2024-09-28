@@ -14,14 +14,16 @@ const Basket = () => {
       {!basketItems.length && <p>There are no items in your basket</p>}
 
       <table>
-        <tr>
-          <th>Item</th>
-          <th>Name</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Item</th>
+          </tr>
+        </thead>
+
         <tbody>
           {basketItems.map((item, index) => {
             return (
-              <tr>
+              <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{item.course_title}</td>
               </tr>

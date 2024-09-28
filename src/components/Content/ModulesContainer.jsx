@@ -14,12 +14,12 @@ import usePageBottom from "../../utils/hooks";
 import ModuleTab from "./ModuleTab";
 import Content from "./Content";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const ModulesContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const enrolledCourses = useSelector(selectEnrolledCourses);
-  const moduleContent = useSelector(selectModuleContent);
   const moduleProgress = useSelector(selectModuleProgress);
   const activeCourse = useSelector(selectActiveCourse);
   const [hideContent, setHideContent] = useState(false);
@@ -54,7 +54,10 @@ const ModulesContainer = () => {
   }, []);
 
   const onNextClick = async (item) => {
-    setActiveModule(item.id + 1);
+    const lastItem = enrolledCourses.modules.slice(-1);
+    if (lastItem[0].id !== item.id) {
+      setActiveModule(item.id + 1);
+    }
     dispatch(setModuleProgress(item.id));
 
     const { data } = await axios.patch(
@@ -66,18 +69,14 @@ const ModulesContainer = () => {
     );
     console.log(data);
 
-    const lastItem = enrolledCourses.modules.slice(-1);
     if (lastItem[0].id === item.id) {
-      alert(
-        "You have completed the course. You will now be taken back to your dashboard"
-      );
+      toast.success("Well done, course completed! ");
       const { data: courseComplete } = await axios.patch(
         `${url}/courses/courseCompletion`,
         { courseId: item.course_id },
         { headers: { token: getFromLocal("token") } }
       );
       console.log(courseComplete);
-      navigate("/myLearning");
     }
   };
 
@@ -128,6 +127,7 @@ const ModulesContainer = () => {
             );
           })}
         </div>
+        <Toaster />;
       </div>
     );
   }
@@ -163,6 +163,7 @@ const ModulesContainer = () => {
           );
         }
       })}
+      <Toaster />;
     </div>
   );
 

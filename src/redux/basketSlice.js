@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   basketCount: 0,
   basketItems: [],
-  basketError: false,
+  basketError: null,
 };
 
 export const basketSlice = createSlice({
@@ -18,6 +18,7 @@ export const basketSlice = createSlice({
         state.basketError = true;
         return;
       }
+      state.basketError = false;
       state.basketItems.push(payload[0]);
       state.basketCount = state.basketCount + payload[1];
     },
