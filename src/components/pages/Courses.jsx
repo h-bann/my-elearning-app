@@ -1,32 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCourses, setCourses } from "../../redux/coursesSlice";
 import {
   setBasketItems,
-  selectBasketCount,
-  selectBasketItems,
   selectBasketError,
+  setBasketError,
+  selectBasketCount,
 } from "../../redux/basketSlice";
-import { useDispatch, useSelector } from "react-redux";
 import Button from "../genericComponents/Button";
 import axios from "axios";
-import {
-  getFromLocal,
-  storeManyInLocal,
-  storeSingleInLocal,
-} from "../../storage";
+import { getFromLocal } from "../../storage";
 import { url } from "../../config";
 import "../pages/courses.scss";
+import toast, { Toaster } from "react-hot-toast";
 
 const Courses = () => {
   const dispatch = useDispatch();
-  const [tempState, setTempState] = useState(false);
-  const [infoState, setInfoState] = useState();
-  const [modulesContent, setModulesContent] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const courses = useSelector(selectCourses);
-  const basketCount = useSelector(selectBasketCount);
-  const basketItems = useSelector(selectBasketItems);
   const basketError = useSelector(selectBasketError);
-  // const [basketItems, setBasketItems] = useState([]);
+  const basketCount = useSelector(selectBasketCount);
 
   useEffect(() => {
     if (courses.length === 0) {
@@ -35,29 +28,48 @@ const Courses = () => {
           headers: { token: getFromLocal("token") },
         });
         dispatch(setCourses(data.courses));
+        setIsLoading(false);
       };
       getCourses();
     }
-  }, []);
-  const onCourseClick = async (item) => {
-    dispatch(setBasketItems([item, 1]));
-    // records enrolled course against user's account
-    const { data: enrolledCourse } = await axios.patch(
-      `${url}/courses/enrolled`,
-      {
-        course_title: item.course_title,
-        course_id: item.id,
-        image: item.image,
-      },
-      {
-        headers: { token: getFromLocal("token") },
-      }
-    );
+  }, [courses.length, dispatch]);
 
-    // ! ADD MESSAGE SAYING CAN'T ENROL IF NOT LOGGED IN
-  };
+  useEffect(() => {
+    if (basketError) {
+      toast.error("Already in basket!");
+      dispatch(setBasketError(false));
+    }
+  }, [basketError, dispatch]);
 
-  if (!courses) {
+  useEffect(() => {
+    if (basketCount) {
+      toast.success("Added to basket!");
+    }
+  }, [basketCount]);
+
+  const onCourseClick = useCallback(
+    async (item) => {
+      dispatch(setBasketItems([item, 1]));
+
+      // records enrolled course against user's account
+      const { data: enrolledCourse } = await axios.patch(
+        `${url}/courses/enrolled`,
+        {
+          course_title: item.course_title,
+          course_id: item.id,
+          image: item.image,
+        },
+        {
+          headers: { token: getFromLocal("token") },
+        }
+      );
+
+      // ! ADD MESSAGE SAYING CAN'T ENROL IF NOT LOGGED IN
+    },
+    [dispatch]
+  );
+
+  if (isLoading) {
     return (
       <div>
         <p>Loading...</p>
@@ -65,39 +77,32 @@ const Courses = () => {
     );
   }
 
-  if (basketError) {
-    alert("Item already in basket");
-  }
-
   return (
     <>
-      {!modulesContent && (
-        <div className="main-container">
-          <h3 className="">Available Courses</h3>
-          <div className="card-container">
-            {courses.map((item) => {
-              return (
-                <div className="card course-card" key={item.id}>
-                  <img src={"./images/" + item.image} />
-                  <div className="card-body">
-                    <h4 className="card-title">{item.course_title}</h4>
-                    <div className="card-text text-wrap">{item.more_info}</div>
-                    <Button
-                      className={["btn-primary"]}
-                      text="Buy course"
-                      onClick={() => onCourseClick(item)}
-                    />
-                  </div>
+      <div className="main-container">
+        <h3 className="">Available Courses</h3>
+        <div className="card-container">
+          {courses.map((item) => {
+            return (
+              <div className="card course-card" key={item.id}>
+                <img src={"./images/" + item.image} />
+                <div className="card-body">
+                  <h4 className="card-title">{item.course_title}</h4>
+                  <div className="card-text text-wrap">{item.more_info}</div>
+                  <Button
+                    className={["btn-primary"]}
+                    text="Buy course"
+                    onClick={() => onCourseClick(item)}
+                  />
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
-      )}
-
-      {/* {modulesContent && <div> {<ModulesContainer />}</div>} */}
+        <Toaster />;
+      </div>
     </>
   );
 };
 
-export default Courses;
+export default React.memo(Courses);
