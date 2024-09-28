@@ -17,8 +17,12 @@ const MyAccount = () => {
   const navigate = useNavigate();
   const [display, setDisplay] = useState("");
   const [errors, setErrors] = useState("");
-  const [userInput, setUserInput] = useState();
   const [userDetails, setUserDetails] = useState();
+  const [userEmail, setUserEmail] = useState();
+  const [userUsername, setUserUsername] = useState();
+  const [userPassword, setUserPassword] = useState();
+  const [userCurrentPassword, setUserCurrentPassword] = useState();
+  const [userPasswordConfirmation, setUserPasswordConfirmation] = useState();
 
   useEffect(() => {
     const getUser = async () => {
@@ -33,27 +37,56 @@ const MyAccount = () => {
   }, [display]);
 
   const onInput = (e) => {
-    const updatedState = { ...userInput, [e.target.name]: e.target.value };
-    formValidation(updatedState, userDetailsResetSchema, setErrors);
-    setUserInput(updatedState);
+    const userInput = { [e.target.name]: e.target.value };
+    formValidation(userInput, userDetailsResetSchema, setErrors);
+    switch (e.target.name) {
+      case "email":
+        setUserEmail(e.target.value);
+        break;
+      case "username":
+        setUserUsername(e.target.value);
+        break;
+      case "currentPassword":
+        setUserCurrentPassword(e.target.value);
+        break;
+      case "password":
+        setUserPassword(e.target.value);
+        break;
+      case "passwordConfirmation":
+        setUserPasswordConfirmation(e.target.value);
+        break;
+      default:
+        null;
+        break;
+    }
   };
 
   const updateUserDetails = async (e) => {
     e.preventDefault();
-    // spread userInput so as only to send newState to database
-    const { passwordConfirmation, currentPassword, ...newState } = userInput;
-    const { data } = await axios.patch(`${url}/users/update`, newState, {
-      headers: { token: getFromLocal("token") },
-    });
+
+    const { data } = await axios.patch(
+      `${url}/users/update`,
+      {
+        email: userEmail,
+        username: userUsername,
+        currentPassword: userCurrentPassword,
+        password: userPassword,
+      },
+      {
+        headers: { token: getFromLocal("token") },
+      }
+    );
+
     // if action is successful, reset display to start
-    if (data.code) {
+    if (data.code === 1) {
       setDisplay(null);
-      setUserInput(null);
     }
-    // if action fails, display error message and set user input to null so that correct message is displayed
-    if (!data.code) {
-      setUserInput(null);
+    // if action fails, send error message to state
+    if (data.code === 0) {
       setErrors(data.message);
+    }
+    if (data.code === 2) {
+      setErrors(data);
     }
   };
 
@@ -100,6 +133,9 @@ const MyAccount = () => {
             <Button
               className={["btn-primary", "account"]}
               onClick={() => {
+                setUserUsername("");
+                setUserPassword("");
+                setUserCurrentPassword("");
                 setDisplay("email");
                 setErrors("");
               }}
@@ -111,19 +147,17 @@ const MyAccount = () => {
               <Input
                 type="email"
                 name="email"
-                placeholder="New email address"
                 className="form-control"
+                placeholder="New email address"
               />
-              {email && display === "email" && errors.email ? (
-                <p className="form-text">{errors.email}</p>
-              ) : (
+              {email && display === "email" && errors && (
                 <p className="form-text">{errors}</p>
               )}
               <Button
                 className={["btn-primary"]}
                 type="submit"
                 text="Save"
-                disabled={!userInput || errors ? true : false}
+                disabled={!userEmail || errors ? true : false}
               />
             </div>
           )}
@@ -141,6 +175,9 @@ const MyAccount = () => {
             <Button
               className={["btn-primary", "account"]}
               onClick={() => {
+                setUserEmail("");
+                setUserPassword("");
+                setUserCurrentPassword("");
                 setDisplay("username");
                 setErrors("");
               }}
@@ -155,18 +192,14 @@ const MyAccount = () => {
                 placeholder="New username"
                 className="form-control"
               />
-              {username && display === "username" && errors.username ? (
-                <p className="form-text">{errors.username}</p>
-              ) : (
-                <p className="form-text">
-                  {typeof errors === "object" ? JSON.stringify(errors) : errors}
-                </p>
+              {username && display === "username" && errors && (
+                <p className="form-text">{errors}</p>
               )}
               <Button
                 className={["btn-primary"]}
                 type="submit"
                 text="Save"
-                disabled={!userInput || errors ? true : false}
+                disabled={!userUsername || errors ? true : false}
               />
             </div>
           )}
@@ -180,6 +213,8 @@ const MyAccount = () => {
             <Button
               className={["btn-primary", "account"]}
               onClick={() => {
+                setUserEmail("");
+                setUserUsername("");
                 setDisplay("password");
                 setErrors("");
               }}
@@ -189,7 +224,7 @@ const MyAccount = () => {
           {display === "password" && (
             <div className="hidden-input">
               <Label
-                htmlFor="password"
+                htmlFor="currentPassword"
                 className="sub-form-label"
                 text="Current password:"
               />
@@ -199,9 +234,12 @@ const MyAccount = () => {
                 placeholder="Current password"
                 className="form-control mb-3"
               />
+              {password && display === "password" && errors.code === 2 && (
+                <p className="form-text">{errors.message}</p>
+              )}
 
               <Label
-                htmlFor="newPassword"
+                htmlFor="password"
                 className="sub-form-label"
                 text="New password:"
               />
@@ -211,11 +249,11 @@ const MyAccount = () => {
                 placeholder="New password"
                 className="form-control mb-3"
               />
-              {password && display === "password" && errors.password ? (
-                <p className="form-text">{errors.password}</p>
-              ) : errors ? (
-                <p className="form-text">{errors}</p>
-              ) : undefined}
+              {password &&
+                display === "password" &&
+                typeof errors !== "object" && (
+                  <p className="form-text">{errors}</p>
+                )}
 
               <Label
                 htmlFor="passwordConfirmation"
@@ -228,18 +266,18 @@ const MyAccount = () => {
                 placeholder="Confirm new password"
                 className="form-control mb-3"
               />
-              {userInput &&
-                userInput.passwordConfirmation != userInput.password && (
-                  <p className="form-text">Passwords do not match</p>
-                )}
+              {userPassword && userPasswordConfirmation != userPassword && (
+                <p className="form-text">Passwords do not match</p>
+              )}
               <Button
                 className={["btn-primary"]}
                 type="submit"
                 text="Save"
                 disabled={
-                  !userInput ||
+                  !userPassword ||
+                  !userCurrentPassword ||
                   errors ||
-                  userInput.passwordConfirmation != userInput.password
+                  userPasswordConfirmation != userPassword
                     ? true
                     : false
                 }
@@ -248,7 +286,9 @@ const MyAccount = () => {
           )}
         </div>
       </form>
+
       <div className="p-3">
+        <p className="form-label">Account Deletion</p>
         <Button
           className={["btn-danger"]}
           type="button"

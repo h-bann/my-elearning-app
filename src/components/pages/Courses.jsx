@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { selectCourses, setCourses } from "../../redux/coursesSlice";
 import {
-  selectCourses,
-  setCourses,
-  setActiveCourse,
-} from "../../redux/coursesSlice";
+  setBasketItems,
+  selectBasketCount,
+  selectBasketItems,
+  selectBasketError,
+} from "../../redux/basketSlice";
 import { useDispatch, useSelector } from "react-redux";
-import ModulesContainer from "../Content/ModulesContainer";
 import Button from "../genericComponents/Button";
 import axios from "axios";
-import { getFromLocal } from "../../storage";
+import {
+  getFromLocal,
+  storeManyInLocal,
+  storeSingleInLocal,
+} from "../../storage";
 import { url } from "../../config";
 import "../pages/courses.scss";
 
@@ -18,6 +23,10 @@ const Courses = () => {
   const [infoState, setInfoState] = useState();
   const [modulesContent, setModulesContent] = useState(false);
   const courses = useSelector(selectCourses);
+  const basketCount = useSelector(selectBasketCount);
+  const basketItems = useSelector(selectBasketItems);
+  const basketError = useSelector(selectBasketError);
+  // const [basketItems, setBasketItems] = useState([]);
 
   useEffect(() => {
     if (courses.length === 0) {
@@ -26,16 +35,12 @@ const Courses = () => {
           headers: { token: getFromLocal("token") },
         });
         dispatch(setCourses(data.courses));
-        console.log(data);
       };
       getCourses();
     }
   }, []);
-
   const onCourseClick = async (item) => {
-    // setModulesContent(true);
-    // dispatch(setActiveCourse(item.id));
-
+    dispatch(setBasketItems([item, 1]));
     // records enrolled course against user's account
     const { data: enrolledCourse } = await axios.patch(
       `${url}/courses/enrolled`,
@@ -58,6 +63,10 @@ const Courses = () => {
         <p>Loading...</p>
       </div>
     );
+  }
+
+  if (basketError) {
+    alert("Item already in basket");
   }
 
   return (

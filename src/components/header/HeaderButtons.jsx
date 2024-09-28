@@ -4,11 +4,14 @@ import { clearLocal, getFromLocal } from "../../storage";
 import axios from "axios";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { url } from "../../config";
+import { Basket } from "../../utils/svgs";
+import { selectBasketCount } from "../../redux/basketSlice";
 
 const HeaderButtons = () => {
   const dispatch = useDispatch();
   const loggedIn = getFromLocal("token");
   const navigate = useNavigate();
+  const basketCount = useSelector(selectBasketCount);
 
   const onLogOutClick = async () => {
     const { data } = await axios.delete(`${url}/users/logout`, {
@@ -24,7 +27,7 @@ const HeaderButtons = () => {
   // * CONDITIONAL RENDERING - IF USER IS LOGGED IN, SHOW ONE BUTTON. IF NOT LOGGED IN, SHOW OTHERS
   if (!loggedIn) {
     return (
-      <Link className="nav-link" to="/loginSignup">
+      <Link className="nav-link" to="/login-signup">
         Sign up/Login
       </Link>
     );
@@ -37,13 +40,22 @@ const HeaderButtons = () => {
           className={({ isActive }) =>
             isActive ? "nav-link active" : "nav-link"
           }
-          to="/userAccount"
+          to="/my-account"
         >
           My Account
         </NavLink>
         <Link className="nav-link" onClick={onLogOutClick}>
           Log Out
         </Link>
+        <NavLink className={"nav-link"} to="/basket">
+          <div className="basket">
+            <Basket />
+            <div>
+              <p>{basketCount}</p>
+              <p>Basket</p>
+            </div>
+          </div>
+        </NavLink>
       </>
     );
   }

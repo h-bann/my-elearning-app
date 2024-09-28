@@ -35,13 +35,21 @@ export const formValidation = (state, schema, setErrors) => {
   const { error } = schema.validate(state, {
     abortEarly: false,
   });
-  let errors = {};
+  if (!error) {
+    setErrors("");
+    return;
+  }
+
+  const path = error.details[0].path[0];
+  if (path === "passwordConfirmation" || path === "currentPassword") {
+    setErrors("");
+    return;
+  }
+
   if (error) {
-    error.details.forEach((error) => {
-      const formattedError = formatValidation(error.message);
-      errors[error.context.key] = formattedError;
-      setErrors(errors);
-    });
+    console.log(path);
+    const formattedError = formatValidation(error.message);
+    setErrors(formattedError);
   } else if (!error) {
     setErrors("");
   }

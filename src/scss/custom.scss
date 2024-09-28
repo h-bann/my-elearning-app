@@ -9,7 +9,7 @@ footer {
 }
 
 body {
-  width: 90vw;
+  width: 99vw;
   margin: auto;
 }
 
@@ -112,22 +112,13 @@ header {
   cursor: pointer;
 }
 
-@media screen and (max-width: 1200px) {
-  .navbar:hover > .dropdown,
-  .navbar:focus > .dropdown,
-  .dropdown:hover,
-  .dropdown:focus {
-    display: block;
-    right: -2px;
-  }
+.basket {
+  display: flex;
+  align-items: center;
 
-  .dropdown a {
-    height: 40px;
-    padding: 10px 0 0 15px;
-    margin-top: -1px;
-    border-style: solid;
-    border-width: 1px;
-    background-color: white;
+  p {
+    margin: 0px 5px;
+    text-align: center;
   }
 }
 
@@ -150,7 +141,9 @@ header {
   margin-right: 10px;
   margin-top: 10px;
 }
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:focus-visible,
+.btn-primary:active {
   background-color: rgba(78, 152, 67, 0.496);
   color: rgb(0, 0, 0);
   border-color: rgb(66, 129, 56);
@@ -269,6 +262,7 @@ footer {
 
 .content-mobile.displayed {
   display: block;
+  padding: 0px 10px;
 }
 
 .content {
@@ -395,15 +389,43 @@ footer {
   border-right-style: solid;
   border-top-style: solid;
   border-right-width: 1px;
+  border-top-width: 1px;
   // padding-right: 3px;
 }
 
 .content-desktop {
   margin-left: 265px; /* Same as the width of the sidebar */
-  padding: 0px 20px;
+  padding: 0px 10px;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 360px) {
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .navbar:hover > .dropdown,
+  .navbar:focus > .dropdown,
+  .dropdown:hover,
+  .dropdown:focus {
+    display: block;
+    right: -2px;
+  }
+
+  .dropdown a {
+    height: 40px;
+    padding: 10px 0 0 15px;
+    margin-top: -1px;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+  }
+}
+
+@media screen and (min-width: 1000px) {
   header {
     position: fixed;
     width: 100%;
@@ -449,6 +471,9 @@ footer {
     transform: translateY(-1px);
   }
 
+  .card {
+    margin: 10px;
+  }
   .module-card {
     border-radius: 1px;
     border-style: solid;
