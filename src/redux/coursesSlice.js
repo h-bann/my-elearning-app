@@ -4,8 +4,8 @@ const initialState = {
   courses: [],
   enrolledCourses: [],
   moduleProgress: [],
-  // progressBar: [],
   moduleContent: false,
+  basketCount: 0,
 };
 
 export const coursesSlice = createSlice({
@@ -38,13 +38,6 @@ export const coursesSlice = createSlice({
     },
     setProgressBar: (state, { payload }) => {
       state.progressBar = payload;
-
-      // if (payload && typeof payload === "object") {
-      //   const { course_id, progress_percentage } = payload;
-      //   if (course_id) {
-      //     state.progressBar[course_id] = progress_percentage;
-      //   }
-      // }
     },
     setActiveCourse: (state, { payload }) => {
       state.activeCourse = payload;

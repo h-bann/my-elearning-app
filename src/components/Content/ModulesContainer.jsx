@@ -154,14 +154,12 @@ const ModulesContainer = () => {
       {modules.map((contentItem) => {
         if (activeModule === contentItem.id) {
           return (
-            <div>
-              <Content
-                className={"content-desktop displayed"}
-                module={contentItem}
-                lastItem={lastItem}
-                onNextClick={onNextClick}
-              />
-            </div>
+            <Content
+              className={"content-desktop displayed"}
+              module={contentItem}
+              lastItem={lastItem}
+              onNextClick={onNextClick}
+            />
           );
         }
       })}
