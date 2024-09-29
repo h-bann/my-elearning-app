@@ -8,6 +8,7 @@ import {
 } from "../../redux/coursesSlice";
 import { NavLink } from "react-router-dom";
 import ModulesContainer from "../Content/ModulesContainer";
+import "../header/header.scss";
 
 const Navigation = () => {
   const loginState = useSelector(selectLoginState);

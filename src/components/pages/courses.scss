@@ -3,6 +3,11 @@
   padding: 0px 10px;
 }
 
+.course-card {
+  background-color: #ffffff;
+  border-color: #000000;
+}
+
 .card-container {
   display: flex;
   justify-content: center;
@@ -41,10 +46,11 @@
   margin-bottom: 3px;
 }
 
-@media screen and (min-width: 380px) {
+@media screen and (min-width: 360px) {
   .card-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
   }
 }
 

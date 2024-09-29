@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Logo from "./Logo";
 import HeaderButtons from "./HeaderButtons";
 import Navigation from "./Navigation";
+import "../header/header.scss";
 
 const Header = () => {
   return (
@@ -12,7 +13,7 @@ const Header = () => {
           <Navbar.Brand>
             <Logo />
           </Navbar.Brand>
-          <h1 className="logo-text">We Learn</h1>
+          <h1 className="logo-text navbar-brand">We Learn</h1>
         </div>
 
         <div className="navbar">

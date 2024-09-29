@@ -13,6 +13,7 @@ import ModuleTab from "./ModuleTab";
 import Content from "./Content";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import "./modulesContainer.scss";
 
 const ModulesContainer = () => {
   const dispatch = useDispatch();

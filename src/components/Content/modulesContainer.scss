@@ -1,0 +1,74 @@
+.module-tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-style: solid;
+  border-width: 1px;
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px rgb(125, 125, 125);
+  background-color: white;
+}
+
+.module-tab-svg {
+  display: flex;
+
+  div {
+    height: 25px;
+  }
+}
+
+.module-complete-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+}
+
+.arrow.rotated-left {
+  transform: rotate(90deg);
+  transform-origin: center center;
+}
+
+// ! DESKTOP CSS
+
+.module-card-desktop {
+  border-radius: 1px;
+  border-style: solid;
+  border-width: 1px;
+  border-right-style: none;
+  margin-bottom: -1px;
+}
+
+.module-card-desktop:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
+.module-card-desktop .active {
+  background-color: white;
+  color: black;
+}
+
+.module-tab-desktop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.modules-container-desktop {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 265px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 90px; /* Stay at the top */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  border-right-style: solid;
+  border-top-style: solid;
+  border-right-width: 1px;
+  border-top-width: 1px;
+}

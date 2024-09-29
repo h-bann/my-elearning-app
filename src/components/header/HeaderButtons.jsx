@@ -6,6 +6,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { url } from "../../config";
 import { Basket } from "../../utils/svgs";
 import { selectBasketCount } from "../../redux/basketSlice";
+import "../header/header.scss";
 
 const HeaderButtons = () => {
   const dispatch = useDispatch();
