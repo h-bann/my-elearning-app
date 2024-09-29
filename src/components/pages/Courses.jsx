@@ -99,7 +99,7 @@ const Courses = () => {
                   <div className="card-text text-wrap">{item.more_info}</div>
                   <Button
                     className={["btn-primary"]}
-                    text="Buy course"
+                    text="Add to basket"
                     onClick={() => onCourseClick(item)}
                   />
                 </div>

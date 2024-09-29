@@ -48,15 +48,13 @@ const ModuleTab = ({ onModuleClick, module, moduleProgress, activeModule }) => {
     >
       <h4>{module.module_title}</h4>
       <div className="module-tab-svg">
-        <div key={module.id}>
-          {moduleProgress?.map((moduleId) => {
-            if (moduleId === module.id) {
-              return (
-                <GreenTick key={moduleId} className="module-complete-symbol" />
-              );
-            }
-          })}
-        </div>
+        {moduleProgress?.map((moduleId) => {
+          if (moduleId === module.id) {
+            return (
+              <GreenTick key={moduleId} className="module-complete-symbol" />
+            );
+          }
+        })}
       </div>
     </div>
   );

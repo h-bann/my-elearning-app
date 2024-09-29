@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  selectModuleContent,
   setModuleProgress,
   selectEnrolledCourses,
   selectModuleProgress,
@@ -10,7 +9,6 @@ import { url } from "../../config";
 import { getFromLocal } from "../../storage";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import usePageBottom from "../../utils/hooks";
 import ModuleTab from "./ModuleTab";
 import Content from "./Content";
 import { useNavigate } from "react-router-dom";
@@ -98,7 +96,7 @@ const ModulesContainer = () => {
   }
 
   const { modules } = enrolledCourses;
-  let lastItem = modules?.slice(-1);
+  const lastItem = modules?.slice(-1);
 
   // if window size less than 365 then render HTML option A
   if (innerWidth < 360) {
@@ -163,50 +161,7 @@ const ModulesContainer = () => {
           );
         }
       })}
-      <Toaster />;
-    </div>
-  );
-
-  // otherwise, render HTML option B
-  return (
-    <div className="main-container-desktop">
-      {enrolledCourses.map((enrolledCoursesItem) => {
-        const { modules } = enrolledCoursesItem;
-        return (
-          enrolledCoursesItem.course_id === activeCourse &&
-          modules.map((modulesItem) => {
-            const lastItem = modules.slice(-1);
-            return (
-              <>
-                <div className="modules-container-desktop">
-                  <div
-                    className="individual-module-desktop"
-                    key={modulesItem.id}
-                  >
-                    <ModuleTab
-                      onModuleClick={handleModuleClick}
-                      module={modulesItem}
-                      moduleProgress={moduleProgress}
-                      activeModule={activeModule}
-                      isHidden={hideContent}
-                    />
-                  </div>
-                </div>
-                <div className="content-container-desktop">
-                  {activeModule === modulesItem.id && (
-                    <Content
-                      className={"content-desktop displayed"}
-                      module={modulesItem}
-                      lastItem={lastItem}
-                      onNextClick={onNextClick}
-                    />
-                  )}
-                </div>
-              </>
-            );
-          })
-        );
-      })}
+      <Toaster />
     </div>
   );
 };

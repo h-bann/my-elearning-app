@@ -35,7 +35,7 @@ const HeaderButtons = () => {
 
   if (loggedIn) {
     return (
-      <>
+      <div className="sub-dropdown">
         <NavLink
           className={({ isActive }) =>
             isActive ? "nav-link active" : "nav-link"
@@ -56,7 +56,7 @@ const HeaderButtons = () => {
             </div>
           </div>
         </NavLink>
-      </>
+      </div>
     );
   }
 };

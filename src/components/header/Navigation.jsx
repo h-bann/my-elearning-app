@@ -15,7 +15,7 @@ const Navigation = () => {
   const dispatch = useDispatch();
 
   return (
-    <>
+    <div className="sub-dropdown">
       <NavLink
         className={({ isActive }) =>
           isActive ? "nav-link active" : "nav-link"
@@ -39,9 +39,6 @@ const Navigation = () => {
             isActive ? "nav-link active" : "nav-link"
           }
           to="/my-learning"
-          // onClick={() => {
-          //   dispatch(setModuleContent(false));
-          // }}
         >
           My Learning
         </NavLink>
@@ -54,7 +51,7 @@ const Navigation = () => {
       >
         Contact
       </NavLink>
-    </>
+    </div>
   );
 };
 
