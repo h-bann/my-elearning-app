@@ -41,27 +41,29 @@ const Courses = () => {
     getCourses();
   }, [courses.length, dispatch]);
 
-  const onCourseClick = useCallback(
-    async (item) => {
-      dispatch(setBasketItems([item, 1]));
+  const onCourseClick = useCallback(async (item) => {
+    // dispatch action to update basket items
+    dispatch(setBasketItems([item, 1]));
 
-      // records enrolled course against user's account
-      const { data: enrolledCourse } = await axios.patch(
-        `${url}/courses/enrolled`,
-        {
-          course_title: item.course_title,
-          course_id: item.id,
-          image: item.image,
-        },
-        {
-          headers: { token: getFromLocal("token") },
-        }
-      );
-
-      // ! ADD MESSAGE SAYING CAN'T ENROL IF NOT LOGGED IN
-    },
-    [dispatch]
-  );
+    // records enrolled course against user's account
+    // try {
+    //   const { data: enrolledCourse } = await axios.patch(
+    //     `${url}/courses/enrolled`,
+    //     {
+    //       course_title: item.course_title,
+    //       course_id: item.id,
+    //       image: item.image,
+    //     },
+    //     {
+    //       headers: { token: getFromLocal("token") },
+    //     }
+    //   );
+    //   // returns success message from backend
+    //   console.log(enrolledCourse);
+    // } catch (error) {
+    //   console.error("Error enrolling in course:", error);
+    // }
+  }, []);
 
   useEffect(() => {
     if (basketError) {
@@ -107,7 +109,7 @@ const Courses = () => {
             );
           })}
         </div>
-        <Toaster />;
+        <Toaster />
       </div>
     </>
   );
