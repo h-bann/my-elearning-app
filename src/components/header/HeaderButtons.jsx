@@ -21,6 +21,7 @@ const HeaderButtons = () => {
     if (data.code) {
       dispatch(setLoginState(false));
       clearLocal();
+      window.location.reload();
       navigate("/");
     }
   };

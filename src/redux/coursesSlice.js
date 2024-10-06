@@ -1,4 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getFromLocal } from "../storage";
+import basketSlice from "./basketSlice";
+const loggedIn = getFromLocal("token");
 
 const initialState = {
   courses: [],

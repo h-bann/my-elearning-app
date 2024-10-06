@@ -47,7 +47,6 @@ export const formValidation = (state, schema, setErrors) => {
   }
 
   if (error) {
-    console.log(path);
     const formattedError = formatValidation(error.message);
     setErrors(formattedError);
   } else if (!error) {

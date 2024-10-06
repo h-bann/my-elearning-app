@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCourses, setCourses } from "../../redux/coursesSlice";
+import {
+  selectCourses,
+  selectEnrolledCourses,
+  setCourses,
+} from "../../redux/coursesSlice";
 import {
   setBasketItems,
   selectBasketError,
@@ -18,6 +22,7 @@ const Courses = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const courses = useSelector(selectCourses);
+  const enrolledCourses = useSelector(selectEnrolledCourses);
   const basketError = useSelector(selectBasketError);
   const basketCount = useSelector(selectBasketCount);
 
@@ -44,25 +49,6 @@ const Courses = () => {
   const onCourseClick = useCallback(async (item) => {
     // dispatch action to update basket items
     dispatch(setBasketItems([item, 1]));
-
-    // records enrolled course against user's account
-    // try {
-    //   const { data: enrolledCourse } = await axios.patch(
-    //     `${url}/courses/enrolled`,
-    //     {
-    //       course_title: item.course_title,
-    //       course_id: item.id,
-    //       image: item.image,
-    //     },
-    //     {
-    //       headers: { token: getFromLocal("token") },
-    //     }
-    //   );
-    //   // returns success message from backend
-    //   console.log(enrolledCourse);
-    // } catch (error) {
-    //   console.error("Error enrolling in course:", error);
-    // }
   }, []);
 
   useEffect(() => {
