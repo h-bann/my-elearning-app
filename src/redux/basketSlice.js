@@ -25,10 +25,19 @@ export const basketSlice = createSlice({
     setBasketError: (state, { payload }) => {
       state.basketError = payload;
     },
+    setDeleteBasketItem: (state = initialState.basketItems, { payload }) => {
+      console.log(payload);
+      console.log(state);
+      state.basketItems = state.basketItems.filter(
+        (item) => item.id !== payload
+      );
+      state.basketCount = state.basketCount - 1;
+    },
   },
 });
 
-export const { setBasketItems, setBasketError } = basketSlice.actions;
+export const { setBasketItems, setBasketError, setDeleteBasketItem } =
+  basketSlice.actions;
 
 // * this is how you retrieve from store
 
