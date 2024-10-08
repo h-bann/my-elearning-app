@@ -51,6 +51,22 @@ const Courses = () => {
     dispatch(setBasketItems([item, 1]));
   }, []);
 
+  // blocks user from adding course to basket if they have already purchased course
+  const alreadyPurchased = (courseItem) => {
+    const match = enrolledCourses.some(
+      (enrolledItem) => courseItem.id === enrolledItem.course_id
+    );
+    return match ? (
+      "Already purchased"
+    ) : (
+      <Button
+        className={["btn-primary"]}
+        text="Add to basket"
+        onClick={() => onCourseClick(courseItem)}
+      />
+    );
+  };
+
   useEffect(() => {
     if (basketError) {
       toast.error("Already in basket!");
@@ -85,11 +101,12 @@ const Courses = () => {
                 <div className="card-body">
                   <h4 className="card-title">{item.course_title}</h4>
                   <div className="card-text text-wrap">{item.more_info}</div>
-                  <Button
+                  <div>{alreadyPurchased(item)}</div>
+                  {/* <Button
                     className={["btn-primary"]}
-                    text="Add to basket"
+                    text={alreadyPurchased(item)}
                     onClick={() => onCourseClick(item)}
-                  />
+                  /> */}
                 </div>
               </div>
             );

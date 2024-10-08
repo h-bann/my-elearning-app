@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setLoginState, selectMainScreen } from "../../redux/accountSlice";
+import { setLoginState } from "../../redux/accountSlice";
 import { clearLocal, getFromLocal } from "../../storage";
 import axios from "axios";
 import { Link, NavLink, useNavigate } from "react-router-dom";

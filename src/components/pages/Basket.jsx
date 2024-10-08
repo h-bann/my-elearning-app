@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   selectBasketCount,
   selectBasketItems,
@@ -15,6 +16,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 const Basket = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const basketItems = useSelector(selectBasketItems);
   const basketCount = useSelector(selectBasketCount);
 
@@ -43,6 +45,7 @@ const Basket = () => {
         if (enrolledCourse.code === 1) {
           toast.success(`Enrolled onto ${item.course_title}`);
           dispatch(setDeleteBasketItem(item.id));
+          navigate("/my-learning");
         }
       } catch (error) {}
     });
