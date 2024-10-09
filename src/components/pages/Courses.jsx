@@ -46,23 +46,18 @@ const Courses = () => {
     getCourses();
   }, [courses.length, dispatch]);
 
-  const onCourseClick = useCallback(async (item) => {
-    // dispatch action to update basket items
-    dispatch(setBasketItems([item, 1]));
-  }, []);
-
   // blocks user from adding course to basket if they have already purchased course
-  const alreadyPurchased = (courseItem) => {
-    const match = enrolledCourses.some(
+  const getPurchaseStatusButton = (courseItem) => {
+    const isPurchased = enrolledCourses.some(
       (enrolledItem) => courseItem.id === enrolledItem.course_id
     );
-    return match ? (
-      "Already purchased"
+    return isPurchased ? (
+      <p>Already purchased</p>
     ) : (
       <Button
         className={["btn-primary"]}
         text="Add to basket"
-        onClick={() => onCourseClick(courseItem)}
+        onClick={() => dispatch(setBasketItems([courseItem, 1]))}
       />
     );
   };
@@ -101,12 +96,7 @@ const Courses = () => {
                 <div className="card-body">
                   <h4 className="card-title">{item.course_title}</h4>
                   <div className="card-text text-wrap">{item.more_info}</div>
-                  <div>{alreadyPurchased(item)}</div>
-                  {/* <Button
-                    className={["btn-primary"]}
-                    text={alreadyPurchased(item)}
-                    onClick={() => onCourseClick(item)}
-                  /> */}
+                  <div>{getPurchaseStatusButton(item)}</div>
                 </div>
               </div>
             );

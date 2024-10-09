@@ -45,9 +45,11 @@ const Basket = () => {
         if (enrolledCourse.code === 1) {
           toast.success(`Enrolled onto ${item.course_title}`);
           dispatch(setDeleteBasketItem(item.id));
-          navigate("/my-learning");
+          // navigate("/my-learning");
         }
-      } catch (error) {}
+      } catch (error) {
+        console.error(error);
+      }
     });
   };
 

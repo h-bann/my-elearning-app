@@ -24,6 +24,7 @@ const Homepage = () => {
           headers: { token: getFromLocal("token") },
         }
       );
+
       if (progressBar.code) {
         dispatch(setProgressBar(progressBar.message));
       }

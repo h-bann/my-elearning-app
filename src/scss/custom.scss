@@ -1,3 +1,87 @@
+html {
+  box-sizing: border-box;
+  // font-size: 62.5%; /* Mostly equivalates to 10px but allows users accessibility zoom settings to work*/
+  /* font-size: 10px; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /*   color-scheme: dark light; */
+  min-height: 100vh;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  width: 99vw;
+  margin: auto;
+  margin: 0;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+blockquote,
+address,
+article,
+aside,
+details,
+dialogue,
+fieldset,
+figcaption,
+figure,
+footer,
+form,
+header,
+hr,
+main,
+nav,
+pre,
+section,
+table,
+p {
+  margin-top: 0;
+  margin-block-start: 0;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul.typographic {
+  list-style: initial;
+  padding-inline-start: 20px;
+}
+
+.btn *,
+button * {
+  pointer-events: none;
+  user-select: none;
+}
+
 body,
 header,
 footer {
@@ -6,11 +90,6 @@ footer {
   font-optical-sizing: auto;
   font-style: normal;
   background-color: rgb(255, 241, 230);
-}
-
-body {
-  width: 99vw;
-  margin: auto;
 }
 
 main {
@@ -27,8 +106,8 @@ main {
   padding: 7px;
   margin: 0;
   font-size: 14px;
-  margin-right: 10px;
-  margin-top: 10px;
+  // margin-right: 10px;
+  // margin-top: 10px;
 }
 
 .btn-primary:hover,
