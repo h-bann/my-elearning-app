@@ -24,7 +24,7 @@ const MyLearning = () => {
     const { data } = await axios.get(`${url}/courses/getEnrolledCourses`, {
       headers: { token: getFromLocal("token") },
     });
-    dispatch(setEnrolledCourses(data.enrolledCourses));
+    dispatch(setEnrolledCourses(data.courses));
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const MyLearning = () => {
   }, []);
 
   const progressBarFunction = (item) => {
-    const progress = progressBar.find(
+    const progress = progressBar?.find(
       (progress) => progress.course_id === item.course_id
     );
     if (progress) {
@@ -58,12 +58,13 @@ const MyLearning = () => {
   };
 
   const onCourseClick = async (item) => {
-    dispatch(setEnrolledCourses(item));
+    dispatch(setEnrolledCourses([item]));
     navigate("/content");
   };
 
   const leaveCourse = async (item) => {
     dispatch(setModuleProgress([]));
+    dispatch(setProgressBar([]));
     const { data } = await axios.delete(`${url}/courses/deleteEnrolled`, {
       headers: { token: getFromLocal("token"), id: item.course_id },
     });

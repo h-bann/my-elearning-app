@@ -33,7 +33,7 @@ const ModulesContainer = () => {
           {
             headers: {
               token: getFromLocal("token"),
-              id: enrolledCourses.course_id,
+              id: enrolledCourses[0].course_id,
             },
           }
         );
@@ -53,7 +53,7 @@ const ModulesContainer = () => {
   }, []);
 
   const onNextClick = async (item) => {
-    const lastItem = enrolledCourses.modules.slice(-1);
+    const lastItem = enrolledCourses[0].modules.slice(-1);
     if (lastItem[0].id !== item.id) {
       setActiveModule(item.id + 1);
     }
@@ -96,7 +96,7 @@ const ModulesContainer = () => {
     <p>Loading</p>;
   }
 
-  const { modules } = enrolledCourses;
+  const { modules } = enrolledCourses[0];
   const lastItem = modules?.slice(-1);
 
   // if window size less than 365 then render HTML option A
@@ -134,7 +134,7 @@ const ModulesContainer = () => {
   return (
     <div className="main-container-desktop">
       <div className="modules-container-desktop">
-        {modules.map((modulesItem) => {
+        {modules?.map((modulesItem) => {
           return (
             <>
               <div key={modulesItem.id} className="module-card-desktop">
@@ -150,7 +150,7 @@ const ModulesContainer = () => {
           );
         })}
       </div>
-      {modules.map((contentItem) => {
+      {modules?.map((contentItem) => {
         if (activeModule === contentItem.id) {
           return (
             <Content

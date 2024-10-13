@@ -30,8 +30,9 @@ const Courses = () => {
     const getCourses = async () => {
       if (courses.length === 0) {
         try {
+          const token = getFromLocal("token");
           const { data } = await axios.get(`${url}/courses/getCourses`, {
-            headers: { token: getFromLocal("token") },
+            headers: { token },
           });
           dispatch(setCourses(data.courses));
         } catch (error) {
@@ -44,11 +45,11 @@ const Courses = () => {
       }
     };
     getCourses();
-  }, [courses.length, dispatch]);
+  }, [dispatch]);
 
   // blocks user from adding course to basket if they have already purchased course
   const getPurchaseStatusButton = (courseItem) => {
-    const isPurchased = enrolledCourses.some(
+    const isPurchased = enrolledCourses?.some(
       (enrolledItem) => courseItem.id === enrolledItem.course_id
     );
     return isPurchased ? (
