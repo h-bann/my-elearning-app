@@ -11,7 +11,11 @@ import { Bin } from "../../utils/svgs";
 import Button from "../genericComponents/Button";
 import axios from "axios";
 import { url } from "../../config";
-import { getFromLocal } from "../../storage";
+import {
+  getFromLocal,
+  storeArrayInLocal,
+  storeMultipleInLocal,
+} from "../../storage";
 import toast, { Toaster } from "react-hot-toast";
 
 const Basket = () => {
@@ -25,8 +29,8 @@ const Basket = () => {
   };
 
   const onCheckoutClick = () => {
+    storeArrayInLocal(basketItems);
     navigate("/checkout");
-
     // basketItems.forEach(async (item) => {
     //   try {
     //     const { data: enrolledCourse } = await axios.patch(
