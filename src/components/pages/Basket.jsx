@@ -25,32 +25,34 @@ const Basket = () => {
   };
 
   const onCheckoutClick = () => {
-    basketItems.forEach(async (item) => {
-      try {
-        const { data: enrolledCourse } = await axios.patch(
-          `${url}/courses/enrolled`,
-          {
-            course_title: item.course_title,
-            course_id: item.id,
-            image: item.image,
-          },
-          {
-            headers: { token: getFromLocal("token") },
-          }
-        );
-        console.log(enrolledCourse);
-        if (enrolledCourse.code === 0) {
-          toast.error(`Already enrolled on ${item.course_title}`);
-        }
-        if (enrolledCourse.code === 1) {
-          toast.success(`Enrolled onto ${item.course_title}`);
-          dispatch(setDeleteBasketItem(item.id));
-          // navigate("/my-learning");
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    });
+    navigate("/checkout");
+
+    // basketItems.forEach(async (item) => {
+    //   try {
+    //     const { data: enrolledCourse } = await axios.patch(
+    //       `${url}/courses/enrolled`,
+    //       {
+    //         course_title: item.course_title,
+    //         course_id: item.id,
+    //         image: item.image,
+    //       },
+    //       {
+    //         headers: { token: getFromLocal("token") },
+    //       }
+    //     );
+    //     console.log(enrolledCourse);
+    //     if (enrolledCourse.code === 0) {
+    //       toast.error(`Already enrolled on ${item.course_title}`);
+    //     }
+    //     if (enrolledCourse.code === 1) {
+    //       toast.success(`Enrolled onto ${item.course_title}`);
+    //       dispatch(setDeleteBasketItem(item.id));
+    //       // navigate("/my-learning");
+    //     }
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // });
   };
 
   return (
