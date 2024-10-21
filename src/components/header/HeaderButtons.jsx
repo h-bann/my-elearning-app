@@ -4,7 +4,7 @@ import { clearLocal, getFromLocal } from "../../storage";
 import axios from "axios";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { url } from "../../config";
-import { Basket } from "../../utils/svgs";
+import { BasketIcon } from "../../utils/svgs";
 import { selectBasketCount } from "../../redux/basketSlice";
 import "../header/header.scss";
 
@@ -51,11 +51,11 @@ const HeaderButtons = () => {
         </Link>
         <NavLink className={"nav-link"} to="/basket">
           <div className="basket">
-            <Basket />
             <div>
+              <p>Basket:</p>
               <p>{basketCount}</p>
-              <p>Basket</p>
             </div>
+            <BasketIcon />
           </div>
         </NavLink>
       </div>

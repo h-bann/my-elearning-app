@@ -97,6 +97,11 @@ main {
   margin-top: 100px;
 }
 
+.btn {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
 .btn-primary {
   border-color: rgb(66, 129, 56);
   background-color: rgb(78, 152, 67);
@@ -104,7 +109,7 @@ main {
   height: 35px;
   width: auto;
   padding: 7px;
-  margin: 0;
+  // margin: 0;
   font-size: 14px;
   // margin-right: 10px;
   // margin-top: 10px;
@@ -122,10 +127,10 @@ main {
   height: 35px;
   width: auto;
   padding: 7px;
-  margin: 0;
+  // margin: 0;
   font-size: 14px;
-  margin-right: 10px;
-  margin-top: 10px;
+  // margin-right: 10px;
+  // margin-top: 10px;
   color: rgb(78, 152, 67);
   border-color: rgb(66, 129, 56);
 }
@@ -156,12 +161,14 @@ main {
 }
 
 .main-container {
-  width: 100%;
+  width: 95vw;
+  margin: auto;
 }
 
 .modules-container-mobile {
   display: flex;
   flex-direction: column;
+  // width: 95vw;
 }
 
 .module-card-mobile h1 {
@@ -231,11 +238,12 @@ main {
   margin-left: 265px; /* Same as the width of the sidebar */
   padding: 0px 10px;
 }
-.content .image-zoom {
-  width: 600px;
+
+.displayed .image-zoom {
+  width: 100%;
   text-align: center;
   z-index: 5;
-  transform: scale(1.2);
+  transform: scale(1.9);
   cursor: zoom-out;
 }
 

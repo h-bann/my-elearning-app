@@ -34,12 +34,13 @@ export const GreenTick = (props) => {
   );
 };
 
-export const Basket = (props) => {
+export const BasketIcon = (props) => {
   return (
     <svg
+      className="basket-svg"
       fill="#000000"
-      height="25px"
-      width="25px"
+      height="23px"
+      width="23px"
       version="1.1"
       id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"
@@ -81,6 +82,38 @@ export const Bin = (props) => {
           fill="#000000"
         ></path>
       </g>
+    </svg>
+  );
+};
+
+export const BurgerMenu = (props) => {
+  return (
+    <svg
+      className="burger-menu"
+      width="30px"
+      height="54px"
+      viewBox="0 0 24 24"
+      fill="#000000"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 18L20 18"
+        stroke="#000000"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M4 12L20 12"
+        stroke="#000000"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M4 6L20 6"
+        stroke="#000000"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 };
