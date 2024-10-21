@@ -18,6 +18,7 @@ import ModulesContainer from "./components/Content/ModulesContainer.jsx";
 import Basket from "./components/pages/Basket.jsx";
 import CheckoutForm from "./components/pages/CheckoutForm.jsx";
 import Return from "./components/pages/Return.jsx";
+import Verification from "./components/account/Verification.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       { path: "basket", element: <Basket /> },
       { path: "checkout", element: <CheckoutForm /> },
       { path: "return", element: <Return /> },
+      { path: "verify-email", element: <Verification /> },
       { path: "login-signup", element: <LoginSignup /> },
     ],
   },
