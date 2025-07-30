@@ -1,4 +1,4 @@
-# My E-Learning App - Frontend
+# E-Learning App - Frontend
 
 A modern, responsive e-learning platform frontend built with React and Vite. This application provides a comprehensive learning management system with course enrollment, progress tracking, and integrated payment processing.
 
